@@ -1,0 +1,53 @@
+.upload-container{
+  width: 100% !important;
+  background-color: rgba(95, 65, 178, 0.08);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  gap: 30px;
+}
+
+.upload-image-circle{
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: rgba(182, 149, 254, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.send-picture-button{
+  border: 1px solid #5F41B2;
+  background: transparent;
+  color: #5F41B2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  padding: 10px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.upload-icon{
+  width: 30px;
+}
+
+.action-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 3px
+}
+
+.remove-button{
+  font-size: 12px;
+  color: #5F41B2;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

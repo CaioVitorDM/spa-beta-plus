@@ -1,0 +1,36 @@
+<form class="register-form" #formRef="ngForm" [formGroup]="registerForm">
+  <div class="same-line-inputs-container">
+    <input type="text" placeholder="Primeiro nome" />
+    <input type="text" placeholder="Último nome" />
+  </div>
+  <input type="email" placeholder="Email" />
+  <div class="same-line-inputs-container">
+    <input type="text" mask="(00) 0000-0000" placeholder="(00) 0000-0000" />
+    <input type="text" placeholder="CRM-0000" />
+  </div>
+  <div class="data-picker-container">
+    <span>Data de nascimento</span>
+    <input type="date" />
+  </div>
+  <div class="same-line-inputs-container">
+    <input type="text" placeholder="Nome de usuário" />
+    <div class="input-container">
+      <input
+        [type]="showPassword ? 'text' : 'password'"
+        [(ngModel)]="password"
+        name="password"
+        placeholder="Senha"
+      />
+      <button class="input-icon top-[50%]" (click)="togglePasswordVisibility()">
+        <img
+          [src]="
+            showPassword
+              ? 'assets/images/svg/Symbol=view_password,Color=Green.svg'
+              : 'assets/images/svg/Symbol=view_password,Color=Black.svg'
+          "
+          alt="View password"
+        />
+      </button>
+    </div>
+  </div>
+</form>

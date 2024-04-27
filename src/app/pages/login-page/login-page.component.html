@@ -1,0 +1,75 @@
+<body>
+  <div class="container">
+    <div class="form-container sign-in">
+      <form>
+        <h1 class="title">Entrar</h1>
+        <div class="inputs-container">
+          <input type="email" placeholder="Email" />
+          <div class="input-container">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="Senha"
+            />
+            <button class="input-icon top-[50%]" (click)="togglePasswordVisibility()">
+              <img
+                [src]="
+                  showPassword
+                    ? 'assets/images/svg/Symbol=view_password,Color=Green.svg'
+                    : 'assets/images/svg/Symbol=view_password,Color=Black.svg'
+                "
+                alt="View password"
+              />
+            </button>
+          </div>
+        </div>
+        <div class="links-container">
+          <a href="">Esqueceu sua senha?</a>
+          <a routerLink="/register-page">Cadastre-se</a>
+        </div>
+        <button class="login-button">Sign In</button>
+      </form>
+    </div>
+
+    <div class="toggle-container">
+      <div class="toggle">
+        <div class="toggle-panel toggle-right">
+          <img class="image-container" src="assets/images/beta-plus.png" alt="Beta+ icon" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-container">
+    <form>
+      <h1 class="title">Entrar</h1>
+      <div class="inputs-container">
+        <input type="email" placeholder="Email" />
+        <div class="input-container">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Senha"
+          />
+          <button class="input-icon top-[50%]" (click)="togglePasswordVisibility()">
+            <img
+              [src]="
+                showPassword
+                  ? 'assets/images/svg/Symbol=view_password,Color=Green.svg'
+                  : 'assets/images/svg/Symbol=view_password,Color=Black.svg'
+              "
+              alt="View password"
+            />
+          </button>
+        </div>
+      </div>
+      <div class="links-container">
+        <a href="">Esqueceu sua senha?</a>
+        <a routerLink="/register-page">Cadastre-se</a>
+      </div>
+      <button class="login-button">Sign In</button>
+    </form>
+  </div>
+</body>
