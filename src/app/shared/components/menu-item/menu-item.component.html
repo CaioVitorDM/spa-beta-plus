@@ -1,0 +1,70 @@
+<section class="container" (mouseenter)="showTooltip()" (mouseleave)="hideTooltip()">
+  <div [class.arrow-container]="isExpanded">
+    <div class="flex flex-row mb-6 justify-between">
+      <button
+        [disabled]="disabled"
+        class="bg-white menu-item cursor-pointer"
+        (click)="handleClick()"
+        aria-label="Menu Item"
+      >
+        <div *ngIf="active" class="active-indicator"></div>
+        <div class="flex flex-row gap-4 pl-8 shrink-0 items-center">
+          <img [src]="imgSrc ? imgSrc : active ? imgSrcActive : imgSrcUnactive" [alt]="imgAlt" />
+          <span
+            [style.opacity]="isExpanded ? '1' : '0'"
+            class="bg-white text-sm transition-span"
+            [class.text-primary-500]="active"
+            [class.text-dark-700]="!active"
+            [class.activeItem]="active"
+            *ngIf="isExpanded"
+            [@fadeInOut]
+          >
+            {{ spanText }}
+          </span>
+        </div>
+      </button>
+
+      <button
+        *ngIf="menuItems && isExpanded"
+        (click)="toggleDropdown()"
+        aria-label="Toggle Dropdown"
+        class="toggle-down-button"
+      >
+        <img
+          [src]="
+            active ? '/assets/icons/arrow_down_active.svg' : '/assets/icons/arrow_down_black.svg'
+          "
+          class="w-6 h-6 rotate"
+          alt="Expandir"
+          [ngClass]="{'rotate-180': dropdownIsVisible}"
+        />
+      </button>
+    </div>
+
+    <ul
+      class="dropdown-list"
+      *ngIf="dropdownIsVisible && isExpanded"
+      [class.hidden]="!dropdownIsVisible || !isExpanded"
+      [@fadeInOut]
+    >
+      <li
+        class="dropdown-item cursor-pointer"
+        *ngFor="let item of menuItems"
+        [ngClass]="{activeItem: isActiveItem(item.path)}"
+        (click)="navigate(item.path)"
+        (keyup.enter)="navigate(item.path)"
+        [style.opacity]="dropdownIsVisible && isExpanded ? '1' : '0'"
+        tabindex="0"
+      >
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="tooltip-container" [ngClass]="{active: !isExpanded && tooltipIsVisible}">
+    <i aria-hidden="true" class="arrow-left"></i>
+    <span>
+      {{ spanText }}
+    </span>
+  </div>
+</section>

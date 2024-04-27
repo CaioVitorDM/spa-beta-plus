@@ -1,0 +1,35 @@
+<div class="sidebar" [class.closed]="!isOpen">
+  <img src="assets/images/svg/beta-plus.svg" alt="Beta+ Icon" class="beta-logo" *ngIf="isOpen" />
+  <img
+    src="assets/images/svg/beta-icon-purple.svg"
+    alt="Beta+ Icon"
+    class="beta-icon"
+    *ngIf="!isOpen"
+  />
+
+  <div class="sidebar-items-container">
+    <div class="menu-item-container">
+      <a class="anchor-img-fit" routerLink="/welcome">
+        <img
+          class="sidebar-icon"
+          src="assets/images/side-menu-icons/home.svg"
+          alt="Home icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/welcome">Home</a>
+    </div>
+
+    <div class="menu-item-container">
+      <img
+        class="sidebar-icon"
+        src="assets/images/side-menu-icons/calendar.svg"
+        alt="Calendar icon"
+        [ngClass]="{'sidebar-icon-closed': !isOpen}"
+      />
+      <a *ngIf="isOpen" href="#">Consultas</a>
+    </div>
+  </div>
+
+  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5F41B2">☰</button>
+</div>
