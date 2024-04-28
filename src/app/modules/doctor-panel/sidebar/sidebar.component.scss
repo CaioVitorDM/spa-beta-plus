@@ -86,7 +86,7 @@
 
 @media (max-width: 1024px) {
   .sidebar {
-    width: 50%;
+    width: 100%;
     transition: transform 0.3s ease; /* Assegurando a animação de transform */
   }
   .sidebar.closed {
@@ -94,3 +94,4 @@
     display: block; /* Mantém o display como block para permitir animação */
   }
 }
+

@@ -42,16 +42,16 @@
     <div
       class="menu-item-container"
       routerLinkActive="active-menu-item"
-      #rla="routerLinkActive"
+      #rla2="routerLinkActive"
       [ngClass]="{'isClosed': !isOpen}"
     >
       <a class="anchor-img-fit" routerLink="/doctor-panel/consultas">
         <img
           class="sidebar-icon"
           [src]="
-            rla.isActive
-              ? 'assets/images/side-menu-icons/calendar-gray.svg'
-              : 'assets/images/side-menu-icons/calendar.svg'
+            rla2.isActive
+              ? 'assets/images/side-menu-icons/calendar.svg'
+              : 'assets/images/side-menu-icons/calendar-gray.svg'
           "
           alt="Calendar icon"
           [ngClass]="{'sidebar-icon-closed': !isOpen}"

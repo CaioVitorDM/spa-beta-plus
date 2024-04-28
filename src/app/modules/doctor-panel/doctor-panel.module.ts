@@ -5,9 +5,10 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {SharedModule} from '../../shared/shared.module';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DoctorPanelRoutes} from './doctor-panel.routes';
+import {DoctorDashboardComponent} from './pages/doctor-dashboard/doctor-dashboard.component';
 
 @NgModule({
-  declarations: [DoctorPanelComponent, SidebarComponent],
+  declarations: [DoctorPanelComponent, SidebarComponent, DoctorDashboardComponent],
   imports: [
     CommonModule,
     SharedModule,
