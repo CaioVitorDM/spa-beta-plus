@@ -147,5 +147,12 @@
     </div>
   </div>
 
-  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">☰</button>
+  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">
+    <img
+      class="sidebar-icon"
+      [src]="isOpen ? 'assets/images/side-menu-icons/close-menu.svg' : 'assets/images/side-menu-icons/open-menu.svg'"
+      alt="Logout icon"
+      [ngClass]="{'sidebar-icon-closed': !isOpen}"
+    />
+  </button>
 </div>
