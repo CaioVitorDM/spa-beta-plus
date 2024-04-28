@@ -132,6 +132,29 @@
     </div>
 
     <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla6="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/patient-panel/medic">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla6.isActive
+              ? 'assets/images/side-menu-icons/stethoscope.svg'
+              : 'assets/images/side-menu-icons/stethoscope-gray.svg'
+          "
+          alt="Patients icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/patient-panel/medic" routerLinkActive="active-menu-text"
+      >Médico</a
+      >
+    </div>
+
+    <div
       class="menu-item-container logout-icon"
       [ngClass]="{'isClosed': !isOpen}"
     >
@@ -147,5 +170,12 @@
     </div>
   </div>
 
-  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">☰</button>
+  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">
+    <img
+      class="sidebar-icon"
+      [src]="isOpen ? 'assets/images/side-menu-icons/close-menu.svg' : 'assets/images/side-menu-icons/open-menu.svg'"
+      alt="Logout icon"
+      [ngClass]="{'sidebar-icon-closed': !isOpen}"
+    />
+  </button>
 </div>
