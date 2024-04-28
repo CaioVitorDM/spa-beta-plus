@@ -1,0 +1,151 @@
+<button
+  class="toggle-btn"
+  *ngIf="isMobile && !isOpen"
+  (click)="toggleSidebar()"
+  style="color: #5f41b2"
+>
+  ☰
+</button>
+<div class="sidebar" [class.closed]="!isOpen">
+  <img src="assets/images/svg/beta-plus.svg" alt="Beta+ Icon" class="beta-logo" *ngIf="isOpen" />
+  <img
+    src="assets/images/svg/beta-icon-purple.svg"
+    alt="Beta+ Icon"
+    class="beta-icon"
+    *ngIf="!isOpen"
+  />
+
+  <div class="sidebar-items-container">
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/patient-panel/dashboard">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla.isActive
+              ? 'assets/images/side-menu-icons/home.svg'
+              : 'assets/images/side-menu-icons/home-gray.svg'
+          "
+          alt="Home icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/patient-panel/dashboard" routerLinkActive="active-menu-text"
+        >Home</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla2="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/patient-panel/appointments">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla2.isActive
+              ? 'assets/images/side-menu-icons/calendar.svg'
+              : 'assets/images/side-menu-icons/calendar-gray.svg'
+          "
+          alt="Calendar icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/patient-panel/appointments" routerLinkActive="active-menu-text"
+        >Consultas</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla3="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/patient-panel/exams">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla3.isActive
+              ? 'assets/images/side-menu-icons/file.svg'
+              : 'assets/images/side-menu-icons/file-gray.svg'
+          "
+          alt="Exams icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/patient-panel/exams" routerLinkActive="active-menu-text"
+        >Exames</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla4="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/patient-panel/protocols">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla4.isActive
+              ? 'assets/images/side-menu-icons/protocols.svg'
+              : 'assets/images/side-menu-icons/protocols-gray.svg'
+          "
+          alt="Protocols icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/patient-panel/protocols" routerLinkActive="active-menu-text"
+        >Protocolos</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla5="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/patient-panel/beta-graph">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla5.isActive
+              ? 'assets/images/side-menu-icons/graph.svg'
+              : 'assets/images/side-menu-icons/graph-gray.svg'
+          "
+          alt="Patients icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/patient-panel/beta-graph" routerLinkActive="active-menu-text"
+        >Beta HCG</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container logout-icon"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" (click)="logout()">
+        <img
+          class="sidebar-icon"
+          [src]="'assets/images/side-menu-icons/logout-gray.svg'"
+          alt="Logout icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" (click)="logout()">Logout</a>
+    </div>
+  </div>
+
+  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">☰</button>
+</div>

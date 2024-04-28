@@ -34,7 +34,7 @@ export const routes: Routes = [
     },*/
   },
   {
-    path: 'pacient-panel',
+    path: 'patient-panel',
     component: PacientPanelComponent,
     /*canActivate: [authGuard],
     canActivateChild: [authGuard],*/

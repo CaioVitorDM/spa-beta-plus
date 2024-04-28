@@ -1,1 +1,17 @@
-<p>pacient-panel works!</p>
+<section class="container">
+  <app-line-loading ngClass="w-full z-50 absolute" />
+  <section>
+    <app-patient-sidebar
+      [ngClass]="{'sidebar-open': isSideBarOpen}"
+      (handleSideBarChange)="changeSideBarExpanded()"
+      class="fixed-sidebar"
+    />
+    <section
+      [ngClass]="{'retracted': !isSideBarOpen, 'blur-effect': isSideBarOpen && isMobile}"
+      class="content"
+    >
+      <router-outlet></router-outlet>
+    </section>
+  </section>
+  <app-line-loading ngClass="w-full z-50 absolute" />
+</section>
