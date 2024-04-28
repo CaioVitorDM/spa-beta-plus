@@ -1,15 +1,33 @@
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+/* Estilos básicos para quando o sidebar está expandido */
+.content {
+  margin-left: 200px;  /* Ajuste esta margem para a largura do seu sidebar expandido */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1rem;
+  padding: 58px 32px 40px 32px;
+  transition: margin-left 1s;
+  min-height: 100%;
+  width: 85%;
 }
 
-body{
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  height: 100vh;
+/* Estilos quando o sidebar está retraído */
+.retracted {
+  margin-left: 50px; /* Ajuste conforme a largura retraída do seu sidebar */
+}
+
+
+/* Adaptações para dispositivos menores */
+@media (max-width: 1024px) {
+  .content {
+    margin-left: 8px;
+    padding: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    margin-left: 8px;
+    padding: 0;
+  }
 }

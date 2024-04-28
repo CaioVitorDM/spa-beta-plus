@@ -1,8 +1,8 @@
 <section class="container">
   <app-line-loading ngClass="w-full z-50 absolute" />
   <section>
-    <app-doctor-sidebar class="fixed-sidebar" />
-    <section [ngClass]="{'retracted': !isExpandedSidebar}" class="content">
+    <app-doctor-sidebar (handleSideBarChange)="changeSideBarExpanded()" lass="fixed-sidebar" />
+    <section [ngClass]="{'retracted': !isSideBarOpen}" class="content">
       <router-outlet></router-outlet>
     </section>
   </section>

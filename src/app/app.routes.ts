@@ -3,8 +3,8 @@ import {GetStartedComponent} from './pages/get-started/get-started.component';
 import {NgModule} from '@angular/core';
 import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {RegisterPageComponent} from './pages/register-page/register-page.component';
-import {DoctorPanelComponent} from './modules/doctor-panel/doctor-panel.component';
 import {PacientPanelComponent} from './modules/pacient-panel/pacient-panel.component';
+import {DoctorPanelComponent} from './modules/doctor-panel/doctor-panel.component';
 
 export const routes: Routes = [
   {path: 'welcome', component: GetStartedComponent},
@@ -24,7 +24,9 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/doctor-panel/doctor-panel.module').then((m) => m.DoctorPanelModule),
+          import('src/app/modules/doctor-panel/doctor-panel.module').then(
+            (m) => m.DoctorPanelModule
+          ),
       },
     ],
     /*data: {
@@ -40,18 +42,19 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/pacient-panel/pacient-panel.module').then((m) => m.PacientPanelModule),
+          import('src/app/modules/pacient-panel/pacient-panel.module').then(
+            (m) => m.PacientPanelModule
+          ),
       },
     ],
     /*data: {
       roles: [Role.ADMIN],
     },*/
   },
-  {path: '**', redirectTo: 'login-page'},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
   exports: [RouterModule],
 })
 export class AppRoutes {}

@@ -1,8 +1,16 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
-import {DoctorPanelComponent} from './doctor-panel.component';
 
-export const routes: Routes = [{path: 'doctor-panel', component: DoctorPanelComponent}];
+export const routes: Routes = [
+  {path: '', redirectTo: 'pacient', pathMatch: 'full'},
+  {
+    path: 'pacient',
+    loadChildren: () =>
+      import('src/app/modules/doctor-panel/pages/pacient/pacient.module').then(
+        (m) => m.PacientModule
+      ),
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

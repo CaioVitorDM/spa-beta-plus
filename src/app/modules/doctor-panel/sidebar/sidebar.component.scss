@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px
+  gap: 20px;
 }
 
 .beta-logo{
@@ -33,7 +33,10 @@
 .sidebar-items-container{
   display: flex;
   flex-direction: column;
+  justify-content: flex-start !important;
+  align-items: center;
   gap: 15px;
+  width: 100%;
 }
 
 .toggle-btn {
@@ -55,12 +58,39 @@
 
 .menu-item-container{
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
+  align-items: flex-end;
+  justify-content: flex-start;
+  width: 85%;
   gap: 5px;
+  padding: 4px
+}
+
+.isClosed{
+  width: 50%;
 }
 
 .menu-item-container a{
   text-decoration: none;
+  color: #6C6C6C;
+  font-size: 16px;
+}
+
+.active-menu-item{
+  background-color: rgba(151, 92, 228, 0.13);
+  border-radius: 7px;
+}
+
+.active-menu-text{
+  color: #5F41B2 !important;
+}
+
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 50%;
+    transition: transform 0.3s ease; /* Assegurando a animação de transform */
+  }
+  .sidebar.closed {
+    transform: translateX(-102%); /* Esconde movendo para a esquerda */
+    display: block; /* Mantém o display como block para permitir animação */
+  }
 }

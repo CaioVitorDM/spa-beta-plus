@@ -1,3 +1,11 @@
+<button
+  class="toggle-btn"
+  *ngIf="isMobile && !isOpen"
+  (click)="toggleSidebar()"
+  style="color: #5f41b2"
+>
+  ☰
+</button>
 <div class="sidebar" [class.closed]="!isOpen">
   <img src="assets/images/svg/beta-plus.svg" alt="Beta+ Icon" class="beta-logo" *ngIf="isOpen" />
   <img
@@ -8,28 +16,52 @@
   />
 
   <div class="sidebar-items-container">
-    <div class="menu-item-container">
-      <a class="anchor-img-fit" routerLink="/welcome">
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/doctor-panel/pacient">
         <img
           class="sidebar-icon"
-          src="assets/images/side-menu-icons/home.svg"
+          [src]="
+            rla.isActive
+              ? 'assets/images/side-menu-icons/home.svg'
+              : 'assets/images/side-menu-icons/home-gray.svg'
+          "
           alt="Home icon"
           [ngClass]="{'sidebar-icon-closed': !isOpen}"
         />
       </a>
-      <a *ngIf="isOpen" routerLink="/welcome">Home</a>
+      <a *ngIf="isOpen" routerLink="/doctor-panel/pacient" routerLinkActive="active-menu-text"
+        >Home</a
+      >
     </div>
 
-    <div class="menu-item-container">
-      <img
-        class="sidebar-icon"
-        src="assets/images/side-menu-icons/calendar.svg"
-        alt="Calendar icon"
-        [ngClass]="{'sidebar-icon-closed': !isOpen}"
-      />
-      <a *ngIf="isOpen" href="#">Consultas</a>
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/doctor-panel/consultas">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla.isActive
+              ? 'assets/images/side-menu-icons/calendar-gray.svg'
+              : 'assets/images/side-menu-icons/calendar.svg'
+          "
+          alt="Calendar icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/doctor-panel/consultas" routerLinkActive="active-menu-text"
+        >Consultas</a
+      >
     </div>
   </div>
 
-  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5F41B2">☰</button>
+  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">☰</button>
 </div>
