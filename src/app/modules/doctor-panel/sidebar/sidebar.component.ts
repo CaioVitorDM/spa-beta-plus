@@ -29,4 +29,8 @@ export class SidebarComponent {
   private checkIfMobile(width: number) {
     this.isMobile = width <= 1024; // Define como móvel se a largura for 1024px ou menos
   }
+
+  logout(): void {
+    console.log('logout');
+  }
 }

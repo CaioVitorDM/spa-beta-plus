@@ -6,7 +6,7 @@ export const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DoctorDashboardComponent},
   {
-    path: 'pacient',
+    path: 'patients',
     loadChildren: () =>
       import('src/app/modules/doctor-panel/pages/pacient/pacient.module').then(
         (m) => m.PacientModule

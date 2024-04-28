@@ -22,7 +22,7 @@
       #rla="routerLinkActive"
       [ngClass]="{'isClosed': !isOpen}"
     >
-      <a class="anchor-img-fit" routerLink="/doctor-panel/pacient">
+      <a class="anchor-img-fit" routerLink="/doctor-panel/dashboard">
         <img
           class="sidebar-icon"
           [src]="
@@ -34,7 +34,7 @@
           [ngClass]="{'sidebar-icon-closed': !isOpen}"
         />
       </a>
-      <a *ngIf="isOpen" routerLink="/doctor-panel/pacient" routerLinkActive="active-menu-text"
+      <a *ngIf="isOpen" routerLink="/doctor-panel/dashboard" routerLinkActive="active-menu-text"
         >Home</a
       >
     </div>
@@ -45,7 +45,7 @@
       #rla2="routerLinkActive"
       [ngClass]="{'isClosed': !isOpen}"
     >
-      <a class="anchor-img-fit" routerLink="/doctor-panel/consultas">
+      <a class="anchor-img-fit" routerLink="/doctor-panel/appointments">
         <img
           class="sidebar-icon"
           [src]="
@@ -57,9 +57,93 @@
           [ngClass]="{'sidebar-icon-closed': !isOpen}"
         />
       </a>
-      <a *ngIf="isOpen" routerLink="/doctor-panel/consultas" routerLinkActive="active-menu-text"
+      <a *ngIf="isOpen" routerLink="/doctor-panel/appointments" routerLinkActive="active-menu-text"
         >Consultas</a
       >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla3="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/doctor-panel/exams">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla3.isActive
+              ? 'assets/images/side-menu-icons/file.svg'
+              : 'assets/images/side-menu-icons/file-gray.svg'
+          "
+          alt="Exams icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/doctor-panel/exams" routerLinkActive="active-menu-text"
+        >Exames</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla4="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/doctor-panel/protocols">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla4.isActive
+              ? 'assets/images/side-menu-icons/protocols.svg'
+              : 'assets/images/side-menu-icons/protocols-gray.svg'
+          "
+          alt="Protocols icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/doctor-panel/protocols" routerLinkActive="active-menu-text"
+        >Protocolos</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container"
+      routerLinkActive="active-menu-item"
+      #rla5="routerLinkActive"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" routerLink="/doctor-panel/patients">
+        <img
+          class="sidebar-icon"
+          [src]="
+            rla5.isActive
+              ? 'assets/images/side-menu-icons/pacients.svg'
+              : 'assets/images/side-menu-icons/pacients-gray.svg'
+          "
+          alt="Patients icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" routerLink="/doctor-panel/patients" routerLinkActive="active-menu-text"
+        >Pacientes</a
+      >
+    </div>
+
+    <div
+      class="menu-item-container logout-icon"
+      [ngClass]="{'isClosed': !isOpen}"
+    >
+      <a class="anchor-img-fit" (click)="logout()">
+        <img
+          class="sidebar-icon"
+          [src]="'assets/images/side-menu-icons/logout-gray.svg'"
+          alt="Logout icon"
+          [ngClass]="{'sidebar-icon-closed': !isOpen}"
+        />
+      </a>
+      <a *ngIf="isOpen" (click)="logout()">Logout</a>
     </div>
   </div>
 

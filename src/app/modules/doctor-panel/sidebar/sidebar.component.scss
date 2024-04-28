@@ -61,8 +61,8 @@
   align-items: flex-end;
   justify-content: flex-start;
   width: 85%;
-  gap: 5px;
-  padding: 4px
+  gap: 20px;
+  padding: 7px;
 }
 
 .isClosed{
@@ -72,7 +72,9 @@
 .menu-item-container a{
   text-decoration: none;
   color: #6C6C6C;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: 'Poppins', sans-serif;
 }
 
 .active-menu-item{
@@ -93,5 +95,14 @@
     transform: translateX(-102%); /* Esconde movendo para a esquerda */
     display: block; /* Mantém o display como block para permitir animação */
   }
+}
+
+.logout-icon{
+  cursor: pointer;
+}
+
+.logout-icon:hover{
+  background-color: rgba(151, 92, 228, 0.13);
+  border-radius: 7px;
 }
 
