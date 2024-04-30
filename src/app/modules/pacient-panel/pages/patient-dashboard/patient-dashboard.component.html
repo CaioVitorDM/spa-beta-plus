@@ -6,38 +6,43 @@
   </div>
 
   <div class="dashboard-content">
-      <div class="responsible-doctor">
-        <span>Médico Responsável </span>
-        <strong>Dr. Gabriel</strong>  <!-- Tem que modificar para o nome do medico do usuario logado -->
+      <div class="info-container">
+        <div class="responsible-doctor">
+          <span>Médico Responsável </span>
+          <strong>Dr. Gabriel</strong>  <!-- Tem que modificar para o nome do medico do usuario logado -->
+        </div>
+        <div class="last-appointment">
+          <span>Última consulta </span>
+          <strong>29/02/2024</strong>
+        </div>
       </div>
-      <div class="last-appointment">
-        <span>Última consulta </span>
-        <strong>29/02/2024</strong>
+
+    <div class="info-container">
+      <div class="charts" >
+        <h2>Histórico Beta HCG</h2>
+        <canvas #lineChart style="width: 200px" ></canvas>
       </div>
-    <div class="charts">
-      <h2>Histórico Beta HCG</h2>
 
-    </div>
-
-    <div class="recent-exams">
-      <h2>Últimos Exames</h2>
-      <table>
-        <!-- cabeçalho da tabela -->
-        <thead>
-        <tr>
-          <th>Tipo de Exame</th>
-          <th>Data</th>
-        </tr>
-        </thead>
-        <!-- corpo da tabela -->
-        <tbody>
-        <tr>
-          <td>Beta HCG</td>
-          <td>28/02/2024</td>
-        </tr>
-        <!-- outros exames -->
-        </tbody>
-      </table>
+      <div class="recent-exams">
+        <h2>Últimos Exames</h2>
+        <table>
+          <!-- cabeçalho da tabela -->
+          <thead>
+          <tr style="border-radius: 10px !important;">
+            <th>Tipo de Exame</th>
+            <th>Data</th>
+          </tr>
+          </thead>
+          <!-- corpo da tabela -->
+          <tbody>
+          <tr>
+            <td>Beta HCG</td>
+            <td>28/02/2024</td>
+          </tr>
+          <!-- outros exames -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>

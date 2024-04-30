@@ -1,3 +1,5 @@
+@import 'src/styles.scss';
+
 .dashboard-container {
   padding: 20px;
   display: flex;
@@ -14,6 +16,7 @@ h1, p {
   flex-direction: column;
   justify-content: flex-end;
   background-color: #5F41B2;
+  background: linear-gradient(to top right, $beta-purple 40%, $beta-purple-90, rgba(151, 92, 228, 0.9));
   color: white;
   padding: 20px;
   height: 180px;
@@ -21,9 +24,10 @@ h1, p {
 }
 
 .dashboard-content {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
-  grid-template-columns: repeat(2, 1fr); /* Cria duas colunas */
+
 }
 
 .medical-info {
@@ -39,6 +43,7 @@ h1, p {
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+  width: 45%;
 }
 
 table {
@@ -49,7 +54,10 @@ table {
     padding: 8px;
   }
   th {
-    background-color: #f3f3f3;
+    background-color: #5F41B2;
+    color: #fff;
+    font-weight: 400;
+    padding: 12px;
   }
   tr:nth-child(even) {
     background-color: #f9f9f9;
@@ -69,4 +77,27 @@ table {
   .welcome-banner {
     padding: 15px;
   }
+}
+
+
+@media (max-width: 768px) {
+  .info-container{
+    flex-direction: column;
+    justify-content: center !important;
+    gap: 20px;
+  }
+  .responsible-doctor,
+  .last-appointment,
+  .charts,
+  .recent-exams {
+    width: 100%;
+  }
+}
+.info-container{
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: space-evenly;
 }

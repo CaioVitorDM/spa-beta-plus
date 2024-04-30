@@ -1,19 +1,26 @@
-import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
+import {SidebarToggleService} from '../../../services/header/sidebar-toggle.service';
 
 @Component({
   selector: 'app-doctor-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnInit {
   @Output() handleSideBarChange = new EventEmitter();
   @Input() isOpenEvent: boolean = false;
 
   isMobile = window.innerWidth <= 1024;
   isOpen = false; // Estado inicial do sidebar
 
-  constructor() {
+  constructor(private sidebarToggleService: SidebarToggleService) {
     this.checkIfMobile(window.innerWidth); // Verifica a largura da janela ao carregar o componente
+  }
+
+  ngOnInit() {
+    this.sidebarToggleService.triggerFunction$.subscribe(() => {
+      this.toggleSidebar();
+    });
   }
 
   toggleSidebar(): void {

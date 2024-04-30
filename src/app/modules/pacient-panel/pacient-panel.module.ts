@@ -7,12 +7,17 @@ import {SharedModule} from '../../shared/shared.module';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {HeaderComponent} from '../../components/header/header.component';
 import {UploadComponentComponent} from '../../components/upload-component/upload-component.component';
-
+import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashboard.component';
 
 @NgModule({
-  declarations: [PacientPanelComponent, SidebarComponent],
-  imports: [CommonModule, RouterOutlet, PacientPanelRoutes, SharedModule, HeaderComponent,
-            UploadComponentComponent],
+  declarations: [PacientPanelComponent, SidebarComponent, PatientDashboardComponent],
+  imports: [
+    CommonModule,
+    RouterOutlet,
+    PacientPanelRoutes,
+    SharedModule,
+    HeaderComponent,
+    UploadComponentComponent,
+  ],
 })
-export class PacientPanelModule {
-}
+export class PacientPanelModule {}

@@ -1,11 +1,3 @@
-<!--<button-->
-<!--  class="toggle-btn"-->
-<!--  *ngIf="isMobile && !isOpen"-->
-<!--  (click)="toggleSidebar()"-->
-<!--  style="color: #5f41b2"-->
-<!--&gt;-->
-<!--  ☰-->
-<!--</button>-->
 <div class="sidebar" [class.closed]="!isOpen">
   <img src="assets/images/svg/beta-plus.svg" alt="Beta+ Icon" class="beta-logo" *ngIf="isOpen" />
   <img
@@ -166,17 +158,4 @@
       <a *ngIf="isOpen" (click)="logout()">Logout</a>
     </div>
   </div>
-
-<!--  <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">-->
-<!--    <img-->
-<!--      class="sidebar-icon"-->
-<!--      [src]="-->
-<!--        isOpen-->
-<!--          ? 'assets/images/side-menu-icons/close-menu.svg'-->
-<!--          : 'assets/images/side-menu-icons/open-menu.svg'-->
-<!--      "-->
-<!--      alt="Logout icon"-->
-<!--      [ngClass]="{'sidebar-icon-closed': !isOpen}"-->
-<!--    />-->
-<!--  </button>-->
 </div>

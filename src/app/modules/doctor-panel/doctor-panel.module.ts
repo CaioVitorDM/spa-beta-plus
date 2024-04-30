@@ -6,6 +6,7 @@ import {SharedModule} from '../../shared/shared.module';
 import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DoctorPanelRoutes} from './doctor-panel.routes';
 import {DoctorDashboardComponent} from './pages/doctor-dashboard/doctor-dashboard.component';
+import {HeaderComponent} from '../../components/header/header.component';
 
 @NgModule({
   declarations: [DoctorPanelComponent, SidebarComponent, DoctorDashboardComponent],
@@ -16,6 +17,7 @@ import {DoctorDashboardComponent} from './pages/doctor-dashboard/doctor-dashboar
     RouterLink,
     RouterLinkActive,
     DoctorPanelRoutes,
+    HeaderComponent,
   ],
 })
 export class DoctorPanelModule {}
