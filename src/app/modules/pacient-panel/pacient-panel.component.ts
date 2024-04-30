@@ -1,5 +1,6 @@
 import {Component, HostListener} from '@angular/core';
 import {HeaderComponent} from '../../components/header/header.component';
+import {UploadComponentComponent} from '../../components/upload-component/upload-component.component';
 
 
 @Component({

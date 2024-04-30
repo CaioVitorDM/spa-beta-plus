@@ -1,2 +1,43 @@
+<!-- patient-dashboard.component.html -->
+<div class="dashboard-container">
+  <div class="welcome-banner">
+    <h1>Olá, Luiza!</h1> <!-- Tem que modificar para o nome do usuario logado -->
+    <p>Fique à vontade para revisar seu protocolo e atualizar suas informações</p>
+  </div>
 
-<p>patient-dashboard works!</p>
+  <div class="dashboard-content">
+      <div class="responsible-doctor">
+        <span>Médico Responsável </span>
+        <strong>Dr. Gabriel</strong>  <!-- Tem que modificar para o nome do medico do usuario logado -->
+      </div>
+      <div class="last-appointment">
+        <span>Última consulta </span>
+        <strong>29/02/2024</strong>
+      </div>
+    <div class="charts">
+      <h2>Histórico Beta HCG</h2>
+
+    </div>
+
+    <div class="recent-exams">
+      <h2>Últimos Exames</h2>
+      <table>
+        <!-- cabeçalho da tabela -->
+        <thead>
+        <tr>
+          <th>Tipo de Exame</th>
+          <th>Data</th>
+        </tr>
+        </thead>
+        <!-- corpo da tabela -->
+        <tbody>
+        <tr>
+          <td>Beta HCG</td>
+          <td>28/02/2024</td>
+        </tr>
+        <!-- outros exames -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

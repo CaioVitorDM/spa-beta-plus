@@ -1,0 +1,72 @@
+.dashboard-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1, p {
+  margin: 0.3rem;
+}
+
+.welcome-banner {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background-color: #5F41B2;
+  color: white;
+  padding: 20px;
+  height: 180px;
+  border-radius: 10px;
+}
+
+.dashboard-content {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, 1fr); /* Cria duas colunas */
+}
+
+.medical-info {
+  display: flex;
+  gap: 20px;
+}
+
+.responsible-doctor,
+.last-appointment,
+.charts,
+.recent-exams {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  th {
+    background-color: #f3f3f3;
+  }
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr; // Uma coluna por linha
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container {
+    padding: 20px;
+  }
+  .welcome-banner {
+    padding: 15px;
+  }
+}

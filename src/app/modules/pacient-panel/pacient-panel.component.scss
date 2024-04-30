@@ -5,41 +5,43 @@
   flex-direction: column;
   flex: 1;
   gap: 1rem;
-  padding: 58px 32px 40px 32px;
-  transition: margin-left 1s;
+  padding: 20px;
+  transition: margin-left 0.3s;
   min-height: 100%;
-  width: 75%;
+  width: auto;
+  justify-content: center;
 }
+
 
 /* Estilos quando o sidebar está retraído */
 .retracted {
   margin-left: 50px; /* Ajuste conforme a largura retraída do seu sidebar */
-  width: 87% !important;
+//   width: 87% !important;
 }
 
 
 /* Adaptações para dispositivos menores */
 @media (max-width: 1024px) {
   .content {
-    margin-left: 3rem;
+    margin-left: 0;
     padding: 0;
   }
 }
 
 @media (max-width: 768px) {
   .content {
-    margin-left: 0.5rem;
+    margin-left: 0;
     padding: 0;
   }
 }
 
-@media (min-width: 1400px){
-  .content{
-    width: 84% !important;
-  }
-  .retracted{
-    width: 92% !important;
-  }
-}
+// @media (min-width: 1400px){
+//   .content{
+//     width: 84% !important;
+//   }
+//   .retracted{
+//     width: 92% !important;
+//   }
+// }
 
 
