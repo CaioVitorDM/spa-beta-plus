@@ -5,9 +5,12 @@ import {PacientPanelRoutes} from './pacient-panel.routes';
 import {RouterOutlet} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {SidebarComponent} from './sidebar/sidebar.component';
+import {HeaderComponent} from '../../components/header/header.component';
+
 
 @NgModule({
   declarations: [PacientPanelComponent, SidebarComponent],
-  imports: [CommonModule, RouterOutlet, PacientPanelRoutes, SharedModule],
+  imports: [CommonModule, RouterOutlet, PacientPanelRoutes, SharedModule, HeaderComponent],
 })
-export class PacientPanelModule {}
+export class PacientPanelModule {
+}

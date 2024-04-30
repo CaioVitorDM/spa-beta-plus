@@ -1,0 +1,64 @@
+/* Incorporando a fonte Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 10px;
+  border-bottom: 1px solid #dee2e6; /* linha de separação */
+  font-family: 'Poppins', sans-serif;
+}
+
+.toggle-titulo {
+  display: flex;
+
+}
+
+.informacao {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4D5358;
+}
+
+.numero {
+  font-size: 0.7rem;
+  background-color: rgba(95, 65, 178, 0.3);;
+  color: #5F41B2;
+  margin-left: 10px;
+  border-radius: 80%;
+  padding: 5px 10px;
+  font-weight: 500;
+}
+
+.secao-usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.7rem;
+}
+
+.foto-perfil {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  margin: 3px 10px;
+  border-color: #5F41B2;
+  border-width: 3px;
+  border-style: solid;
+  object-fit: cover; /* garante que a imagem do perfil cubra o espaço designado */
+  cursor: pointer;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+
+
