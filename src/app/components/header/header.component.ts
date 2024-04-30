@@ -2,6 +2,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import {NgIf} from '@angular/common';
 import { SidebarToggleService } from '../../services/header/sidebar-toggle.service';
 import { HeaderService } from '../../services/header/header-info.service';
+import { UserService } from '../../services/user/user-info.service';
 
 @Component({
   selector: 'app-header',
@@ -16,11 +17,15 @@ export class HeaderComponent implements OnInit {
   @Input() nomeUsuario: string = '';
   @Input() fotoUsuario: string = '';
 
-  constructor(private sidebarToggleService: SidebarToggleService, private headerService: HeaderService) { }
+  constructor(private sidebarToggleService: SidebarToggleService,
+              private headerService: HeaderService,
+              private userService: UserService) { }
 
   ngOnInit(): void {
      this.headerService.titulo$.subscribe(titulo => this.titulo = titulo);
      this.headerService.numero$.subscribe(numero => this.numero = numero);
+     this.userService.nomeUsuario$.subscribe(nome => this.nomeUsuario = nome);
+     this.userService.fotoUsuario$.subscribe(foto => this.fotoUsuario = foto);
   }
 
   aoClicarSidebar() {
