@@ -1,0 +1,19 @@
+<header>
+  <div class="toggle-titulo" >
+    <button
+      class="toggle-btn"
+      style="color: #5f41b2"
+      (click)="aoClicarSidebar()">
+      ☰
+    </button>
+    <div class="informacao">
+      <span *ngIf="titulo">{{ titulo }}</span>
+      <span *ngIf="numero" class="numero">{{ numero }}</span>
+    </div>
+  </div>
+  <div class="secao-usuario">
+    <span>{{ nomeUsuario }}</span>
+    <img [src]="fotoUsuario" (click)="aoClicarUsuario()" alt="Perfil do Usuário" class="foto-perfil">
+  </div>
+</header>
+

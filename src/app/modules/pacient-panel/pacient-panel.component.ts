@@ -1,4 +1,7 @@
 import {Component, HostListener} from '@angular/core';
+import {HeaderComponent} from '../../components/header/header.component';
+import {UploadComponentComponent} from '../../components/upload-component/upload-component.component';
+
 
 @Component({
   selector: 'app-pacient-panel',
@@ -6,7 +9,7 @@ import {Component, HostListener} from '@angular/core';
   styleUrl: './pacient-panel.component.scss',
 })
 export class PacientPanelComponent {
-  isSideBarOpen = false;
+  isSideBarOpen: boolean = false;
   isMobile: boolean = false;
 
   changeSideBarExpanded() {
@@ -15,6 +18,10 @@ export class PacientPanelComponent {
 
   ngOnInit(): void {
     this.checkIfMobile(window.innerWidth); // Verifica no carregamento inicial
+  }
+
+  handleToggle(status: boolean) {
+      this.isSideBarOpen = status;
   }
 
   @HostListener('window:resize', ['$event'])

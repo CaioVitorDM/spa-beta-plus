@@ -131,10 +131,7 @@
       >
     </div>
 
-    <div
-      class="menu-item-container logout-icon"
-      [ngClass]="{'isClosed': !isOpen}"
-    >
+    <div class="menu-item-container logout-icon" [ngClass]="{'isClosed': !isOpen}">
       <a class="anchor-img-fit" (click)="logout()">
         <img
           class="sidebar-icon"
@@ -150,7 +147,11 @@
   <button class="toggle-btn" (click)="toggleSidebar()" style="color: #5f41b2">
     <img
       class="sidebar-icon"
-      [src]="isOpen ? 'assets/images/side-menu-icons/close-menu.svg' : 'assets/images/side-menu-icons/open-menu.svg'"
+      [src]="
+        isOpen
+          ? 'assets/images/side-menu-icons/close-menu.svg'
+          : 'assets/images/side-menu-icons/open-menu.svg'
+      "
       alt="Logout icon"
       [ngClass]="{'sidebar-icon-closed': !isOpen}"
     />
