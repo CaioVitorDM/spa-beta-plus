@@ -30,4 +30,5 @@ export class HeaderService {
   setFotoUsuario(foto: string) {
     this.fotoUsuario.next(foto);
   }
+
 }

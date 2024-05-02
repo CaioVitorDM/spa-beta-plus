@@ -13,7 +13,9 @@
   </div>
   <div class="secao-usuario">
     <span>{{ nomeUsuario }}</span>
-    <img [src]="fotoUsuario" (click)="aoClicarUsuario()" alt="Perfil do Usuário" class="foto-perfil">
+    <a routerLink="/patient-panel/profile">
+      <img [src]="fotoUsuario" alt="Perfil do Usuário" class="foto-perfil">
+    </a>
   </div>
 </header>
 

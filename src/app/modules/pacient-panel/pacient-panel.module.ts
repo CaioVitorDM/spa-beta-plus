@@ -10,9 +10,10 @@ import {UploadComponentComponent} from '../../components/upload-component/upload
 import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashboard.component';
 import {DetailsCardComponent} from '../../components/details-card/details-card.component';
 import {MedicComponent} from './pages/medic/medic.component';
+import {ProfileComponent} from './pages/profile/profile.component';
 
 @NgModule({
-  declarations: [PacientPanelComponent, SidebarComponent, PatientDashboardComponent, MedicComponent],
+  declarations: [PacientPanelComponent, SidebarComponent, PatientDashboardComponent, MedicComponent, ProfileComponent],
   imports: [
     CommonModule,
     RouterOutlet,
