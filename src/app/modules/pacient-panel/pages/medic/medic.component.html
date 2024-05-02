@@ -1,25 +1,10 @@
-<div class="doctor-details-container">
-    <div class="header">
-        <img src="https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U" alt="img-medic">
-        <h1>Dr. Gabriel Ferreira</h1>
-    </div>
-    <div class="details">
-        <h2>Detalhes do Médico</h2>
-        <div class="info">
-            <div class="detail-item">
-                <span>Telefone</span>
-                <p>(11) 2345-678</p>
-            </div>
-            <div class="detail-item">
-                <span>E-mail</span>
-                <p>gabrielmediferreira&#64;gmail.com</p>
-            </div>
-            <div class="detail-item">
-                <span>CRM</span>
-                <p>1111-RN</p>
-            </div>
-        </div>
-    </div>
-</div>
-
+<app-details-card
+  [imageSrc]="'https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U'"
+  [name]="'Dr. Gabriel Ferreira'"
+  [title]="'Detalhes do Médico'"
+  [details]="[
+    { label: 'Telefone', value: '(11) 2345-678' },
+    { label: 'E-mail', value: 'gabrielmediferreira@gmail.com' },
+    { label: 'CRM', value: '1111-RN' }
+  ]"></app-details-card>
 

@@ -1,0 +1,15 @@
+<div class="details-card-container">
+  <div class="header">
+    <img [src]="imageSrc" alt="Image">
+    <h1>{{ name }}</h1>
+  </div>
+  <div class="details">
+    <h2>{{ title }}</h2>
+    <div class="info">
+      <div *ngFor="let item of details" class="detail-item">
+        <span>{{ item.label }}</span>
+        <p>{{ item.value }}</p>
+      </div>
+    </div>
+  </div>
+</div>

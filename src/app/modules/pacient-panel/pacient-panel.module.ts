@@ -8,9 +8,11 @@ import {SidebarComponent} from './sidebar/sidebar.component';
 import {HeaderComponent} from '../../components/header/header.component';
 import {UploadComponentComponent} from '../../components/upload-component/upload-component.component';
 import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashboard.component';
+import {DetailsCardComponent} from '../../components/details-card/details-card.component';
+import {MedicComponent} from './pages/medic/medic.component';
 
 @NgModule({
-  declarations: [PacientPanelComponent, SidebarComponent, PatientDashboardComponent],
+  declarations: [PacientPanelComponent, SidebarComponent, PatientDashboardComponent, MedicComponent],
   imports: [
     CommonModule,
     RouterOutlet,
@@ -18,6 +20,7 @@ import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashb
     SharedModule,
     HeaderComponent,
     UploadComponentComponent,
+    DetailsCardComponent,
   ],
 })
 export class PacientPanelModule {}
