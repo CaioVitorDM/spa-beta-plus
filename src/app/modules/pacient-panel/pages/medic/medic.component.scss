@@ -1,0 +1,94 @@
+.doctor-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    color: #5F41B2;
+}
+
+.header {
+    text-align: center;
+}
+
+.header img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-color: rgba(95,65,178,0.2);
+    border-style: solid;
+    border-width: 8px;
+    object-fit: cover; /* garante que a imagem do perfil cubra o espaço designado */
+}
+
+h1, h2{
+    font-size: 1.1rem;
+}
+
+.details {
+    width: 100%;
+    max-width: 600px;
+    text-align: left;
+}
+
+
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.detail-item {
+    width: 48%;
+    margin-bottom: 15px;
+}
+
+.detail-item span {
+    display: block;
+    color: #5F41B2;
+    margin-bottom: 5px;
+}
+
+.detail-item p {
+    background: rgba(95,65,178,0.1);
+    padding: 8px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    color: #878D96;
+    border-bottom: 1px solid #878D96;
+}
+
+@media (max-width: 768px) {
+
+    .info {
+        flex-direction: column;
+    }
+
+    .detail-item {
+        width: 100%;
+    }
+
+    .header img {
+        width: 80px;
+        height: 80px;
+    }
+
+    h1, h2 {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .doctor-details-container {
+        padding: 20px;
+    }
+
+    .header img {
+        width: 60px;
+        height: 60px;
+    }
+
+    h1, h2 {
+        font-size: 0.9rem;
+    }
+}
