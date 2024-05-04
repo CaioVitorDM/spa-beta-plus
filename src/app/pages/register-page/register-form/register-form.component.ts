@@ -16,6 +16,7 @@ import {SnackbarService} from '../../../services/snackbar/snackbar.service';
 import {User} from '../../../models/User';
 import {Router} from '@angular/router';
 import {RegisterSubmit} from '../service/register-submit';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-form',
@@ -99,8 +100,17 @@ export class RegisterFormComponent implements OnDestroy {
   private onSuccess() {
     this.lineLoadingService.hide();
     this.registerForm.markAsPristine();
-    this.snackbar.open('Médico cadastrado com sucesso');
-    this.router.navigate(['login-page']);
+    swal
+      .fire({
+        title: 'Sucesso!',
+        text: 'Médico cadastrado na base de dados!',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 3000,
+      })
+      .then(() => {
+        this.router.navigate(['login-page']);
+      });
   }
 
   togglePasswordVisibility() {
