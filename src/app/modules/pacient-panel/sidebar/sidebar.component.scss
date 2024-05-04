@@ -42,6 +42,7 @@
 .sidebar-icon{
   width: 17px;
   z-index: 1000;
+  transition: filter 0.3s;
 }
 
 .sidebar-icon-closed{
@@ -56,7 +57,9 @@
   width: 85%;
   gap: 20px;
   padding: 7px;
+  transition: background-color 0.3s;
 }
+
 
 .isClosed{
   width: 50%;
@@ -70,10 +73,15 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.active-menu-item{
+.active-menu-item, .menu-item-container:hover{
   background-color: rgba(151, 92, 228, 0.13);
   border-radius: 7px;
 }
+
+.menu-item-container:hover a {
+   color: #5F41B2;
+}
+
 
 .active-menu-text{
   color: #5F41B2 !important;
