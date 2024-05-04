@@ -1,5 +1,6 @@
 import {Component, EventEmitter, HostListener, Input, Output} from '@angular/core';
-import { SidebarToggleService } from '../../../services/header/sidebar-toggle.service';
+import {SidebarToggleService} from '../../../services/header/sidebar-toggle.service';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-patient-sidebar',
@@ -13,7 +14,10 @@ export class SidebarComponent {
   isMobile = window.innerWidth <= 1024;
   isOpen = false;
 
-  constructor(private sidebarToggleService: SidebarToggleService) {
+  constructor(
+    private sidebarToggleService: SidebarToggleService,
+    private authService: AuthService
+  ) {
     this.checkIfMobile(window.innerWidth);
   }
 
@@ -38,6 +42,6 @@ export class SidebarComponent {
   }
 
   logout(): void {
-    console.log('logout');
+    this.authService.logOut();
   }
 }

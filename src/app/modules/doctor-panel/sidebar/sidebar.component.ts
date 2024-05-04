@@ -1,5 +1,6 @@
 import {Component, EventEmitter, HostListener, Input, OnInit, Output} from '@angular/core';
 import {SidebarToggleService} from '../../../services/header/sidebar-toggle.service';
+import {AuthService} from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-doctor-sidebar',
@@ -13,7 +14,10 @@ export class SidebarComponent implements OnInit {
   isMobile = window.innerWidth <= 1024;
   isOpen = false; // Estado inicial do sidebar
 
-  constructor(private sidebarToggleService: SidebarToggleService) {
+  constructor(
+    private sidebarToggleService: SidebarToggleService,
+    private authService: AuthService
+  ) {
     this.checkIfMobile(window.innerWidth); // Verifica a largura da janela ao carregar o componente
   }
 
@@ -38,6 +42,6 @@ export class SidebarComponent implements OnInit {
   }
 
   logout(): void {
-    console.log('logout');
+    this.authService.logOut();
   }
 }

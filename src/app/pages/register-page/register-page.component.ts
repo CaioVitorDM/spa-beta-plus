@@ -3,6 +3,7 @@ import {NgxMaskDirective, provideNgxMask} from 'ngx-mask';
 import {FormsModule} from '@angular/forms';
 import {UploadComponentComponent} from '../../components/upload-component/upload-component.component';
 import {RegisterFormComponent} from './register-form/register-form.component';
+import {RegisterSubmit} from './service/register-submit';
 
 @Component({
   selector: 'app-register-page',
@@ -12,4 +13,11 @@ import {RegisterFormComponent} from './register-form/register-form.component';
   providers: [provideNgxMask()],
   styleUrl: './register-page.component.scss',
 })
-export class RegisterPageComponent {}
+export class RegisterPageComponent {
+  submit: boolean = false;
+  constructor(private registerSubmit: RegisterSubmit) {}
+
+  submitForm() {
+    this.registerSubmit.triggerSubmit();
+  }
+}

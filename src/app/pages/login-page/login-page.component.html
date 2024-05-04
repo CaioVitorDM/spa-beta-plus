@@ -1,16 +1,17 @@
 <body>
   <div class="container">
     <div class="form-container sign-in">
-      <form>
+      <form [formGroup]="loginForm">
         <h1 class="title">Entrar</h1>
         <div class="inputs-container">
-          <input type="email" placeholder="Email" />
+          <input type="text" placeholder="Login" formControlName="login"/>
           <div class="input-container">
             <input
               [type]="showPassword ? 'text' : 'password'"
               [(ngModel)]="password"
               name="password"
               placeholder="Senha"
+              formControlName="password"
             />
             <button class="input-icon top-[50%]" (click)="togglePasswordVisibility()">
               <img
@@ -28,7 +29,7 @@
           <a href="">Esqueceu sua senha?</a>
           <a routerLink="/register-page">Cadastre-se</a>
         </div>
-        <button class="login-button">Sign In</button>
+        <button class="login-button" (click)="onLogin()">Sign In</button>
       </form>
     </div>
 
@@ -42,16 +43,17 @@
   </div>
 
   <div class="mobile-container">
-    <form>
+    <form [formGroup]="loginForm">
       <h1 class="title">Entrar</h1>
       <div class="inputs-container">
-        <input type="email" placeholder="Email" />
+        <input type="text" placeholder="Login" formControlName="login"/>
         <div class="input-container">
           <input
             [type]="showPassword ? 'text' : 'password'"
             [(ngModel)]="password"
             name="password"
             placeholder="Senha"
+            formControlName="password"
           />
           <button class="input-icon top-[50%]" (click)="togglePasswordVisibility()">
             <img
@@ -69,7 +71,7 @@
         <a href="">Esqueceu sua senha?</a>
         <a routerLink="/register-page">Cadastre-se</a>
       </div>
-      <button class="login-button">Sign In</button>
+      <button class="login-button" (click)="onLogin()">Sign In</button>
     </form>
   </div>
 </body>

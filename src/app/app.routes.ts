@@ -5,11 +5,14 @@ import {LoginPageComponent} from './pages/login-page/login-page.component';
 import {RegisterPageComponent} from './pages/register-page/register-page.component';
 import {PacientPanelComponent} from './modules/pacient-panel/pacient-panel.component';
 import {DoctorPanelComponent} from './modules/doctor-panel/doctor-panel.component';
+import {authGuard} from './guards/auth.guard';
+import {Role} from './models/Role';
+import {noAuthGuard} from './guards/no-auth.guard';
 
 export const routes: Routes = [
-  {path: 'welcome', component: GetStartedComponent},
-  {path: 'login-page', component: LoginPageComponent},
-  {path: 'register-page', component: RegisterPageComponent},
+  {path: 'welcome', component: GetStartedComponent, canActivate: [noAuthGuard]},
+  {path: 'login-page', component: LoginPageComponent, canActivate: [noAuthGuard]},
+  {path: 'register-page', component: RegisterPageComponent, canActivate: [noAuthGuard]},
   {
     path: '',
     redirectTo: 'login-page',
@@ -18,8 +21,8 @@ export const routes: Routes = [
   {
     path: 'doctor-panel',
     component: DoctorPanelComponent,
-    /*canActivate: [authGuard],
-    canActivateChild: [authGuard],*/
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
@@ -29,15 +32,15 @@ export const routes: Routes = [
           ),
       },
     ],
-    /*data: {
-      roles: [Role.ADMIN],
-    },*/
+    data: {
+      roles: [Role.MEDIC],
+    },
   },
   {
     path: 'patient-panel',
     component: PacientPanelComponent,
-    /*canActivate: [authGuard],
-    canActivateChild: [authGuard],*/
+    canActivate: [authGuard],
+    canActivateChild: [authGuard],
     children: [
       {
         path: '',
@@ -47,9 +50,9 @@ export const routes: Routes = [
           ),
       },
     ],
-    /*data: {
-      roles: [Role.ADMIN],
-    },*/
+    data: {
+      roles: [Role.PATIENT],
+    },
   },
 ];
 
