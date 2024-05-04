@@ -2,11 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SidebarToggleService} from '../../services/header/sidebar-toggle.service';
 import {HeaderService} from '../../services/header/header-info.service';
+import {Router} from '@angular/router';
+import { RouterModule } from '@angular/router'; // Importe RouterModule
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf,RouterModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
@@ -18,7 +20,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private sidebarToggleService: SidebarToggleService,
-    private headerService: HeaderService
+    private headerService: HeaderService,
   ) {}
 
   ngOnInit(): void {
@@ -32,7 +34,4 @@ export class HeaderComponent implements OnInit {
     this.sidebarToggleService.triggerFunction();
   }
 
-  aoClicarUsuario(): void {
-    console.log('Perfil de usuário clicado!');
-  }
 }
