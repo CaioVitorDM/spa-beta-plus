@@ -2,6 +2,7 @@ import {inject} from '@angular/core';
 import {CanActivateFn, Router} from '@angular/router';
 
 import {AuthService} from 'src/app/services/auth/auth.service';
+import swal from 'sweetalert2';
 
 /**
  * Custom authentication guard function for route protection based on user roles.
@@ -20,7 +21,15 @@ export const authGuard: CanActivateFn = (route, _state) => {
   if (expectedRoles && expectedRoles.some((role) => role === userRole)) {
     return true;
   } else {
-    router.navigate(['/login-page']);
+    swal
+      .fire({
+        icon: 'error',
+        title: 'Unathorized!',
+        text: 'Você não tem permissão para acessar essa página',
+        timer: 3000,
+        showConfirmButton: false,
+      })
+      .then(() => router.navigate(['/login-page']));
     return false;
   }
 };

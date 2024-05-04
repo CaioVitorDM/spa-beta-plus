@@ -1,0 +1,132 @@
+.container{
+  background-color: #fff;
+  padding: 7px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+  width: 98%;
+  display: flex;
+  justify-content: center;
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid transparent;
+
+  th, td {
+    text-align: left;
+    padding: 10px;
+    color: #6C6C6C;
+  }
+  th {
+    background-color: rgba(95, 65, 178, 0.6);
+    color: #fff;
+    font-weight: 400;
+    padding: 12px;
+    border: none;
+  }
+  tr:hover{
+    border: 1px solid rgba(95, 65, 178, 0.6);
+    cursor: pointer;
+  }
+}
+
+.list-container {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+
+.users-mobile-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 7px;
+  gap: 20px;
+
+}
+
+.users-list-mobile{
+  display: flex;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.list-card{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.75rem;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+
+  .user-detail{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .title-detail {
+    color: #000000;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 28px;
+  }
+
+  .data-detail {
+    color: #6c6c6c;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  .user-actions {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+
+    button {
+      display: flex;
+      width: 100%;
+      border: 1px solid #19211a;
+      padding: 0.5rem 1.5rem;
+      border-radius: 4px;
+      gap: 1rem;
+      cursor: pointer;
+      align-items: center;
+      background-color: #ffffff;
+    }
+
+    .delete-btn {
+      color: #990000;
+      border: 1px solid #990000 !important;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      justify-content: center;
+    }
+  }
+}
+
+.list-card:hover{
+  background-color: #5f41b214;
+}

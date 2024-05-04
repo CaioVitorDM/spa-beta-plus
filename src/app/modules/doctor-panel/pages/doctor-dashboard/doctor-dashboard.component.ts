@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HeaderService} from '../../../../services/header/header-info.service';
+
 @Component({
   selector: 'app-doctor-dashboard',
   templateUrl: './doctor-dashboard.component.html',

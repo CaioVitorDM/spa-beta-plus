@@ -48,6 +48,14 @@ export interface MedicUserForm {
   password: string;
 }
 
+export interface UserList {
+  id?: number;
+  name: string;
+  birthDate: string;
+  phoneNumber: string;
+  email: string;
+}
+
 export interface User {
   patient?: {
     id?: number;
