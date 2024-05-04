@@ -124,6 +124,13 @@ table {
     .delete-btn {
       justify-content: center;
     }
+
+    .edit-btn:hover{
+      background-color: rgba(25, 33, 26, 0.1);
+    }
+    .delete-btn:hover{
+      background-color: rgba(153, 0, 0, 0.1);
+    }
   }
 }
 
