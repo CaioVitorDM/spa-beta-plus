@@ -103,6 +103,11 @@ export class AuthService {
     return null;
   }
 
+  get username() {
+    const user = this.getUserLogged;
+    return user?.login;
+  }
+
   /**
    * Retrieves the user's role.
    */

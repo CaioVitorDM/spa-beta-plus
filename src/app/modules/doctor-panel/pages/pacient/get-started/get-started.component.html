@@ -1,1 +1,22 @@
-<app-patients-table></app-patients-table>
+<div class="get-started-container">
+  <div class="filter-container">
+    <app-input-search
+    [items]="searchOptions"
+    [submitSearchFunction]="submitSearch.bind(this)"
+    [cleanSearchFunction]="cleanSearch.bind(this)"
+    ></app-input-search>
+    <!--<input type="text" class="filter-input" placeholder="Buscar">-->
+    <button class="new-button" (click)="navigateToCreatePage()">+  Novo paciente</button>
+  </div>
+
+  <app-patients-table></app-patients-table>
+
+  <app-custom-select style="width: 100px"
+    [paginator]="true"
+    ngClass="custom-select"
+    [isActiveIcon]="true"
+    [items]="pageNumber"
+    (defaultItemSelectedChange)="handleSelectedPage($event)"
+    [defaultItemSelected]="selectedPage"
+  />
+</div>

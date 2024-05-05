@@ -1,0 +1,66 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<div class="input-container" *ngIf="items && items.length > 0">
+  <section
+    tabindex="0"
+    class="input-content"
+    (click)="toggleList()"
+    (keypress)="toggleList()"
+    [ngClass]="{'component-disabled': disableComponent, 'paginator': paginator}"
+  >
+    <input
+      *ngIf="!paginator"
+      [placeholder]="defaultPlaceholder"
+      [value]="defaultItemSelected && defaultItemSelected.label ? defaultItemSelected.label : ''"
+      readonly
+      [ngClass]="{'component-disabled': disableComponent}"
+    />
+    <div *ngIf="paginator">
+      <ng-container *ngIf="defaultItemSelected.label.startsWith('Página')">
+        <span class="text-dark-100">Página </span
+        ><span class="text-dark-500">{{ defaultItemSelected.label.split(' ')[1] }}</span>
+      </ng-container>
+      <ng-container *ngIf="defaultItemSelected.label.endsWith('página')">
+        <span class="text-dark-500">{{ defaultItemSelected.label.split(' ')[0] }}</span
+        ><span class="text-dark-100"> por página</span>
+      </ng-container>
+    </div>
+    <button class="w-6 h-6" style="border: none; background: transparent" (click)="toggleList(); $event.stopPropagation()">
+      <img
+        style="width: 20px"
+        *ngIf="isOpen"
+        [src]="
+          !isActiveIcon ? 'assets/images/svg/chevron-up-gray.svg' : 'assets/images/svg/chevron-up-active.svg'
+        "
+        alt="Chevron up Icon"
+      />
+      <img
+        style="width: 20px"
+        *ngIf="!isOpen"
+        [src]="
+          !isActiveIcon
+            ? 'assets/images/svg/chevron-down-gray.svg'
+            : 'assets/images/svg/chevron-down-active.svg'
+        "
+        alt="Chevron down Icon"
+      />
+    </button>
+  </section>
+
+  <ul class="items-list" *ngIf="isOpen && !paginator">
+    <li tabindex="0" *ngFor="let item of items; trackBy: trackByFn" (click)="selectItem(item)">
+      {{ item.label }}
+    </li>
+  </ul>
+  <ul class="items-list" [ngClass]="{'paginator': paginator}" *ngIf="isOpen && paginator">
+    <li tabindex="0" *ngFor="let item of items; trackBy: trackByFn" (click)="selectItem(item)">
+      <ng-container *ngIf="item.label.startsWith('Página')">
+        <span class="text-dark-100">Página </span
+        ><span class="text-dark-500">{{ item.label.split(' ')[1] }}</span>
+      </ng-container>
+      <ng-container *ngIf="item.label.endsWith('página')">
+        <span class="text-dark-500">{{ item.label.split(' ')[0] }}</span
+        ><span class="text-dark-100"> por página</span>
+      </ng-container>
+    </li>
+  </ul>
+</div>

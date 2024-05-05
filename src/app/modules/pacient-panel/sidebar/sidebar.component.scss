@@ -91,6 +91,7 @@
   .sidebar {
     width: 100%;
     transition: transform 0.3s ease; /* Assegurando a animação de transform */
+    z-index: 1000;
   }
   .sidebar.closed {
     transform: translateX(-102%); /* Esconde movendo para a esquerda */

@@ -1,0 +1,60 @@
+<div class="component-container">
+  <div class="input-container" *ngIf="items && items.length > 0">
+    <section tabindex="0" class="input-content" (click)="toggleList()" (keypress)="toggleList()">
+      <input class="item-select-input" [value]="selectedValue && selectedValue.label ? selectedValue.label : ''" readonly />
+
+      <button class="w-5 h-5" style="border: none; background: transparent" (click)="toggleList(); $event.stopPropagation()">
+        <img
+          style="width: 20px"
+          *ngIf="isOpen"
+          [src]="
+            !isActiveIcon
+              ? 'assets/images/svg/chevron-up-gray.svg'
+              : 'assets/images/svg/chevron-up-active.svg'
+          "
+          alt="Chevron up Icon"
+        />
+
+        <img
+          style="width: 20px"
+          *ngIf="!isOpen"
+          [src]="
+            !isActiveIcon
+              ? 'assets/images/svg/chevron-down-gray.svg'
+              : 'assets/images/svg/chevron-down-active.svg'
+          "
+          alt="Chevron down Icon"
+        />
+      </button>
+    </section>
+
+    <ul class="items-list" *ngIf="isOpen">
+      <li
+        tabindex="0"
+        *ngFor="let item of items"
+        (click)="selectItem(item)"
+        (keypress)="selectItem(item)"
+      >
+        {{ item.label }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="search-box">
+    <input
+      type="text"
+      class="input-pesquisa"
+      [placeholder]="searchPlaceholder"
+      [(ngModel)]="searchedValue"
+      (keyup.enter)="submitSearch(selectedValue.value, searchedValue)"
+    />
+
+    <button *ngIf="searchedValue" class="clear-icon" (click)="cleanSearch()">
+      <span>X</span>
+    </button>
+
+    <button class="search-icon" (click)="submitSearch(selectedValue.value, searchedValue)">
+      <img src="assets/images/svg/search-white.svg" style="width: 20px" alt="Ícone de lupa" />
+    </button>
+  </div>
+</div>
