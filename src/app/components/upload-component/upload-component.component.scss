@@ -17,6 +17,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-size: cover; /* Garante que a imagem cubra todo o espaço */
+  background-position: center; /* Centraliza a imagem no círculo */
 }
 
 .send-picture-button{
@@ -33,7 +35,13 @@
 }
 
 .upload-icon{
-  width: 30px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border-color: rgba(95,65,178,0.2);
+  border-style: solid;
+  border-width: 8px;
+  object-fit: cover; /* garante que a imagem do perfil cubra o espaço designado */
 }
 
 .action-container{
@@ -51,3 +59,21 @@
   background: transparent;
   cursor: pointer;
 }
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #5F41B2;
+  border: 1px solid #5F41B2;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-file-upload:hover {
+  background-color: #5F41B2;
+  color: white;
+}
+

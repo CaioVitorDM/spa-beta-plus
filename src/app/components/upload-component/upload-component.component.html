@@ -1,9 +1,10 @@
 <div class="upload-container">
-  <div class="upload-image-circle">
-    <img class="upload-icon" src="assets/images/svg/upload-icon.svg" alt="Download icon" />
-  </div>
+    <img class="upload-icon" [src]="filePath == null ? 'assets/images/white-background.png' : filePath" alt="Download icon"/>
   <div class="action-container">
-    <button class="send-picture-button">Enviar foto</button>
+    <label class="custom-file-upload">
+      <input type="file" style="display: none;" (change)="onFileSelected($event)" [hidden]="true" />
+      Enviar Foto
+    </label>
     <button class="remove-button">remover</button>
   </div>
 </div>

@@ -10,6 +10,8 @@ import {InputSearchComponent} from '../../../../components/input-search/input-se
 import {CreatePatientComponent} from './create-patient/create-patient.component';
 import {CustomSelectComponent} from '../../../../components/custom-select/custom-select.component';
 import {PatientFormComponent} from './components/patient-form/patient-form.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {NgxMaskDirective} from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,7 @@ import {PatientFormComponent} from './components/patient-form/patient-form.compo
     GetStartedComponent,
     PatientsTableComponent,
     CreatePatientComponent,
+    PatientFormComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import {PatientFormComponent} from './components/patient-form/patient-form.compo
     UploadComponentComponent,
     InputSearchComponent,
     CustomSelectComponent,
-    PatientFormComponent,
+    ReactiveFormsModule,
+    NgxMaskDirective,
   ],
 })
 export class PacientModule {}

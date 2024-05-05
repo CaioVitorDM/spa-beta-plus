@@ -12,6 +12,25 @@ html, body {
 html, body { height: 100%; }
 body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
 
+/* Personalização da barra de rolagem para navegadores WebKit */
+::-webkit-scrollbar {
+  width: 6px; /* Ajusta a largura da barra de rolagem vertical */
+  height: 6px; /* Ajusta a altura para barra de rolagem horizontal, se necessário */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Cor de fundo do trilho */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #6C6C6C; /* Cor da parte móvel (thumb) */
+  border-radius: 4px; /* Bordas arredondadas do thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4E339A; /* Cor do thumb ao passar o mouse */
+}
+
 $beta-purple: #5F41B2;
 $beta-purple-90: rgba(95, 65, 178, 0.9);
 $beta-light-purple: rgba(151, 92, 228, 0.13);

@@ -59,7 +59,7 @@ export class RegisterFormComponent implements OnDestroy {
     lastName: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required]),
     phoneNumber: new FormControl('', [Validators.required]),
-    crm: new FormControl('', [Validators.required]),
+    crm: new FormControl('', [Validators.required, this.crmValidator()]),
     birthDate: new FormControl('', [Validators.required, this.ageValidator()]),
     login: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -161,6 +161,19 @@ export class RegisterFormComponent implements OnDestroy {
       }
 
       return age >= 18 ? null : {ageError: true};
+    };
+  }
+
+  crmValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        // If the birth date is not set, there is no validation error.
+        return null;
+      }
+
+      const crm = control.value.toUpperCase();
+
+      return crm.startsWith('CRM-') ? null : {crmError: true};
     };
   }
 }

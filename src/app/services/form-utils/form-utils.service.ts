@@ -67,18 +67,14 @@ export class FormUtilsService {
       alphanumeric: () => MESSAGE_VALIDATORS.ALPHANUMERIC,
       specialChars: () => MESSAGE_VALIDATORS.SPECIAL_CHARS,
       nameExists: () => MESSAGE_VALIDATORS.NAME_EXISTS,
-      refIdExists: () => MESSAGE_VALIDATORS.REF_ID_EXISTS,
-      eanExists: () => MESSAGE_VALIDATORS.EAN_EXISTS,
       emailExists: () => MESSAGE_VALIDATORS.EMAIL_EXISTS,
       email: () => MESSAGE_VALIDATORS.INVALID_EMAIL,
       invalidCPF: () => MESSAGE_VALIDATORS.INVALID_CPF,
       ageError: () => MESSAGE_VALIDATORS.INVALID_AGE,
       birthYearRangeError: () => MESSAGE_VALIDATORS.INVALID_BIRTH_YEAR_RANGE,
-      specialCharsSellerName: () => MESSAGE_VALIDATORS.SPECIAL_CHARS_SELLER,
       notInteger: () => MESSAGE_VALIDATORS.NOT_INTEGER,
-      zipCodeStartGreaterZipCodeEnd: () => MESSAGE_VALIDATORS.ZIP_CODE_START_GREATER_ZIP_CODE_END,
-      weightStartGreaterWeightEnd: () => MESSAGE_VALIDATORS.WEIGHT_START_FREATER_WEIGHT_END,
       negativeNumber: () => MESSAGE_VALIDATORS.NEGATIVE_NUMBER,
+      crmError: () => MESSAGE_VALIDATORS.CRM_VALIDATOR,
     };
 
     const errorKeys = Object.keys(errorMessages);

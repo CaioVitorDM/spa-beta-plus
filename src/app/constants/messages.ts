@@ -27,6 +27,7 @@ export const MESSAGE_VALIDATORS = {
   EMAIL_EXISTS: 'Este e-mail já está sendo usado por outro usuário',
   ZIP_CODE_START_GREATER_ZIP_CODE_END: 'O CEP inicial não pode ser maior que o CEP final',
   WEIGHT_START_FREATER_WEIGHT_END: 'O peso inicial não pode ser maior que o peso final',
+
   MAX_LENGTH: (requiredLength: number) =>
     `O campo não pode ter mais de ${requiredLength} caracteres`,
   MIN_LENGTH: (requiredLength: number) =>
@@ -35,4 +36,5 @@ export const MESSAGE_VALIDATORS = {
   MIN: (requiredValue: number) => 'O valor mínimo é ' + requiredValue,
   NOT_INTEGER: 'Esse campo aceita apenas valores inteiros',
   NEGATIVE_NUMBER: 'Esse campo aceita apenas valores inteiros e positivos',
+  CRM_VALIDATOR: 'o CRM precisa estar no formato CRM-0000',
 };
