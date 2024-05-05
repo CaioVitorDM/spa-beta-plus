@@ -9,6 +9,7 @@ import {ApiResponse} from '../../models/ApiResponse';
 import {environment} from '../../enviroments/environment';
 import {jwtDecode} from 'jwt-decode';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HeaderService} from '../header/header-info.service';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,8 @@ export class AuthService {
     private router: Router,
     private snackbarService: SnackbarService,
     private routerService: RouterService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private headerService: HeaderService
   ) {
     this.handleError = this.handleError.bind(this);
     this.handleResponse = this.handleResponse.bind(this);
@@ -70,6 +72,7 @@ export class AuthService {
     this.localStorageService.setItem('token', response.data.token);
     this.localStorageService.setItem('user', JSON.stringify(user));
 
+    this.headerService.setNomeUsuario(this.username!);
     this.router.navigate([this.routerService.getRouteBasedOnUserRole(user.role)]);
   }
 

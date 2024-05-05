@@ -8,13 +8,9 @@ import {AuthService} from '../../../../services/auth/auth.service';
   styleUrl: './doctor-dashboard.component.scss',
 })
 export class DoctorDashboardComponent implements OnInit {
-  constructor(
-    private headerService: HeaderService,
-    private authService: AuthService
-  ) {}
+  constructor(private headerService: HeaderService) {}
 
   ngOnInit() {
     this.headerService.setTitulo('Dashboard');
-    this.headerService.setNomeUsuario(this.authService.username!);
   }
 }

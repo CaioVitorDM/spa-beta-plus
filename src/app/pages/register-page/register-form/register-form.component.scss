@@ -12,24 +12,11 @@
   width: 100%;
 }
 
-.same-line-inputs-container input{
-  width: 45% !important;
-}
-
-@media (max-width: 768px) {
-  .same-line-inputs-container{
-    flex-direction: column;
-  }
-  .same-line-inputs-container input{
-    width: 100% !important;
-  }
-}
-
 .register-form input{
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #ccc;
-  margin: 8px 0;
+  margin: 5px 0;
   padding: 10px 15px;
   font-size: 13px;
   width: 100%;
@@ -43,7 +30,7 @@
 .register-form{
   background-color: #fff;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   flex-direction: column;
   padding: 0 40px;
@@ -139,4 +126,38 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   margin-right: 30px;
   justify-self: flex-end;
   margin-bottom: 30px;
+}
+
+.input-error {
+  border: 1px solid #ec3333 !important;
+  border-radius: 4px;
+}
+
+.invalid-input-message {
+  font-size: 0.75rem;
+  color: #ec3333 !important;
+}
+
+.align-inputs-and-error-messages {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+  justify-content: space-between;
+}
+
+.align-inputs-and-error-messages input{
+  width: 100% !important;
+}
+
+@media (max-width: 768px) {
+  .same-line-inputs-container{
+    flex-direction: column;
+  }
+  .same-line-inputs-container input{
+    width: 100% !important;
+  }
+
+  .align-inputs-and-error-messages{
+    width: 100% !important;
+  }
 }
