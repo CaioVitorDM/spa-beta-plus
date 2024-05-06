@@ -2,7 +2,7 @@
     <img class="upload-icon" [src]="filePath == null ? 'assets/images/white-background.png' : filePath" alt="Download icon"/>
   <div class="action-container">
     <label class="custom-file-upload">
-      <input type="file" style="display: none;" (change)="onFileSelected($event)" [hidden]="true" />
+      <input type="file" style="display: none;" (change)="onFileSelected($event)" [hidden]="true" accept=".jpeg, .png, .jpg"/>
       Enviar Foto
     </label>
     <button class="remove-button">remover</button>

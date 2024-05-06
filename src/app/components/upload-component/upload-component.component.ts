@@ -10,7 +10,7 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './upload-component.component.scss',
 })
 export class UploadComponentComponent {
-  @Output() fileSelected = new EventEmitter<string | ArrayBuffer>();
+  @Output() fileSelected = new EventEmitter<File>();
   filePath!: string;
 
   onFileSelected(event: any): void {
@@ -18,9 +18,8 @@ export class UploadComponentComponent {
     if (file) {
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        const result = e.target.result;
-        this.filePath = result;
-        this.fileSelected.emit(result as string); // Emitindo o caminho/processado da imagem
+        this.filePath = e.target.result;
+        this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
       };
       reader.readAsDataURL(file);
     }

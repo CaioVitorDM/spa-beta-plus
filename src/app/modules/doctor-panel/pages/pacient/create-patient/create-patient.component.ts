@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {HeaderService} from '../../../../../services/header/header-info.service';
+import {FileService} from '../../../../../services/file-service/file.service';
+import {Subject, takeUntil} from 'rxjs';
 
 @Component({
   selector: 'app-create-patient',
@@ -7,15 +9,19 @@ import {HeaderService} from '../../../../../services/header/header-info.service'
   styleUrl: './create-patient.component.scss',
 })
 export class CreatePatientComponent {
-  filePath!: string | ArrayBuffer;
+  private destroy$ = new Subject<void>();
+  uploadingFile!: File;
   imageBlob!: Blob;
-  constructor(private headerService: HeaderService) {
+
+  constructor(
+    private headerService: HeaderService,
+    private fileService: FileService // Injetando o serviço de arquivo
+  ) {
     this.headerService.setTitulo('Cadastro de Pacientes');
   }
 
-  handleSelectedFile(imagePath: string | ArrayBuffer): void {
-    this.filePath = imagePath;
-    this.imageBlob = this.base64ToBlob(this.filePath.toString());
+  handleSelectedFile(imagePath: File): void {
+    this.uploadingFile = imagePath;
   }
 
   private base64ToBlob(base64: string): Blob {
@@ -27,5 +33,20 @@ export class CreatePatientComponent {
     }
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], {type: mimeString});
+  }
+
+  submitImage(): void {
+    const file = this.uploadingFile;
+    console.log(file.name);
+    console.log(file.type);
+    this.fileService.uploadImage(file).subscribe({
+      next: (response) => {
+        console.log('Imagem enviada com sucesso!', response);
+        // Lógica adicional após o upload com sucesso
+      },
+      error: (error) => {
+        console.error('Erro ao enviar imagem', error);
+      },
+    });
   }
 }
