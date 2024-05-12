@@ -1,16 +1,16 @@
-import {FormGroup} from '@angular/forms';
-import {MedicUserForm, User} from '../../../models/User';
+import {PatientUserForm, User} from '../../../../../../../models/User';
 
-export const toMedicUserEntity = (formData: MedicUserForm): User => {
+export const toPatientUserEntity = (formData: PatientUserForm): User => {
   return {
-    doctor: {
-      crm: formData.crm,
+    patient: {
+      doctorId: formData.doctorId,
+      cpf: formData.cpf,
       name: formData.firstName + ' ' + formData.lastName,
       birthDate: formData.birthDate,
     },
     login: formData.login,
     password: formData.password,
-    role: 'MEDIC',
+    role: 'PATIENT',
     email: formData.email,
     phoneNumber: formData.phoneNumber,
     imgId: formData.fileId,

@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, catchError, EMPTY, Observable, throwError} from 'rxjs';
+import {BehaviorSubject, catchError, EMPTY, first, map, Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {SnackbarService} from '../snackbar/snackbar.service';
 import {RouterService} from '../router-service/router.service';
 import {LocalStorageService} from '../local-storage/local-storage.service';
-import {AuthRequest, IJWTUserDecoded, IToken} from '../../models/User';
+import {AuthRequest, IJWTUserDecoded, IToken, User} from '../../models/User';
 import {ApiResponse} from '../../models/ApiResponse';
 import {environment} from '../../enviroments/environment';
 import {jwtDecode} from 'jwt-decode';
@@ -141,5 +141,20 @@ export class AuthService {
    */
   get isLoggedIn(): boolean {
     return !!this.getUserToken && !!this.getUserLogged;
+  }
+
+  get imgId() {
+    const user = this.getUserLogged;
+    return user?.imgId;
+  }
+
+  getMedicDetails(id: number): Observable<ApiResponse<User>> {
+    return this.httpClient.get<ApiResponse<User>>(
+      `${environment.apiPermissionUrl}/users/find-medic/${id}`
+    );
+  }
+
+  getUserDetails(id: number): Observable<ApiResponse<User>> {
+    return this.httpClient.get<ApiResponse<User>>(`${environment.apiPermissionUrl}/users/${id}`);
   }
 }

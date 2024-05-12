@@ -1,15 +1,15 @@
-<form class="register-form" #formRef="ngForm" [formGroup]="registerForm">
+<form class="register-form" #formRef="ngForm" [formGroup]="patientForm">
   <div class="same-line-inputs-container">
     <div class="align-inputs-and-error-messages">
       <input type="text" placeholder="Primeiro nome" formControlName="firstName" [ngClass]="{'input-error': isInputInvalid('firstName')}"/>
       <span class="invalid-input-message" *ngIf="isInputInvalid('firstName')">
-        {{ formUtils.getErrorMessage(registerForm, 'firstName') }}
+        {{ formUtils.getErrorMessage(patientForm, 'firstName') }}
       </span>
     </div>
     <div class="align-inputs-and-error-messages">
       <input type="text" placeholder="Último nome" formControlName="lastName" [ngClass]="{'input-error': isInputInvalid('lastName')}"/>
       <span class="invalid-input-message" *ngIf="isInputInvalid('lastName')">
-        {{ formUtils.getErrorMessage(registerForm, 'lastName') }}
+        {{ formUtils.getErrorMessage(patientForm, 'lastName') }}
       </span>
     </div>
   </div>
@@ -17,21 +17,21 @@
   <div class="align-inputs-and-error-messages" style="width: 100%">
     <input type="email" placeholder="Email" formControlName="email" [ngClass]="{'input-error': isInputInvalid('email')}"/>
     <span class="invalid-input-message" *ngIf="isInputInvalid('email')">
-    {{ formUtils.getErrorMessage(registerForm, 'email') }}
+    {{ formUtils.getErrorMessage(patientForm, 'email') }}
     </span>
   </div>
 
   <div class="same-line-inputs-container">
     <div class="align-inputs-and-error-messages">
-      <input type="text" mask="(00) 0000-0000" placeholder="(00) 0000-0000" formControlName="phoneNumber" [ngClass]="{'input-error': isInputInvalid('phoneNumber')}"/>
+      <input type="text" mask="(00) 00000-0000" placeholder="(00) 0000-0000" formControlName="phoneNumber" [ngClass]="{'input-error': isInputInvalid('phoneNumber')}"/>
       <span class="invalid-input-message" *ngIf="isInputInvalid('phoneNumber')">
-        {{ formUtils.getErrorMessage(registerForm, 'phoneNumber') }}
+        {{ formUtils.getErrorMessage(patientForm, 'phoneNumber') }}
       </span>
     </div>
     <div class="align-inputs-and-error-messages">
         <input type="date" formControlName="birthDate" style="height: 40px" [ngClass]="{'input-error': isInputInvalid('birthDate')}"/>
         <span class="invalid-input-message" *ngIf="isInputInvalid('birthDate')">
-          {{ formUtils.getErrorMessage(registerForm, 'birthDate') }}
+          {{ formUtils.getErrorMessage(patientForm, 'birthDate') }}
         </span>
     </div>
   </div>
@@ -39,7 +39,7 @@
   <div class="align-inputs-and-error-messages" style="width: 100%">
     <input type="text" placeholder="000.000.000-00" mask="000.000.000-00" formControlName="cpf" [ngClass]="{'input-error': isInputInvalid('cpf')}" />
     <span class="invalid-input-message" *ngIf="isInputInvalid('cpf')">
-          {{ formUtils.getErrorMessage(registerForm, 'cpf') }}
+          {{ formUtils.getErrorMessage(patientForm, 'cpf') }}
     </span>
   </div>
 
@@ -48,7 +48,7 @@
     <div class="align-inputs-and-error-messages">
       <input type="text" placeholder="Nome de usuário" formControlName="login" [ngClass]="{'input-error': isInputInvalid('login')}"/>
       <span class="invalid-input-message" *ngIf="isInputInvalid('login')">
-        {{ formUtils.getErrorMessage(registerForm, 'login') }}
+        {{ formUtils.getErrorMessage(patientForm, 'login') }}
       </span>
     </div>
     <div class="align-inputs-and-error-messages">
@@ -73,7 +73,7 @@
         </button>
       </div>
       <span class="invalid-input-message" *ngIf="isInputInvalid('password')">
-        {{ formUtils.getErrorMessage(registerForm, 'password') }}
+        {{ formUtils.getErrorMessage(patientForm, 'password') }}
       </span>
     </div>
   </div>
