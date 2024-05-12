@@ -13,7 +13,13 @@ import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 
 @NgModule({
-  declarations: [PacientPanelComponent, SidebarComponent, PatientDashboardComponent, MedicComponent, ProfileComponent],
+  declarations: [
+    PacientPanelComponent,
+    SidebarComponent,
+    PatientDashboardComponent,
+    MedicComponent,
+    ProfileComponent,
+  ],
   imports: [
     CommonModule,
     RouterOutlet,

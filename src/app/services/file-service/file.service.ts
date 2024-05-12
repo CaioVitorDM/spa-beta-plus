@@ -19,19 +19,15 @@ export class FileService {
   /**
    * The base URL for the password file API.
    */
-  readonly baseUrl = `${environment.apiFilesUrl}`;
+  private readonly baseUrl = `${environment.apiFilesUrl}`;
 
   clearImages = new EventEmitter<void>();
 
   constructor(private http: HttpClient) {}
 
-  uploadImage(file: File, description?: string): Observable<ApiResponse<FileResponse>> {
+  uploadImage(file: File): Observable<ApiResponse<FileResponse>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
-    if (description) {
-      formData.append('description', description);
-    }
-
     return this.http.post<ApiResponse<FileResponse>>(`${this.baseUrl}/upload`, formData);
   }
 
@@ -72,5 +68,11 @@ export class FileService {
 
   triggerClearUploadImagesComponent() {
     this.clearImages.emit();
+  }
+
+  getInlineImage(id: number): Observable<Blob> {
+    return this.http.get(`${this.baseUrl}/${id}`, {
+      responseType: 'blob',
+    });
   }
 }

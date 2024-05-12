@@ -24,8 +24,7 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit {
   constructor(private headerService: HeaderService) {}
 
   ngOnInit() {
-    this.headerService.setTitulo('Teste');
-    this.headerService.setNumero(3);
+    this.headerService.setTitulo('Dashboard');
   }
 
   ngAfterViewInit() {

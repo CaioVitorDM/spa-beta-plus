@@ -1,18 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {NgIf} from '@angular/common';
 import {SidebarToggleService} from '../../services/header/sidebar-toggle.service';
 import {HeaderService} from '../../services/header/header-info.service';
-import {Router} from '@angular/router';
-import { RouterModule } from '@angular/router'; // Importe RouterModule
+import {RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [NgIf,RouterModule],
+  imports: [NgIf, RouterModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() titulo: string | null = null; // O título é opcional e pode variar
   @Input() numero: number | null = null; // O número é opcional
   @Input() nomeUsuario: string = '';
@@ -20,7 +19,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private sidebarToggleService: SidebarToggleService,
-    private headerService: HeaderService,
+    private headerService: HeaderService
   ) {}
 
   ngOnInit(): void {
@@ -34,4 +33,10 @@ export class HeaderComponent implements OnInit {
     this.sidebarToggleService.triggerFunction();
   }
 
+  ngOnDestroy(): void {
+    this.titulo = '';
+    this.numero = null;
+    this.nomeUsuario = '';
+    this.fotoUsuario = '';
+  }
 }

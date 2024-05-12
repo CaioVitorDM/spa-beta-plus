@@ -21,7 +21,7 @@
 
   <div class="same-line-inputs-container">
     <div class="align-inputs-and-error-messages">
-      <input type="text" mask="(00) 0000-0000" placeholder="(00) 0000-0000" formControlName="phoneNumber" [ngClass]="{'input-error': isInputInvalid('phoneNumber')}"/>
+      <input type="text" mask="(00) 00000-0000" placeholder="(00) 0000-0000" formControlName="phoneNumber" [ngClass]="{'input-error': isInputInvalid('phoneNumber')}"/>
       <span class="invalid-input-message" *ngIf="isInputInvalid('phoneNumber')">
         {{ formUtils.getErrorMessage(registerForm, 'phoneNumber') }}
       </span>

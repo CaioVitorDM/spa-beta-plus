@@ -46,6 +46,20 @@ export interface MedicUserForm {
   birthDate: string;
   login: string;
   password: string;
+  fileId: number;
+}
+
+export interface PatientUserForm {
+  doctorId: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  cpf: string;
+  birthDate: string;
+  login: string;
+  password: string;
+  fileId: number;
 }
 
 export interface UserList {
@@ -62,6 +76,7 @@ export interface User {
     doctorId: number;
     cpf: string;
     birthDate: string;
+    name: string;
   };
   doctor?: {
     id?: number;
@@ -75,4 +90,5 @@ export interface User {
   role: keyof typeof ROLES;
   email: string;
   phoneNumber: string;
+  imgId?: number;
 }

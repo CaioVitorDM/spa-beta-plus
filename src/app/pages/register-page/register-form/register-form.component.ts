@@ -63,6 +63,7 @@ export class RegisterFormComponent implements OnDestroy {
     birthDate: new FormControl('', [Validators.required, this.ageValidator()]),
     login: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    fileId: [''],
   });
 
   onSubmit() {
@@ -98,6 +99,7 @@ export class RegisterFormComponent implements OnDestroy {
       birthDate: '',
       login: '',
       password: '',
+      fileId: '',
     });
   }
 
