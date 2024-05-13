@@ -1,0 +1,11 @@
+<div class="upload-container">
+    <div class="icon-container">
+        <img src="/../assets/images/upload-file.png" alt="Upload Icon" class="upload-icon">
+    </div>
+    <label class="custom-file-upload">
+        <input type="file" id="file-input" (click)="onClickInput($event)" (change)="onFileSelected($event)" hidden />
+        Enviar arquivo
+    </label>
+    <span *ngIf="fileName">{{ fileName }}</span>
+    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+</div>

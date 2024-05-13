@@ -1,0 +1,32 @@
+.patient-selector-container {
+    background:rgba(95, 65, 178, 0.301);
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 13px;
+    overflow-y: auto; 
+    max-height: 200px; /* Altura máxima antes de começar a rolar - preciso ajustar*/
+    
+}
+  
+  
+.patient-selector-container h3 {
+    color: #5F41B2;
+    font-weight: normal;
+    margin: 0;
+    font-size: 15px;
+}
+
+  
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    margin: 10px;
+}
+  
+.checkbox-item input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.checkbox-item label {
+    flex: 1;
+}

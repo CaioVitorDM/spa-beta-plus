@@ -1,0 +1,15 @@
+<div class="patient-selector-container">
+    <h3>Pacientes</h3>
+    <div class="patient-selector">
+      <div class="checkbox-item">
+        <input type="checkbox" id="selectAll" (change)="onAllChange($event)">
+        <label for="selectAll">Todos</label>
+      </div>
+      <div class="checkbox-item" *ngFor="let patient of patients">
+        <input type="checkbox" [id]="patient.id" [(ngModel)]="patient.selected">
+        <label [for]="patient.id">{{ patient.name }}</label>
+        <label [for]="patient.id">{{ patient.login }}</label>
+      </div>
+    </div>
+</div>
+  
