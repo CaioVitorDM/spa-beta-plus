@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, input, Output} from '@angular/core';
 import {NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 
@@ -11,7 +11,7 @@ import {FormsModule} from '@angular/forms';
 })
 export class UploadComponentComponent {
   @Output() fileSelected = new EventEmitter<File>();
-  filePath!: string;
+  @Input() filePath?: string;
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];

@@ -62,8 +62,9 @@ export interface PatientUserForm {
   fileId: number;
 }
 
-export interface UserList {
+export interface PatientList {
   id?: number;
+  createdAt: string;
   name: string;
   birthDate: string;
   phoneNumber: string;

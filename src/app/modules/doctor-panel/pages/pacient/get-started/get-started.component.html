@@ -9,14 +9,26 @@
     <button class="new-button" (click)="navigateToCreatePage()">+  Novo paciente</button>
   </div>
 
-  <app-patients-table></app-patients-table>
+  <div class="paginators-container">
+    <app-custom-select style="width: 100px"
+                       [paginator]="true"
+                       ngClass="custom-select"
+                       [isActiveIcon]="true"
+                       [items]="pageNumber"
+                       (defaultItemSelectedChange)="handleSelectedPage($event)"
+                       [defaultItemSelected]="selectedPage"
+    />
 
-  <app-custom-select style="width: 100px"
-    [paginator]="true"
-    ngClass="custom-select"
-    [isActiveIcon]="true"
-    [items]="pageNumber"
-    (defaultItemSelectedChange)="handleSelectedPage($event)"
-    [defaultItemSelected]="selectedPage"
-  />
+    <app-custom-select style="width: 140px; margin-right: 20px"
+                       [paginator]="true"
+                       ngClass="custom-select"
+                       [isActiveIcon]="true"
+                       [items]="paginatorItems"
+                       (defaultItemSelectedChange)="handleSelectedItem($event)"
+                       [defaultItemSelected]="selectedPaginator"
+    />
+  </div>
+
+  <app-patients-table [dataSource]="patientData"></app-patients-table>
+
 </div>

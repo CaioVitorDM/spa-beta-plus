@@ -1,3 +1,5 @@
+import {PatientList} from './User';
+
 export type ApiResponse<T> = {
   data: T;
   message: string;
@@ -16,3 +18,51 @@ export type ApiResponse<T> = {
     timestamp: string;
   };
 };
+
+export enum Direction {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
+
+export type Page<T> = {
+  content: T;
+  empty: boolean;
+  first: boolean;
+  last: boolean;
+  number: number;
+  numberOfElements: number;
+  pageable: Pageable;
+  size: number;
+  sort: Sort;
+  totalElements: number;
+  totalPages: number;
+};
+
+export type Pageable = {
+  offset: number;
+  pageNumber?: number;
+  pageSize?: number;
+  paged?: boolean;
+  sort?: Sort;
+  unpaged?: boolean;
+};
+
+export type Sort = {
+  empty: boolean;
+  unsorted: boolean;
+  sorted: boolean;
+};
+
+export type ParamsPage<T> = {
+  size?: number;
+  page?: number;
+  sort?: keyof T;
+  order?: 'ASC' | 'DESC';
+};
+
+export interface ParamsPagePatient extends ParamsPage<PatientList> {
+  name?: string | null;
+  email?: string | null;
+  phoneNumber: string | null;
+  doctorId: number | null;
+}
