@@ -50,7 +50,6 @@ export class EditPatientComponent implements OnInit, AfterViewInit {
   }
 
   fetchImage(imgId: number) {
-    console.log(imgId);
     this.fileService.getInlineImage(imgId).subscribe({
       next: (blob) => {
         this.imageSrc = URL.createObjectURL(blob);
