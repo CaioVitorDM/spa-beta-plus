@@ -1,6 +1,6 @@
 import {NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-upload-file',
@@ -10,8 +10,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./upload-file.component.scss']
 })
 export class UploadFileComponent {
+  
+  @Output() fileSelected = new EventEmitter<File>();
+  filePath!: string;
+
   fileName: string = '';
-  filePath: string = '';
   errorMessage: string = '';
   dialogOpened: boolean = false;
 
@@ -23,8 +26,8 @@ export class UploadFileComponent {
       const reader = new FileReader();
       reader.onload = (e: any) => {
         this.filePath = e.target.result;
+        this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
       };
-      reader.readAsDataURL(file);
     }
 
     clearTimeout(this.timer);

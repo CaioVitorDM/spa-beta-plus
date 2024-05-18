@@ -1,3 +1,4 @@
+
 .component-container {
   display: flex;
   flex-wrap: wrap;
@@ -8,7 +9,6 @@
 }
 
 .search-container {
-  min-width: 28.1rem;
 
   @media (max-width: 768px) {
     width: 100%;

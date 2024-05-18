@@ -22,9 +22,5 @@
           {{ formUtils.getErrorMessage(protocolForm, 'description') }}
         </span>
     </div>
-
-    <div *ngIf="protocolForm.get('isSpecific')?.value" style="width: 100%">
-        <app-patients-selector [patients]="patients"></app-patients-selector>
-    </div>
 </form>
   

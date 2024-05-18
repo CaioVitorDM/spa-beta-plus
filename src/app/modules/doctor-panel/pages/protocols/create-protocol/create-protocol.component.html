@@ -1,6 +1,10 @@
 
 <div class="container">
     <app-upload-file></app-upload-file>
-    <app-protocols-form></app-protocols-form>
+    <app-protocols-form (specificChanged)="togglePatientsSelector($event)"></app-protocols-form>
+    
+    <div *ngIf="showPatientsSelector">
+        <app-patients-selector></app-patients-selector>
+    </div>
     <button class="submit-button" (click)="onSubmit()">Salvar</button>
 </div>

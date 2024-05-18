@@ -1,32 +1,57 @@
 .patient-selector-container {
-    background:rgba(95, 65, 178, 0.301);
-    border-radius: 5px;
-    padding: 10px 15px;
     font-size: 13px;
-    overflow-y: auto; 
-    max-height: 200px; /* Altura máxima antes de começar a rolar - preciso ajustar*/
+    padding: 0 40px;
+}
+
+.patient-selector {
+    background: rgba(95, 65, 178, 0.301);
+    border-radius: 5px;
+    font-size: 13px;
+    overflow-y: auto;
+    max-height: 200px;
+    margin: 15px 0;
+}
+
+.patients-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     
 }
-  
-  
+
 .patient-selector-container h3 {
     color: #5F41B2;
     font-weight: normal;
-    margin: 0;
     font-size: 15px;
 }
 
-  
 .checkbox-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr 1fr; 
+    gap: 10px;
     align-items: center;
-    margin: 10px;
-}
-  
-.checkbox-item input[type="checkbox"] {
-    margin-right: 10px;
+    margin: 15px;
 }
 
-.checkbox-item label {
-    flex: 1;
+
+@media (max-width: 685px) {
+
+    .checkbox-item {
+        grid-template-columns: auto 1fr; 
+        grid-template-rows: auto auto; 
+    }
+
+    .login-label {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+
+    .patients-header {
+        flex-direction: column;
+        align-items: flex-start; 
+    }
+
+    
 }
