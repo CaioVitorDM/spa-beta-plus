@@ -1,5 +1,7 @@
-
 <div class="container">
+    <button class="back-button" (click)="navigateBack()">
+        <img src="../../../../../assets/images/voltar.png" class="img-back" alt="Voltar">
+    </button>        
     <app-upload-file></app-upload-file>
     <app-protocols-form (specificChanged)="togglePatientsSelector($event)"></app-protocols-form>
     
