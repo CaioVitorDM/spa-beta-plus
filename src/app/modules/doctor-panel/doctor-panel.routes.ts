@@ -12,6 +12,7 @@ export const routes: Routes = [
         (m) => m.PacientModule
       ),
   },
+  { path: 'protocols', loadChildren: () => import('./pages/protocols/protocols.module').then(m => m.ProtocolsModule) },
 ];
 
 @NgModule({

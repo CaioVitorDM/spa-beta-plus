@@ -1,0 +1,26 @@
+<form class="register-form" #formRef="ngForm" [formGroup]="protocolForm">
+
+    <div class="same-line-inputs-container">
+        <div class="align-inputs-and-error-messages">
+            <input type="text" placeholder="Nome do protocolo" formControlName="protocolName" [ngClass]="{'input-error': isInputInvalid('protocolName')}"/>
+            <span class="invalid-input-message" *ngIf="isInputInvalid('protocolName')">
+                {{ formUtils.getErrorMessage(protocolForm, 'protocolName') }}
+            </span>
+        </div>
+
+        <div class="align-inputs-and-error-messages">
+            <div class="input-check">
+                <input type="checkbox" id="isSpecific" formControlName="isSpecific" >
+                <label for="isSpecific">Este protocolo é específico?</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="align-inputs-and-error-messages" style="width: 100%">
+        <textarea placeholder="Descrição" formControlName="description" [ngClass]="{'input-error': isInputInvalid('description')}"></textarea>
+        <span class="invalid-input-message" *ngIf="isInputInvalid('description')">
+          {{ formUtils.getErrorMessage(protocolForm, 'description') }}
+        </span>
+    </div>
+</form>
+  

@@ -1,0 +1,42 @@
+.upload-container{
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin:20px;
+    gap: 10px;
+  }
+  
+  
+
+  .upload-icon{
+    width: 70px;
+    height: 70px;
+    object-fit: cover; /* garante que a imagem do perfil cubra o espaço designado */
+  }
+  
+
+  .custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: #5F41B2;
+    border: 1px solid #5F41B2;
+    border-radius: 5px;
+    background: transparent;
+    font-size: 14px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #5F41B2;
+    color: white;
+  }
+
+  .error-message {
+    font-size: 0.75rem;
+    color: #ec3333 !important;
+  }
+  
+  
