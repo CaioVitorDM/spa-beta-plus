@@ -76,6 +76,7 @@ export class CreateProtocolComponent {
           })
         )
         .subscribe((result: Protocol) => {
+          console.log("lalala");
           this.handleSuccess();
         });
     

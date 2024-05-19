@@ -1,6 +1,9 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ItemSelect } from 'src/app/components/custom-select/custom-select.component';
+import { PatientService } from '../../../pacient/services/patient.service';
+import { Direction } from 'src/app/models/ApiResponse';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-patients-selector',
@@ -13,20 +16,40 @@ export class PatientsSelectorComponent implements OnInit {
   
   message: string = 'Por favor, escolha pelo menos um paciente.';
 
+  constructor(private patientService: PatientService,
+              private authService: AuthService) {}
+
   ngOnInit() {
     this.loadPatients();
   }
 
   loadPatients() {
-  
-    this.patients = [
-      { id: 1, name: 'Carla Medeiros lLALALLALSFAFAS', login: 'carla.medeiros', selected: false },
-      { id: 2, name: 'Luísa Almeida', login: 'luisa.almeida', selected: false },
-      { id: 3, name: 'João Silva', login: 'joao.silva', selected: false },
-      { id: 4, name: 'Ana Pereira', login: 'ana.pereira', selected: false }
-    ];
+    this.patientService
+    .list({
+      page: 0,
+      size: 10000,
+      sort: 'createdAt',
+      order: Direction.ASC,
+      name: '',
+      email: '',
+      phoneNumber: '',
+      doctorId: this.authService.doctorId!,
+    }).subscribe({
+      next: (page) => {
+        this.patients = page.content.map(user => ({
+          id: user.patient?.id,
+          name: user.patient?.name || 'No Name',
+          login: user.login,
+          selected: false
+        }));
+      },
+      error: (error) => {
+        console.error('Error loading patients:', error);
+        this.message = 'Erro ao carregar pacientes.';
+      }
+    });
   }
-
+  
 onAllChange(event: Event) {
   const checkbox = event.target as HTMLInputElement;
   this.toggleAll(checkbox.checked);
@@ -39,8 +62,12 @@ toggleAll(selected: boolean) {
 }
 
 emitSelectedPatients() {
-  const selectedIds = this.patients.filter(patient => patient.selected).map(patient => patient.id);
-  this.patientsSelected.emit(selectedIds);
+  const selectedIds = this.patients
+      .filter(patient => patient.selected)  
+      .map(patient => patient.id)           
+      .filter(id => id !== undefined);      
+  
+  this.patientsSelected.emit(selectedIds as number[]); 
   this.checkAllSelected(); 
   this.message = selectedIds.length === 0 ? 'Por favor, escolha pelo menos um paciente.' : '';
 }
@@ -69,7 +96,7 @@ checkAllSelected() {
 }
 
 export interface PatientList {
-  id: number;
+  id?: number;
   name: string;
   login: string;
   selected?: boolean; 

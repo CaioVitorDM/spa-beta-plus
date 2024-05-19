@@ -8,6 +8,10 @@
   }
 }
 
+.search-box {
+  flex-grow: 1;
+}
+
 .search-container {
 
   @media (max-width: 768px) {
@@ -53,6 +57,8 @@
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
     justify-content: space-between;
+    padding: 0 10px;
+    max-width: -webkit-fill-available;
   }
 
   border: 1px solid #e8e9e9;
