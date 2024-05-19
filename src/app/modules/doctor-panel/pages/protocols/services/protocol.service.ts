@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {first, map, Observable} from 'rxjs';
 import {ApiResponse} from '../../../../../models/ApiResponse';
 import { Protocol } from 'src/app/models/Protocol';
+import { Patient, User } from 'src/app/models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -19,4 +20,14 @@ export class ProtocolService {
       map(({data: protocol}: ApiResponse<Protocol>) => protocol)
     );
   }
+
+  getPatientsByDoctorId(doctorId: number): Observable<User[]> {
+    return this.httpClient
+      .get<ApiResponse<User[]>>(`${environment.apiPermissionUrl}/users/patients/${doctorId}`)
+      .pipe(
+        first(),
+        map((response) => response.data)
+      );
+  }
+
 }

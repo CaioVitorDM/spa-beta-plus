@@ -1,9 +1,8 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { ItemSelect } from 'src/app/components/custom-select/custom-select.component';
-import { PatientService } from '../../../pacient/services/patient.service';
 import { Direction } from 'src/app/models/ApiResponse';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ProtocolService } from '../../services/protocol.service';
 
 @Component({
   selector: 'app-patients-selector',
@@ -16,7 +15,7 @@ export class PatientsSelectorComponent implements OnInit {
   
   message: string = 'Por favor, escolha pelo menos um paciente.';
 
-  constructor(private patientService: PatientService,
+  constructor(private protocolService: ProtocolService,
               private authService: AuthService) {}
 
   ngOnInit() {
@@ -24,20 +23,11 @@ export class PatientsSelectorComponent implements OnInit {
   }
 
   loadPatients() {
-    this.patientService
-    .list({
-      page: 0,
-      size: 10000,
-      sort: 'createdAt',
-      order: Direction.ASC,
-      name: '',
-      email: '',
-      phoneNumber: '',
-      doctorId: this.authService.doctorId!,
-    }).subscribe({
-      next: (page) => {
-        this.patients = page.content.map(user => ({
-          id: user.patient?.id,
+    this.protocolService
+    .getPatientsByDoctorId(this.authService.doctorId!).subscribe({
+      next: (data) => {
+        this.patients = data.map(user => ({
+          id: user.id,
           name: user.patient?.name || 'No Name',
           login: user.login,
           selected: false

@@ -35,6 +35,7 @@ export interface Patient {
   doctorId: number;
   cpf: string;
   birthDate: string;
+  name: string;
 }
 
 export interface MedicUserForm {
