@@ -34,8 +34,11 @@
     color: white;
   }
 
-  .error-message {
+  span {
     font-size: 0.75rem;
+  }
+  
+  .error-message {
     color: #ec3333 !important;
   }
   

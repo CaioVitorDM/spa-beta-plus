@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ItemSelect } from 'src/app/components/custom-select/custom-select.component';
 
@@ -8,7 +8,10 @@ import { ItemSelect } from 'src/app/components/custom-select/custom-select.compo
   styleUrl: './patients-selector.component.scss'
 })
 export class PatientsSelectorComponent implements OnInit {
+  @Output() patientsSelected = new EventEmitter<number[]>();
   patients: PatientList[] = [];
+  
+  message: string = 'Por favor, escolha pelo menos um paciente.';
 
   ngOnInit() {
     this.loadPatients();
@@ -24,14 +27,31 @@ export class PatientsSelectorComponent implements OnInit {
     ];
   }
 
-  toggleAll(selected: boolean) {
-    this.patients.forEach(patient => patient.selected = selected);
-  }
+onAllChange(event: Event) {
+  const checkbox = event.target as HTMLInputElement;
+  this.toggleAll(checkbox.checked);
+  this.emitSelectedPatients();  
+}
 
-  onAllChange(event: Event) {
-    const checkbox = event.target as HTMLInputElement;
-    this.toggleAll(checkbox.checked);
+toggleAll(selected: boolean) {
+  this.patients.forEach(patient => patient.selected = selected);
+  this.emitSelectedPatients(); 
+}
+
+emitSelectedPatients() {
+  const selectedIds = this.patients.filter(patient => patient.selected).map(patient => patient.id);
+  this.patientsSelected.emit(selectedIds);
+  this.checkAllSelected(); 
+  this.message = selectedIds.length === 0 ? 'Por favor, escolha pelo menos um paciente.' : '';
+}
+
+checkAllSelected() {
+  const allSelected = this.patients.every(patient => patient.selected);
+  const selectAllCheckbox = document.getElementById('selectAll') as HTMLInputElement;
+  if (selectAllCheckbox) {
+    selectAllCheckbox.checked = allSelected;
   }
+}
 
   searchOptions: ItemSelect[] = [
     {value: 'name', label: 'Nome'},

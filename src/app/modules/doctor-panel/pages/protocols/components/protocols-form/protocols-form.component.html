@@ -1,10 +1,9 @@
 <form class="register-form" #formRef="ngForm" [formGroup]="protocolForm">
-
     <div class="same-line-inputs-container">
         <div class="align-inputs-and-error-messages">
-            <input type="text" placeholder="Nome do protocolo" formControlName="protocolName" [ngClass]="{'input-error': isInputInvalid('protocolName')}"/>
-            <span class="invalid-input-message" *ngIf="isInputInvalid('protocolName')">
-                {{ formUtils.getErrorMessage(protocolForm, 'protocolName') }}
+            <input type="text" placeholder="Nome do protocolo" formControlName="name" [ngClass]="{'input-error': isInputInvalid('name')}"/>
+            <span class="invalid-input-message" *ngIf="isInputInvalid('name')">
+                {{ formUtils.getErrorMessage(protocolForm, 'name') }}
             </span>
         </div>
 
@@ -22,5 +21,7 @@
           {{ formUtils.getErrorMessage(protocolForm, 'description') }}
         </span>
     </div>
+
+    
 </form>
   

@@ -24,6 +24,7 @@
     color: #5F41B2;
     font-weight: normal;
     font-size: 15px;
+    margin: 0;
 }
 
 .checkbox-item {
@@ -34,6 +35,15 @@
     margin: 15px;
 }
 
+.title-and-message {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.title-and-message span {
+    color: #ec3333;
+}
 
 @media (max-width: 685px) {
 
