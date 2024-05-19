@@ -10,7 +10,7 @@ import { ProtocolsFormService } from './service/protocols-form.service';
 @Component({
   selector: 'app-protocols-form',
   templateUrl: './protocols-form.component.html',
-  styleUrl: './protocols-form.component.scss'
+  styleUrls: ['./protocols-form.component.scss','../../../../../../../assets/css/checkbox.scss']
 })
 export class ProtocolsFormComponent {
 

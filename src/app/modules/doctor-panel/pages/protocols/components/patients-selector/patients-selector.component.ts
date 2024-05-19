@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 @Component({
   selector: 'app-patients-selector',
   templateUrl: './patients-selector.component.html',
-  styleUrl: './patients-selector.component.scss'
+  styleUrls: ['./patients-selector.component.scss', '../../../../../../../assets/css/checkbox.scss']
 })
 export class PatientsSelectorComponent implements OnInit {
   @Output() patientsSelected = new EventEmitter<number[]>();
