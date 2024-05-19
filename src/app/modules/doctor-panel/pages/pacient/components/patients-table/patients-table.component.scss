@@ -20,6 +20,14 @@ table {
     text-align: left;
     padding: 10px;
     color: #6C6C6C;
+
+    button{
+      border: none;
+      background: none;
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 50%;
+    }
   }
   th {
     background-color: rgba(95, 65, 178, 0.6);
@@ -136,4 +144,22 @@ table {
 
 .list-card:hover{
   background-color: #5f41b214;
+}
+
+.floating-actions-menu{
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px;
+
+  button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-family: Poppins, sans-serif;
+  }
+
+  button:hover{
+    background-color: rgba(108, 108, 108, 0.19);
+  }
 }

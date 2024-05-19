@@ -12,6 +12,9 @@ import {CustomSelectComponent} from '../../../../components/custom-select/custom
 import {PatientFormComponent} from './components/patient-form/patient-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import {NgxMaskDirective} from 'ngx-mask';
+import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
+import {EditPatientComponent} from './edit-patient/edit-patient.component';
+import {MatIconButton} from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,7 @@ import {NgxMaskDirective} from 'ngx-mask';
     PatientsTableComponent,
     CreatePatientComponent,
     PatientFormComponent,
+    EditPatientComponent,
   ],
   imports: [
     CommonModule,
@@ -30,6 +34,10 @@ import {NgxMaskDirective} from 'ngx-mask';
     CustomSelectComponent,
     ReactiveFormsModule,
     NgxMaskDirective,
+    MatMenu,
+    MatMenuTrigger,
+    MatMenuItem,
+    MatIconButton,
   ],
 })
 export class PacientModule {}
