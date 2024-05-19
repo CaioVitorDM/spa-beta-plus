@@ -45,6 +45,7 @@
     color: #ec3333;
 }
 
+
 @media (max-width: 685px) {
 
     .checkbox-item {
@@ -55,6 +56,7 @@
     .login-label {
         grid-column: 2;
         grid-row: 2;
+        margin-left: 1.75em;
     }
 
 
@@ -69,7 +71,7 @@
 @media (max-width: 897px) {
     .patients-header {
         flex-direction: column;
-        align-items: normal; 
+        align-items: stretch; 
     }
 
 }

@@ -11,14 +11,18 @@
     ></app-input-search>
 </div>
 <div class="patient-selector">
-  <div class="checkbox-item">
-    <input type="checkbox" id="selectAll" (change)="onAllChange($event)">
-    <label for="selectAll">Todos</label>
+  <div class="checkbox-wrapper-1">
+    <div class="checkbox-item">
+      <input type="checkbox" id="selectAll" (change)="onAllChange($event)" class="substituted" aria-hidden="true">
+      <label for="selectAll">Todos</label>
+    </div>
   </div>
-  <div class="checkbox-item" *ngFor="let patient of patients">
-    <input type="checkbox" [id]="patient.id" [(ngModel)]="patient.selected" (ngModelChange)="emitSelectedPatients()">
-    <label [for]="patient.id">{{ patient.name }}</label>
-    <label [for]="patient.id" class="login-label">{{ patient.login }}</label>
+  <div class="checkbox-wrapper-1">
+    <div class="checkbox-item" *ngFor="let patient of patients">
+      <input type="checkbox" [id]="patient.id" [(ngModel)]="patient.selected" (ngModelChange)="emitSelectedPatients()" class="substituted" aria-hidden="true">
+      <label [for]="patient.id" class="name-label">{{ patient.name }}</label>
+      <label [for]="patient.id" class="login-label">{{ patient.login }}</label>
+    </div>
   </div>
 </div>
 </div>
