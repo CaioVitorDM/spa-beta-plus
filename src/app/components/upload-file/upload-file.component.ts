@@ -12,10 +12,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 export class UploadFileComponent {
   
   @Output() fileSelected = new EventEmitter<File>();
-  filePath!: string;
 
   fileName: string = '';
-  errorMessage: string = '';
+  errorMessage: string = 'Por favor, escolha um arquivo.';
   dialogOpened: boolean = false;
 
   onFileSelected(event: any): void {
@@ -23,28 +22,11 @@ export class UploadFileComponent {
     if (file) {
       this.fileName = file.name;
       this.errorMessage = '';
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.filePath = e.target.result;
-        this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
-      };
+      this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
+      console.log("emitindo");
+      
     }
-
-    clearTimeout(this.timer);
   }
 
-  timer: any = null;
 
-  onClickInput(event: any): void {
-    this.dialogOpened = true;
-    this.errorMessage = ''; 
-    event.target.value = null; 
-
-    this.timer = setTimeout(() => {
-      if (!this.fileName && this.dialogOpened) {
-        this.errorMessage = 'Arquivo não selecionado. Por favor, escolha um arquivo.';
-        this.dialogOpened = false;
-      }
-    }, 500); 
-  }
 }

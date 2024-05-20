@@ -24,6 +24,7 @@
     color: #5F41B2;
     font-weight: normal;
     font-size: 15px;
+    margin: 0;
 }
 
 .checkbox-item {
@@ -32,6 +33,16 @@
     gap: 10px;
     align-items: center;
     margin: 15px;
+}
+
+.title-and-message {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.title-and-message span {
+    color: #ec3333;
 }
 
 
@@ -45,6 +56,7 @@
     .login-label {
         grid-column: 2;
         grid-row: 2;
+        margin-left: 1.75em;
     }
 
 
@@ -52,6 +64,13 @@
         flex-direction: column;
         align-items: flex-start; 
     }
-
     
+}
+
+@media (max-width: 897px) {
+    .patients-header {
+        flex-direction: column;
+        align-items: stretch; 
+    }
+
 }
