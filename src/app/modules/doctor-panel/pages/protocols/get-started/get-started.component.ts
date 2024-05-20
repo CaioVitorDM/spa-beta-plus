@@ -108,12 +108,24 @@ export class GetStartedComponent implements OnInit{
   }
 
   submitSearch(searchType: string | number, searchText: string | null): void {
-    console.log(searchType);
-    console.log(searchText);
+    if (searchType === 'name') {
+      this.name = searchText;
+      this.createdAt = '';
+    }
+    if (searchType === 'createdAt') {
+      this.createdAt = searchText;
+      this.name = '';
+    }
+    this.page = 0;
+
+    this.fetchData();
   }
 
   cleanSearch() {
-    console.log('cleaned');
+    this.name = '';
+    this.createdAt = '';
+
+    this.fetchData();
   }
 
   fetchData() {
@@ -160,7 +172,7 @@ export class GetStartedComponent implements OnInit{
     this.pageBySize = Math.ceil(this.totalItems / this.size);
     this.pageNumber = Array.from({length: this.pageBySize}, (_, i) => ({
       value: i,
-      label: "Página " + (i + 1),
+      label: 'Página ' + (i + 1),
     }));
     this.isFirstPage = protocols.first;
     this.isLastPage = protocols.last;
