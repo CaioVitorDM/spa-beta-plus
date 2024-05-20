@@ -16,7 +16,6 @@ export type ItemSelect = {
   value: string | number;
   label: string;
   selected?: boolean;
-  isDate?: boolean;
 };
 
 @Component({

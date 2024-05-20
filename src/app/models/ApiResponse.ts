@@ -1,4 +1,3 @@
-import { ProtocolList } from './Protocol';
 import {PatientList} from './User';
 
 export type ApiResponse<T> = {
@@ -67,10 +66,3 @@ export interface ParamsPagePatient extends ParamsPage<PatientList> {
   phoneNumber: string | null;
   doctorId: number | null;
 }
-
-export interface ParamsPageProtocol extends ParamsPage<ProtocolList> {
-  name?: string | null;
-  createdAt?: string | null;
-  doctorId: number | null;
-}
-

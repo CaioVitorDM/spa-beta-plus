@@ -49,7 +49,7 @@ export class CreatePatientComponent {
     const file = this.uploadingFile;
     console.log(file.name);
     console.log(file.type);
-    this.fileService.uploadFile(file).subscribe({
+    this.fileService.uploadImage(file).subscribe({
       next: (response) => {
         console.log('Imagem enviada com sucesso!', response);
         // Lógica adicional após o upload com sucesso
@@ -69,7 +69,7 @@ export class CreatePatientComponent {
 
       if (this.uploadingFile) {
         this.createPatientSubscription = this.fileService
-          .uploadFile(this.uploadingFile)
+          .uploadImage(this.uploadingFile)
           .pipe(
             switchMap((fileResponse) => {
               formDataPatient.fileId = fileResponse.data.id;

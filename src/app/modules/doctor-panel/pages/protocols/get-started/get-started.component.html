@@ -1,35 +1,23 @@
 <div class="get-started-container">
-  <div class="filter-container">
-    <app-input-search
-    [items]="searchOptions"
-    [submitSearchFunction]="submitSearch.bind(this)"
-    [cleanSearchFunction]="cleanSearch.bind(this)"
-  ></app-input-search>
-    <!--<input type="text" class="filter-input" placeholder="Buscar">-->
-    <button class="new-button" (click)="navigateToCreatePage()">+  Novo protocolo</button>
+    <div class="filter-container">
+      <app-input-search
+      [items]="searchOptions"
+      [submitSearchFunction]="submitSearch.bind(this)"
+      [cleanSearchFunction]="cleanSearch.bind(this)"
+      ></app-input-search>
+      <!--<input type="text" class="filter-input" placeholder="Buscar">-->
+      <button class="new-button" (click)="navigateToCreatePage()">+  Novo protocolo</button>
+    </div>
+  
+<app-protocols-table></app-protocols-table>
+  
+      <app-custom-select style="width: 100px"
+      [paginator]="true"
+      ngClass="custom-select"
+      [isActiveIcon]="true"
+      [items]="pageNumber"
+      (defaultItemSelectedChange)="handleSelectedPage($event)"
+      [defaultItemSelected]="selectedPage"
+    />
   </div>
-    
-<div class="paginators-container">
-  <app-custom-select style="width: 100px"
-                     [paginator]="true"
-                     ngClass="custom-select"
-                     [isActiveIcon]="true"
-                     [items]="pageNumber"
-                     (defaultItemSelectedChange)="handleSelectedPage($event)"
-                     [defaultItemSelected]="selectedPage"
-  />
-
-  <app-custom-select style="width: 140px; margin-right: 20px"
-                     [paginator]="true"
-                     ngClass="custom-select"
-                     [isActiveIcon]="true"
-                     [items]="paginatorItems"
-                     (defaultItemSelectedChange)="handleSelectedItem($event)"
-                     [defaultItemSelected]="selectedPaginator"
-  />
-</div>
-
-<app-protocols-table [dataSource]="protocolData"></app-protocols-table>
-
-</div>
   
