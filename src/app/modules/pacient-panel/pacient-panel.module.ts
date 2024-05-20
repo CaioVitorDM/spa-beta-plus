@@ -11,6 +11,10 @@ import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashb
 import {DetailsCardComponent} from '../../components/details-card/details-card.component';
 import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
+import { BetaGraphComponent } from './pages/beta-graph/beta-graph.component';
+import { BetaMenuComponent } from 'src/app/components/beta-menu/beta-menu.component';
+import { BetaGeneralComponent } from 'src/app/components/beta-general/beta-general.component';
+import { InputSearchComponent } from 'src/app/components/input-search/input-search.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +23,7 @@ import {ProfileComponent} from './pages/profile/profile.component';
     PatientDashboardComponent,
     MedicComponent,
     ProfileComponent,
+    BetaGraphComponent,
   ],
   imports: [
     CommonModule,
@@ -28,6 +33,9 @@ import {ProfileComponent} from './pages/profile/profile.component';
     HeaderComponent,
     UploadComponentComponent,
     DetailsCardComponent,
+    BetaMenuComponent,
+    BetaGeneralComponent,
+    InputSearchComponent,
   ],
 })
 export class PacientPanelModule {}
