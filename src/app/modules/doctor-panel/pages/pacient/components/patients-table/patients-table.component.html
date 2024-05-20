@@ -6,14 +6,26 @@
       <th>Data de Nascimento</th>
       <th>Telefone</th>
       <th>Email</th>
+      <th></th>
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let user of dataSource">
-      <td>{{ user.name }}</td>
-      <td>{{ user.birthDate | date:'dd/MM/yyyy' }}</td>
-      <td>{{ user.phoneNumber }}</td>
-      <td>{{ user.email }}</td>
+    <tr *ngFor="let patient of dataSource">
+      <td>{{ patient.name }}</td>
+      <td>{{ patient.birthDate | date:'dd/MM/yyyy' }}</td>
+      <td>{{ patient.phoneNumber }}</td>
+      <td>{{ patient.email }}</td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          ⋮
+        </button>
+        <mat-menu #menu="matMenu">
+          <div  class="floating-actions-menu">
+            <button mat-menu-item (click)="editUser(patient.id!)">Editar</button>
+            <button mat-menu-item (click)="deleteUser(patient.id!)">Excluir</button>
+          </div>
+        </mat-menu>
+      </td>
     </tr>
     </tbody>
   </table>
@@ -45,11 +57,11 @@
       </div>
 
       <div class="user-actions">
-        <button class="edit-btn" (click)="printButton('edit button')">
+        <button class="edit-btn" (click)="editUser(element.id!)">
           <img src="assets/images/svg/edit.svg" alt="" srcset="" />
           <span> Editar </span>
         </button>
-        <button class="delete-btn" (click)="printButton('delete button')">
+        <button class="delete-btn" (click)="deleteUser(element.id!)">
           <img src="assets/images/svg/inventory-red.svg" alt="" srcset="" />
           Excluir
         </button>

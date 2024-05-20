@@ -1,5 +1,6 @@
-import {Component} from '@angular/core';
-import {UserList} from '../../../../../../models/User';
+import {Component, Input} from '@angular/core';
+import {PatientList} from '../../../../../../models/User';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-patients-table',
@@ -7,41 +8,27 @@ import {UserList} from '../../../../../../models/User';
   styleUrl: './patients-table.component.scss',
 })
 export class PatientsTableComponent {
-  dataSource: UserList[] = [
-    {
-      id: 1,
-      name: 'Alice Jones',
-      birthDate: '1985-05-16',
-      phoneNumber: '555-1234',
-      email: 'alice.jones@example.com',
-    },
-    {
-      id: 2,
-      name: 'Bob Smith',
-      birthDate: '1990-07-23',
-      phoneNumber: '555-5678',
-      email: 'bob.smith@example.com',
-    },
-    {
-      id: 3,
-      name: 'Carol White',
-      birthDate: '1979-02-12',
-      phoneNumber: '555-9876',
-      email: 'carol.white@example.com',
-    },
-    {
-      id: 4,
-      name: 'David Brown',
-      birthDate: '1964-10-01',
-      phoneNumber: '555-6543',
-      email: 'david.brown@example.com',
-    },
-  ];
+  @Input() dataSource: PatientList[] = [];
+
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   printButton(action: string, event?: MouseEvent): void {
     if (event) {
       event.stopPropagation();
     }
     console.log(action);
+  }
+
+  navigateToCreatePage() {}
+
+  editUser(id: number) {
+    this.router.navigate([`/doctor-panel/patients/edit/${id}`], {relativeTo: this.activatedRoute});
+  }
+
+  deleteUser(id: number) {
+    console.log('delete ' + id);
   }
 }
