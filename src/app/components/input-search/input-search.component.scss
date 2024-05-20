@@ -197,6 +197,21 @@
     min-width: 1rem;
   }
 }
+.input-error {
+  border: 1px solid #ec3333 !important;
+  border-radius: 4px;
+}
+
+.invalid-input-message {
+  font-size: 0.75rem;
+  color: #ec3333 !important;
+}
+
+.align-inputs-and-error-messages {
+  display: flex;
+  flex-direction: column;
+  width: 48%;
+}
 
 .close-icon {
   width: 10px;

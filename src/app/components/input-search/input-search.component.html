@@ -40,21 +40,29 @@
     </ul>
   </div>
 
-  <div class="search-box">
-    <input
-      type="text"
-      class="input-pesquisa"
-      [placeholder]="searchPlaceholder"
-      [(ngModel)]="searchedValue"
-      (keyup.enter)="submitSearch(selectedValue.value, searchedValue)"
-    />
-
-    <button *ngIf="searchedValue" class="clear-icon" (click)="cleanSearch()">
-      <span>X</span>
-    </button>
-
-    <button class="search-icon" (click)="submitSearch(selectedValue.value, searchedValue)">
-      <img src="assets/images/svg/search-white.svg" style="width: 20px" alt="Ícone de lupa" />
-    </button>
+  <div class="align-inputs-and-error-messages">
+    <div class="search-box" [ngClass]="{'input-error': errorMessage}">
+      <input
+        type="text"
+        class="input-pesquisa"
+        [placeholder]="searchPlaceholder"
+        [(ngModel)]="searchedValue"
+        (blur)="onBlur()"
+        (keyup)="onInputChange()" 
+        (keyup.enter)="submitSearch(selectedValue.value, searchedValue)"
+        [mask]="mask"
+        [validation]="true"
+      />
+      
+      <button *ngIf="searchedValue" class="clear-icon" (click)="cleanSearch()">
+        <span>X</span>
+      </button>
+      
+      <button class="search-icon" (click)="submitSearch(selectedValue.value, searchedValue)">
+        <img src="assets/images/svg/search-white.svg" style="width: 20px" alt="Ícone de lupa" />
+      </button>
+    </div>
+    <span *ngIf="errorMessage" class="invalid-input-message">{{ errorMessage }}</span>
   </div>
+  
 </div>
