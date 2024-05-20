@@ -21,14 +21,22 @@ export class ProtocolService {
     );
   }
 
-  getPatientsByDoctorId(doctorId: number): Observable<User[]> {
-    return this.httpClient
-      .get<ApiResponse<User[]>>(`${environment.apiPermissionUrl}/users/patients/${doctorId}`)
+  getPatientsByDoctor(params: { doctorId: number, login?: string, name?: string }): Observable<User[]> {
+    let httpParams = new HttpParams();
+    Object.keys(params).forEach(key => {
+      const value = params[key as keyof typeof params];
+      if (value !== undefined && value !== null) {
+        httpParams = httpParams.set(key, value.toString());
+      }
+    });
+
+    return this.httpClient.get<ApiResponse<User[]>>(`${environment.apiPermissionUrl}/users/patients/doctor`, { params: httpParams })
       .pipe(
         first(),
-        map((response) => response.data)
+        map(response => response.data)  
       );
   }
+
 
   list({
     page = 0,

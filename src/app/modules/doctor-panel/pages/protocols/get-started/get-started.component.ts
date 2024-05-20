@@ -143,7 +143,6 @@ export class GetStartedComponent implements OnInit{
   }
 
   fetchData() {
-    console.log("data" + this.createdAt);
     this.loadProtocolsSubscription = this.protocolService
       .list({
         page: this.page,

@@ -3,6 +3,13 @@ import { ItemSelect } from 'src/app/components/custom-select/custom-select.compo
 import { Direction } from 'src/app/models/ApiResponse';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ProtocolService } from '../../services/protocol.service';
+import { ActivatedRoute } from '@angular/router';
+import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
+import { EMPTY, Subscription, catchError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { apiErrorStatusMessage } from 'src/app/constants/messages';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-patients-selector',
@@ -12,32 +19,93 @@ import { ProtocolService } from '../../services/protocol.service';
 export class PatientsSelectorComponent implements OnInit {
   @Output() patientsSelected = new EventEmitter<number[]>();
   patients: PatientList[] = [];
+  loadPatientsSubscription = new Subscription();
+  isLoading: boolean = false;
+  isError: boolean = false;
+
   
   message: string = 'Por favor, escolha pelo menos um paciente.';
-
+  
+  name: string | null = '';
+  login: string | null = '';
+  
   constructor(private protocolService: ProtocolService,
-              private authService: AuthService) {}
+              private authService: AuthService,
+              private route: ActivatedRoute,
+              private lineLoadingService: LineLoadingService,
+              private snackbar: SnackbarService,
+            ) {}
 
-  ngOnInit() {
+  searchOptions: ItemSelect[] = [
+    {value: 'name', label: 'Nome'},
+    {value: 'login', label: 'Login'}
+  ];
+
+   ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.name = params['name'] || this.name;
+      this.login = params['login'] || this.login;
+
+      this.loadPatients();
+    });
+  }
+
+  submitSearch(searchType: string | number, searchText: string | null): void {
+    if (searchType === 'name') {
+      this.name = searchText;
+      this.login = '';
+    }
+    if (searchType === 'login') {
+      this.login = searchText;
+      this.name = '';
+    }
+
+    this.loadPatients();
+  }
+
+  cleanSearch() {
+    this.name = '';
+    this.login = '';
     this.loadPatients();
   }
 
   loadPatients() {
-    this.protocolService
-    .getPatientsByDoctorId(this.authService.doctorId!).subscribe({
-      next: (data) => {
-        this.patients = data.map(user => ({
-          id: user.id,
-          name: user.patient?.name || 'No Name',
-          login: user.login,
-          selected: false
-        }));
-      },
-      error: (error) => {
-        console.error('Error loading patients:', error);
-        this.message = 'Erro ao carregar pacientes.';
-      }
+    this.loadPatientsSubscription = this.protocolService
+      .getPatientsByDoctor({
+        name: this.name!,
+        login: this.login!,
+        doctorId: this.authService.doctorId!,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.isError = true;
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (protocols) => {
+          this.onSuccess(protocols);
+        },
+        error: (_error) => {
+          this.lineLoadingService.hide();
+        },
+      });
+  }
+
+  onSuccess(patients: User[]) {
+    this.isLoading = false;
+    this.isError = false;
+    this.patients = patients.map((user): PatientList => {
+      return {
+        id: user.id,
+        name: user.patient?.name || '',
+        login: user.login || ''
+      };
     });
+    this.lineLoadingService.hide();
   }
   
 onAllChange(event: Event) {
@@ -70,19 +138,6 @@ checkAllSelected() {
   }
 }
 
-  searchOptions: ItemSelect[] = [
-    {value: 'name', label: 'Nome'},
-    {value: 'login', label: 'Login'}
-  ];
-
-  submitSearch(searchType: string | number, searchText: string | null): void {
-    console.log(searchType);
-    console.log(searchText);
-  }
-
-  cleanSearch() {
-    console.log('cleaned');
-  }
 }
 
 export interface PatientList {
