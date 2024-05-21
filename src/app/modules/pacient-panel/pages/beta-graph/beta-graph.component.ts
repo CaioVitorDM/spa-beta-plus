@@ -1,17 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import {HeaderService} from '../../../../services/header/header-info.service';
+import { Component, OnInit } from '@angular/core';
+import { HeaderService } from '../../../../services/header/header-info.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BetaPopUpComponent } from './beta-pop-up/beta-pop-up.component';
+import { BetaDateFilterComponent } from './beta-date-filter/beta-date-filter.component';
 
 @Component({
   selector: 'app-beta-graph',
   templateUrl: './beta-graph.component.html',
-  styleUrl: './beta-graph.component.scss'
+  styleUrls: ['./beta-graph.component.scss']
 })
-export class BetaGraphComponent implements OnInit{
+export class BetaGraphComponent implements OnInit {
   imageSrc!: string;
   medicName!: string;
-  details!: {label: string; value: string}[];
+  details!: { label: string; value: string }[];
+
   constructor(
-    private headerService: HeaderService
+    private headerService: HeaderService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -21,14 +26,20 @@ export class BetaGraphComponent implements OnInit{
   public showMenuComponent: boolean = true;
   public selectedButton: string = 'Menu';
 
-  showComponentMenu() {
+  showComponentMenu(): void {
     this.showMenuComponent = true;
     this.selectedButton = 'Menu';
   }
 
-  showComponentGeneral() {
+  showComponentGeneral(): void {
     this.showMenuComponent = false;
-    this.selectedButton = 'General'
+    this.selectedButton = 'General';
+  }
+
+  openDialog(): void {
+    this.dialog.open(BetaPopUpComponent);
+  }
+  openDialogFilter(): void {
+    this.dialog.open(BetaDateFilterComponent);
   }
 }
-
