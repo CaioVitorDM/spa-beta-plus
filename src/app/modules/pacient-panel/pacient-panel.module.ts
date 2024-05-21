@@ -12,9 +12,13 @@ import {DetailsCardComponent} from '../../components/details-card/details-card.c
 import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import { BetaGraphComponent } from './pages/beta-graph/beta-graph.component';
-import { BetaMenuComponent } from 'src/app/components/beta-menu/beta-menu.component';
-import { BetaGeneralComponent } from 'src/app/components/beta-general/beta-general.component';
+import { BetaMenuComponent } from 'src/app/modules/pacient-panel/pages/beta-graph/beta-menu/beta-menu.component';
+import { BetaGeneralComponent } from 'src/app/modules/pacient-panel/pages/beta-graph/beta-general/beta-general.component';
 import { InputSearchComponent } from 'src/app/components/input-search/input-search.component';
+import { MatDialogModule } from '@angular/material/dialog';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BetaPopUpComponent } from './pages/beta-graph/beta-pop-up/beta-pop-up.component';
+import { BetaDateFilterComponent } from './pages/beta-graph/beta-date-filter/beta-date-filter.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +40,9 @@ import { InputSearchComponent } from 'src/app/components/input-search/input-sear
     BetaMenuComponent,
     BetaGeneralComponent,
     InputSearchComponent,
+    MatDialogModule,
+    BetaDateFilterComponent,
+    BetaPopUpComponent,
   ],
 })
 export class PacientPanelModule {}

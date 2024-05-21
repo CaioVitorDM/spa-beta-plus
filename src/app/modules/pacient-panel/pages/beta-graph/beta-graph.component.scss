@@ -4,8 +4,7 @@
 
 #menu-beta{
     height: 10svh;
-    margin-bottom: 1%;
-    padding: 0 1% 1% 1%;
+    padding: 0 1%;
 }
 
 #info-beta{
@@ -39,11 +38,23 @@
 }
 
 #menu-beta-button{
-    text-align: right;
+    text-align: right;    
 }
 
 #menu-beta-filter{
     text-align: left;
+    border: none;
+}
+
+#menu-beta-filter button{
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #9f9f9f;
+    background-color: #FFF;
+    color: #5F41B2;
+    width: 100px;
+    margin: 0;
+    padding: 0;
 }
 
 #menu-beta-button button {
