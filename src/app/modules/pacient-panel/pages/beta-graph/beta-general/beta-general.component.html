@@ -1,21 +1,21 @@
 <div class="container">
   <table>
     <thead>
-      <tr style="border-radius: 10px !important;">
-        <th>Nível (mUI/ml)</th>
-        <th>Data de Nascimento</th>
-        <th>Telefone</th>
-        <th>Email</th>
-        <th></th>
+      <tr class="trhover">
+        <th class="th-first">Nível (mUI/ml)</th>
+        <th (click)="toggleSortOrder()" style="cursor: pointer;">
+          Data
+          <span *ngIf="sortOrder === 'asc'">▲</span>
+          <span *ngIf="sortOrder === 'desc'">▼</span>
+        </th>
+        <th class="th-last"></th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let patient of dataSource">
         <td>{{ patient.name }}</td>
         <td>{{ patient.birthDate | date:'dd/MM/yyyy' }}</td>
-        <td>{{ patient.phoneNumber }}</td>
-        <td>{{ patient.email }}</td>
-        <td>
+        <td class="td-edit">
           <button mat-icon-button [matMenuTriggerFor]="menu">
             ⋮
           </button>
@@ -25,7 +25,7 @@
               <button mat-menu-item (click)="deleteUser(patient.id!)">Excluir</button>
             </div>
           </mat-menu>
-        </td>
+        </td>        
       </tr>
     </tbody>
   </table>
@@ -46,14 +46,6 @@
         <div class="user-detail">
           <span class="title-detail">Data de Nascimento</span>
           <span class="data-detail">{{element.birthDate | date: 'dd/MM/yyyy'}}</span>
-        </div>
-        <div class="user-detail">
-          <span class="title-detail">Telefone</span>
-          <span class="data-detail">{{element.phoneNumber}}</span>
-        </div>
-        <div class="user-detail">
-          <span class="title-detail">Email</span>
-          <span class="data-detail">{{element.email}}</span>
         </div>
         <div class="user-actions">
           <button class="edit-btn" (click)="editUser(element.id!)">

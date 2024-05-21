@@ -1,6 +1,6 @@
 .container{
     background-color: #fff;
-    margin-top: 50px;
+    margin-top: 75px;
     padding: 7px;
     border-radius: 10px;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
@@ -37,11 +37,14 @@
       padding: 12px;
       border: none;
     }
-    tr:hover{
-      border: 1px solid rgba(95, 65, 178, 0.6);
-      cursor: pointer;
-    }
   }
+
+  // tr.trhover:hover{
+  //   border-radius: 10px;
+  //   background-color: #990000;
+  //   border: 1px solid rgba(95, 65, 178, 0.6);
+  //   cursor: pointer;
+  // }
   
   .list-container {
     background-color: #fff;
@@ -51,7 +54,7 @@
     display: flex;
     justify-content: center;
     flex-direction: row;
-  
+    margin-top: 75px;
     @media (min-width: 1024px) {
       display: none;
     }
@@ -164,4 +167,17 @@
       background-color: rgba(108, 108, 108, 0.19);
     }
   }
-  
+
+  th.th-first{
+    border-radius: 10px 0px 0px 10px;
+  }
+
+  th.th-last{
+    border-radius: 0px 10px 10px 0px;
+  }
+
+  td.td-edit {
+    display: flex;
+    justify-content: flex-end; /* Alinha o conteúdo à direita */
+    padding: 0; /* Remove qualquer padding extra */
+}  
