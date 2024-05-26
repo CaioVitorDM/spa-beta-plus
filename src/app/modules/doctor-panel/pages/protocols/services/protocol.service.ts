@@ -10,7 +10,7 @@ import { Patient, User } from 'src/app/models/User';
   providedIn: 'root',
 })
 export class ProtocolService {
-  private readonly baseUrl = environment.apiProtocolsUrl;
+  private readonly baseUrl = environment.apiProtocolsUrl + '/v1/protocols';
 
   constructor(private httpClient: HttpClient) {}
 

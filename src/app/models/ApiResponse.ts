@@ -1,3 +1,4 @@
+import { AppointmentList } from './Appointment';
 import { ProtocolList } from './Protocol';
 import {PatientList} from './User';
 
@@ -72,5 +73,12 @@ export interface ParamsPageProtocol extends ParamsPage<ProtocolList> {
   name?: string | null;
   createdAt?: string | null;
   doctorId: number | null;
+}
+
+export interface ParamsPageAppointment extends ParamsPage<AppointmentList> {
+  title?: string | null;
+  patientId: number | null;
+  local?: string | null;
+  appointmentDate?: string | null;
 }
 

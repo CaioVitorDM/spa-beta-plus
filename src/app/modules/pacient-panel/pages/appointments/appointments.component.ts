@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { EMPTY, Subscription, catchError, forkJoin, map, of } from 'rxjs';
 import { ItemSelect } from 'src/app/components/custom-select/custom-select.component';
-import { Direction } from 'src/app/models/ApiResponse';
-import { AppointmentList } from 'src/app/models/Appointment';
+import { apiErrorStatusMessage } from 'src/app/constants/messages';
+import { Direction, Page } from 'src/app/models/ApiResponse';
+import { Appointment, AppointmentList } from 'src/app/models/Appointment';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HeaderService } from 'src/app/services/header/header-info.service';
@@ -15,11 +17,11 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
   templateUrl: './appointments.component.html',
   styleUrl: './appointments.component.scss'
 })
-export class AppointmentsComponent {
+export class AppointmentsComponent implements OnInit {
 
 
-  // appointmentData!: AppointmentList [];
-  loadAppointmentSubscription = new Subscription();
+  appointmentData!: AppointmentList[];
+  loadAppointmentsSubscription = new Subscription();
   isLoading: boolean = false;
   isError: boolean = false;
 
@@ -29,7 +31,6 @@ export class AppointmentsComponent {
   sort: keyof AppointmentList = 'appointmentDate';
   order = Direction.DESC;
   title: string | null = '';
-  doctorName: string | null = '';
   local: string | null = '';
   appointmentDate: string | null = '';
  
@@ -55,23 +56,12 @@ export class AppointmentsComponent {
     this.headerService.setTitulo('Consultas');
   }
 
-  appointmentData: AppointmentList[] = [
-    {
-      id: 1,
-      doctorName: 'P1',
-      title: 'P1',
-      local: 'P1',
-      appointmentDate: '1985-05-16',
-    }
-  ];
-
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.page = params['page'] || this.page;
       this.size = params['size'] || this.size;
       this.sort = params['sort'] || this.sort;
       this.title = params['title'] || this.title;
-      this.doctorName = params['doctorName'] || this.doctorName;
       this.local = params['local'] || this.local;
       this.appointmentDate = params['appointmentDate'] || this.appointmentDate;
 
@@ -81,13 +71,12 @@ export class AppointmentsComponent {
         })!;
       }
 
-      // this.fetchData();
+      this.fetchData();
     });
   }
 
   searchOptions: ItemSelect[] = [
     {value: 'title', label: 'Titulo'},
-    {value: 'doctorName', label: 'Médico'},
     {value: 'local', label: 'Local'},
     {value: 'appointmentDate', label: 'Data', isDate: true}
   ];
@@ -107,7 +96,7 @@ export class AppointmentsComponent {
       this.page = item.value as number;
       this.selectedPage = this.pageNumber[this.page];
     }
-    // this.fetchData();
+    this.fetchData();
     this.isFirstRender = false;
   }
 
@@ -116,7 +105,7 @@ export class AppointmentsComponent {
       this.size = item.value as number;
       this.page = 0;
       this.selectedPage = this.pageNumber[this.page];
-      // this.fetchData();
+      this.fetchData();
     }
 
     this.isFirstRender = false;
@@ -124,48 +113,112 @@ export class AppointmentsComponent {
 
   submitSearch(searchType: string | number, searchText: string | null): void {
     if (searchType === 'title') {
-      this.doctorName = '';
+      this.title = searchText
       this.local = '';
       this.appointmentDate = '';
     }
     
-    if (searchType === 'doctorName') {
-      this.title = '';
-      this.local = '';
-      this.appointmentDate = '';
-    }
 
     if (searchType === 'local') {
+      this.local = searchText
       this.title = '';
-      this.doctorName = '';
       this.appointmentDate = '';
     }
 
     if (searchType === 'appointmentDate') {
+      this.appointmentDate = searchText;
       this.title = '';
-      this.doctorName = '';
       this.local = '';
     }
+
     this.page = 0;
 
-    // this.fetchData();
+    this.fetchData();
   }
 
   cleanSearch() {
     this.title = '';
-    this.doctorName = '';
     this.local = '';
     this.appointmentDate = '';
 
-    // this.fetchData();
+    this.fetchData();
   }
 
-  
- 
-  printButton(action: string, event?: MouseEvent): void {
-    if (event) {
-      event.stopPropagation();
+
+  fetchData() {
+    this.loadAppointmentsSubscription = this.appointmentService
+      .list({
+        page: this.page,
+        size: this.size,
+        sort: this.sort,
+        order: this.order,
+        title: this.title!,
+        patientId: this.authService.patientId!,
+        local: this.local!,
+        appointmentDate: this.appointmentDate!,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.isError = true;
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (appointments) => {
+          this.onSuccess(appointments);
+        },
+        error: (_error) => {
+          this.lineLoadingService.hide();
+        },
+      });
+  }
+
+  onSuccess(appointments: Page<Appointment[]>) {
+    this.isLoading = false;
+    this.isError = false;
+
+    if (appointments.content.length === 0) {
+      this.appointmentData = [];  // Nenhum dado para processar
+      return;
     }
-    console.log(action);
+   
+    const medicDetails$ = appointments.content.map(appointment =>
+      this.authService.getMedicDetails(appointment.doctorId).pipe(
+        catchError(() => of({data: { doctor: { name: 'Desconhecido' }}})), 
+        map(response => ({
+          ...appointment,
+          doctorName: response.data.doctor?.name || 'Desconhecido' 
+        }))
+      )
+    );
+  
+    forkJoin(medicDetails$).subscribe(fullAppointments => {
+      this.appointmentData = fullAppointments.map((appointment): AppointmentList => ({
+        id: appointment.id,
+        title: appointment.title || '',
+        local: appointment.local || '',
+        doctorName: appointment.doctorName,
+        appointmentDate: appointment.appointmentDate || ''
+      }));
+    });
+    this.totalItems = appointments.totalElements;
+    this.pageBySize = Math.ceil(this.totalItems / this.size);
+    this.pageNumber = Array.from({length: this.pageBySize}, (_, i) => ({
+      value: i,
+      label: 'Página ' + (i + 1),
+    }));
+    this.isFirstPage = appointments.first;
+    this.isLastPage = appointments.last;
+    this.offSet = appointments.pageable.offset + 1;
+
+    if (!appointments.last) {
+      this.lastItem = this.size * (parseInt(String(this.page)) + 1);
+    } else {
+      this.lastItem = appointments.totalElements;
+    }
+    this.lineLoadingService.hide();
   }
 }

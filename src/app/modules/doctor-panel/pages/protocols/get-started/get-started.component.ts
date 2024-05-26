@@ -112,8 +112,8 @@ export class GetStartedComponent implements OnInit{
       this.name = searchText;
       this.createdAt = '';
     }
+    
     if (searchType === 'createdAt') {
-      console.log("teste -- " + searchText);
       this.createdAt = searchText;
       this.name = '';
     }
