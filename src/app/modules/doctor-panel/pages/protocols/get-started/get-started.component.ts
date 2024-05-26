@@ -113,7 +113,8 @@ export class GetStartedComponent implements OnInit{
       this.createdAt = '';
     }
     if (searchType === 'createdAt') {
-      this.createdAt = this.formatDateString(searchText);
+      console.log("teste -- " + searchText);
+      this.createdAt = searchText;
       this.name = '';
     }
     this.page = 0;
@@ -128,19 +129,6 @@ export class GetStartedComponent implements OnInit{
     this.fetchData();
   }
 
-  formatDateString(value: string | null): string | null {
-    if (!value) return null;
-
-    let formattedValue = value;
-
-    if (/^\d{4}$/.test(value)) {
-      formattedValue = value.slice(0, 2) + '/' + value.slice(2, 4);
-    } else if (/^\d{8}$/.test(value)) {
-      formattedValue = value.slice(0, 2) + '/' + value.slice(2, 4) + '/' + value.slice(4, 8);
-    }
-
-    return formattedValue;
-  }
 
   fetchData() {
     this.loadProtocolsSubscription = this.protocolService

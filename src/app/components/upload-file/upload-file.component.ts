@@ -1,6 +1,6 @@
 import {NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-upload-file',
@@ -13,8 +13,8 @@ export class UploadFileComponent {
   
   @Output() fileSelected = new EventEmitter<File>();
 
-  fileName: string = '';
-  errorMessage: string = 'Por favor, escolha um arquivo.';
+  @Input() fileName: string = '';
+  @Input() errorMessage: string = 'Por favor, escolha um arquivo.';
   dialogOpened: boolean = false;
 
   onFileSelected(event: any): void {

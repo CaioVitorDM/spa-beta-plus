@@ -73,4 +73,11 @@ export class ProtocolService {
     );
   }
 
+  getOne(id: number): Observable<Protocol> {
+    return this.httpClient.get<ApiResponse<Protocol>>(`${this.baseUrl}/${id}`).pipe(
+      first(),
+      map(({data: protocol}: ApiResponse<Protocol>) => protocol)
+    );
+  }
+
 }

@@ -6,6 +6,7 @@
         <input type="file" id="file-input" (change)="onFileSelected($event)" hidden accept=".pdf"/>
         Enviar arquivo
     </label>
+    <!-- <button class="download-button">download</button> -->
     <span *ngIf="fileName">{{ fileName }}</span>
     <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
 

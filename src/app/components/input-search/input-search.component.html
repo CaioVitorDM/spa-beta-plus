@@ -40,19 +40,21 @@
     </ul>
   </div>
 
-  <div class="align-inputs-and-error-messages">
-    <div class="search-box" [ngClass]="{'input-error': errorMessage}">
-      <input
-        type="text"
-        class="input-pesquisa"
-        [placeholder]="searchPlaceholder"
-        [(ngModel)]="searchedValue"
-        (blur)="onBlur()"
-        (keyup)="onInputChange()" 
-        (keyup.enter)="submitSearch(selectedValue.value, searchedValue)"
-        [mask]="mask"
-        [validation]="true"
-      />
+    <div class="search-box">
+      <input *ngIf="!isDateSearch(); else dateInput"
+             type="text"
+             class="input-pesquisa"
+             [placeholder]="searchPlaceholder"
+             [(ngModel)]="searchedValue"
+             (keyup.enter)="submitSearch(selectedValue.value, searchedValue)">
+      
+      <ng-template #dateInput>
+        <input type="date"
+               class="input-pesquisa"
+               [placeholder]="searchPlaceholder"
+               [(ngModel)]="searchedValue"
+               (keyup.enter)="submitSearch(selectedValue.value, searchedValue)">
+      </ng-template>
       
       <button *ngIf="searchedValue" class="clear-icon" (click)="cleanSearch()">
         <span>X</span>
@@ -62,7 +64,5 @@
         <img src="assets/images/svg/search-white.svg" style="width: 20px" alt="Ícone de lupa" />
       </button>
     </div>
-    <span *ngIf="errorMessage" class="invalid-input-message">{{ errorMessage }}</span>
-  </div>
   
 </div>

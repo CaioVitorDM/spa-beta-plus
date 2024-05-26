@@ -45,7 +45,7 @@
           <span class="data-detail">{{element.createdAt | date: 'dd/MM/yyyy'}}</span>
         </div>
         <div class="protocol-actions">
-          <button class="edit-btn" (click)="printButton('edit button')">
+          <button class="edit-btn" (click)="editProtocol(element.id!)">
             <img src="assets/images/svg/edit.svg" alt="" srcset="" />
             <span> Editar </span>
           </button>

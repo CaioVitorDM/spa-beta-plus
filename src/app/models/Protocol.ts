@@ -5,7 +5,7 @@ export interface Protocol {
     description?: string;  
     fileId: number;
     doctorId: number;
-    pacientsIdList: number[];
+    patientsIdList: number[];
     isSpecific: boolean;
     createdAt: string;
   }
