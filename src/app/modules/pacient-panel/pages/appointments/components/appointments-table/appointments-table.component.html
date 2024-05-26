@@ -1,0 +1,62 @@
+
+<div class="container">
+    <table>
+      <thead>
+      <tr style="border-radius: 10px !important;">
+        <th>Médico</th>
+        <th>Titulo</th>
+        <th>Local</th>
+        <th>Data</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let appointment of dataSource">
+        <td>{{ appointment.doctorName }}</td>
+        <td>{{ appointment.title }}</td>
+        <td>{{ appointment.local }}</td>
+        <td>{{ appointment.appointmentDate| date:'dd/MM/yyyy' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  
+    
+    <div class="list-container">
+      <div class="protocols-mobile-container">
+      <div *ngFor="let element of dataSource" class="protocols-list-mobile">
+        <button class="list-card" (click)="printButton('card button')">
+          <div class="protocol-detail">
+            <span class="title-detail">ID</span>
+            <span class="data-detail">{{element.id}}</span>
+          </div>
+          <div class="protocol-detail">
+            <span class="title-detail">Nome</span>
+            <span class="data-detail">{{element.doctorName}}</span>
+          </div>
+          <div class="protocol-detail">
+            <span class="title-detail">Nome</span>
+            <span class="data-detail">{{element.title}}</span>
+          </div>
+          <div class="protocol-detail">
+            <span class="title-detail">Nome</span>
+            <span class="data-detail">{{element.local}}</span>
+          </div>
+          <div class="protocol-detail">
+            <span class="title-detail">Data</span>
+            <span class="data-detail">{{element.appointmentDate | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          <!-- <div class="protocol-actions">
+            <button class="edit-btn" (click)="printButton('edit button')">
+              <img src="assets/images/svg/edit.svg" alt="" srcset="" />
+              <span> Editar </span>
+            </button>
+            <button class="delete-btn" (click)="printButton('delete button')">
+              <img src="assets/images/svg/inventory-red.svg" alt="" srcset="" />
+              Excluir
+            </button>
+          </div> -->
+        </button>
+      </div>
+      </div>
+    </div>
+    
