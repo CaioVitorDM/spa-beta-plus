@@ -1,0 +1,70 @@
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
+#menu-beta{
+    height: 10svh;
+    padding: 0 1%;
+}
+
+#info-beta{
+    height: 65svh;
+}
+
+#menu-beta-text{
+    margin: 5px;
+}
+
+#menu-beta-text a{
+    margin: 0 10px;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 7px 10px;
+    color: #5F41B2;
+}
+
+#menu-beta-text a:hover{
+    background-color:rgba(151, 92, 228, 0.13);
+    border-radius: 7px
+}
+
+#menu-beta-text .selected-button {
+    border-bottom: 2px solid #5F41B2;
+}
+
+#menu-beta-text .selected-button:hover {
+    border-bottom: 2px solid #5F41B2;
+    border-radius: 7px 7px 0px 0px;
+}
+
+#menu-beta-button{
+    text-align: right;    
+}
+
+#menu-beta-filter{
+    text-align: left;
+    border: none;
+}
+
+#menu-beta-filter button{
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #9f9f9f;
+    background-color: #FFF;
+    color: #5F41B2;
+    width: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+#menu-beta-button button {
+    background-color: #5F41B2;
+    border: none;
+    padding: 7px 10px;
+    font-size: 1rem;
+    width: 15vw;
+    border-radius: 7px;
+    color: #FFF;
+    box-shadow: 0 0.2rem #dfd9d9;
+    cursor: pointer;
+}
