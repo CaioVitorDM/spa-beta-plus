@@ -5,10 +5,10 @@
   </div>
   <div id="menu-beta-button-filter">
     <div id="menu-beta-button">
-      <button>+ Novo Lançamento</button>
+      <button mat-button (click)="openDialog()">+ Novo Lançamento</button>
     </div>
     <div id="menu-beta-filter" *ngIf="!showMenuComponent">
-        <app-input-search></app-input-search>
+      <button mat-button (click)="openDialogFilter()">Filtrar</button>
     </div>
   </div>
 </div>
