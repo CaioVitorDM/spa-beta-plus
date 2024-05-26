@@ -51,7 +51,6 @@ export class CreateProtocolComponent {
   }
 
   handlePatientsSelected(selectedPatientIds: number[]) {
-    console.log("chegou no create");
     this.protocolForm.get('patientsIdList')?.setValue(selectedPatientIds);
   }
 
@@ -76,7 +75,6 @@ export class CreateProtocolComponent {
           })
         )
         .subscribe((result: Protocol) => {
-          console.log("lalala");
           this.handleSuccess();
         });
     

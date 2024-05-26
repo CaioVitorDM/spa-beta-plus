@@ -18,6 +18,8 @@ import { User } from 'src/app/models/User';
 })
 export class PatientsSelectorComponent implements OnInit {
   @Output() patientsSelected = new EventEmitter<number[]>();
+  @Input() previousPatientsSelected: number[] = [];
+
   patients: PatientList[] = [];
   loadPatientsSubscription = new Subscription();
   isLoading: boolean = false;
@@ -49,6 +51,7 @@ export class PatientsSelectorComponent implements OnInit {
       this.loadPatients();
     });
   }
+
 
   submitSearch(searchType: string | number, searchText: string | null): void {
     if (searchType === 'name') {
@@ -99,13 +102,16 @@ export class PatientsSelectorComponent implements OnInit {
     this.isLoading = false;
     this.isError = false;
     this.patients = patients.map((user): PatientList => {
+      const isSelected = this.previousPatientsSelected.includes(user.patient?.id || 0);
       return {
-        id: user.id,
+        id: user.patient?.id,
         name: user.patient?.name || '',
-        login: user.login || ''
+        login: user.login || '',
+        selected: isSelected 
       };
     });
     this.lineLoadingService.hide();
+    this.emitSelectedPatients(); 
   }
   
 onAllChange(event: Event) {

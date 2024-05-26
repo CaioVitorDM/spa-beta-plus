@@ -50,7 +50,7 @@ export class ProtocolsTableComponent {
   navigateToCreatePage() {}
 
   editProtocol(id: number) {
-    this.router.navigate([`/doctor-panel/patients/edit/${id}`], {relativeTo: this.activatedRoute});
+    this.router.navigate([`/doctor-panel/protocols/edit/${id}`], {relativeTo: this.activatedRoute});
   }
 
   deleteProtocol(id: number) {

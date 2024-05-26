@@ -17,6 +17,7 @@ import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.
 import { PatientsSelectorComponent } from './components/patients-selector/patients-selector.component';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
+import { EditProtocolComponent } from './edit-protocol/edit-protocol.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { MatIconButton } from '@angular/material/button';
     CreateProtocolComponent,
     ProtocolsTableComponent,
     ProtocolsFormComponent,
-    PatientsSelectorComponent
+    PatientsSelectorComponent,
+    EditProtocolComponent,
   ],
   imports: [
     CommonModule,

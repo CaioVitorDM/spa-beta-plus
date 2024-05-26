@@ -1,0 +1,13 @@
+<div class="container">
+    <button class="back-button" (click)="navigateBack()">
+      <img src="../../../../../assets/images/voltar.png" class="img-back" alt="Voltar">
+    </button>        
+    <app-upload-file (fileSelected)="handleSelectedFile($event)" [fileName]="fileName" [errorMessage]="''"></app-upload-file>
+    <app-protocols-form [protocol]="protocol" (specificChanged)="togglePatientsSelector($event)"></app-protocols-form>
+    <div *ngIf="showPatientsSelector">
+      <app-patients-selector [previousPatientsSelected]="selectedPatients"></app-patients-selector>
+    </div>    
+    
+    <button class="submit-button">Salvar</button>
+  </div>
+  
