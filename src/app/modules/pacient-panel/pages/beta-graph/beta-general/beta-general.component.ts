@@ -20,7 +20,7 @@ import { PatientList } from 'src/app/models/User';
 })
 export class BetaGeneralComponent implements OnInit {
   @Input() dataSource: PatientList[] = [];
-  sortOrder: 'asc' | 'desc' = 'desc'; // Estado da ordenação
+  sortOrder: 'asc' | 'desc' = 'desc';
 
   constructor(
     private activatedRoute: ActivatedRoute,

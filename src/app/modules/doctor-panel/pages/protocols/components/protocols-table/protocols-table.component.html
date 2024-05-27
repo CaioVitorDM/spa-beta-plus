@@ -1,19 +1,32 @@
 <div class="container">
-    <table>
-      <thead>
-      <tr style="border-radius: 10px !important;">
-        <th>Nome</th>
-        <th>Data</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let protocol of dataSource">
-        <td>{{ protocol.name }}</td>
-        <td>{{ protocol.createdAt | date:'dd/MM/yyyy' }}</td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
+  <table>
+    <thead>
+    <tr style="border-radius: 10px !important;">
+      <th>Nome</th>
+      <th>Data</th>
+      <th style="width: 1rem;"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let protocol of dataSource">
+      <td>{{ protocol.name }}</td>
+      <td>{{ protocol.createdAt| date:'dd/MM/yyyy' }}</td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          ⋮
+        </button>
+        <mat-menu #menu="matMenu">
+          <div  class="floating-actions-menu">
+            <button mat-menu-item (click)="editProtocol(protocol.id!)">Editar</button>
+            <button mat-menu-item (click)="deleteProtocol(protocol.id!)">Excluir</button>
+          </div>
+        </mat-menu>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
   
   <div class="list-container">
     <div class="protocols-mobile-container">
@@ -32,7 +45,7 @@
           <span class="data-detail">{{element.createdAt | date: 'dd/MM/yyyy'}}</span>
         </div>
         <div class="protocol-actions">
-          <button class="edit-btn" (click)="printButton('edit button')">
+          <button class="edit-btn" (click)="editProtocol(element.id!)">
             <img src="assets/images/svg/edit.svg" alt="" srcset="" />
             <span> Editar </span>
           </button>

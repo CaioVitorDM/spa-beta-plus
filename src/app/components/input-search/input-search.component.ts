@@ -1,5 +1,8 @@
 import {CommonModule} from '@angular/common';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -15,9 +18,17 @@ import {ItemSelect} from '../custom-select/custom-select.component';
 @Component({
   selector: 'app-input-search',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: InputSearchComponent,
+      multi: true
+    },
+    provideNgxMask()
+  ],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, NgxMaskDirective],
   templateUrl: './input-search.component.html',
-  styleUrl: './input-search.component.scss',
+  styleUrls: ['./input-search.component.scss'],
 })
 export class InputSearchComponent implements ControlValueAccessor, OnInit {
   @Input() defaultPlaceholder = '';
@@ -35,11 +46,18 @@ export class InputSearchComponent implements ControlValueAccessor, OnInit {
   selectedValue!: ItemSelect;
   searchedValue: string | null = null;
   isSearchSubmitted = false;
+  // errorMessage: string | null = null;
+  mask: string = '';
 
-  constructor(private elementRef: ElementRef) {
+
+  constructor(
+    private elementRef: ElementRef,
+    private cdRef: ChangeDetectorRef 
+  ) {
     this.isOpen = false;
     this.defaultPlaceholder = 'Selecione';
   }
+  
 
   ngOnInit(): void {
     if (this.defaultItemSelected && this.defaultItemSelected.label) {
@@ -48,9 +66,18 @@ export class InputSearchComponent implements ControlValueAccessor, OnInit {
     if (this.items.length > 0) {
       this.selectedValue = this.items[0];
     } else {
-      this.selectedValue = {value: '', label: '', selected: false};
+      this.selectedValue = { value: '', label: '', isDate: false, selected: false };
     }
+
+   
   }
+
+ 
+
+  isDateSearch(): boolean {
+    return this.selectedValue && this.selectedValue.isDate === true;
+  }
+
 
   onTouched: () => void = () => {};
 
@@ -59,6 +86,7 @@ export class InputSearchComponent implements ControlValueAccessor, OnInit {
   registerOnChange(fn: (value: ItemSelect | null) => void): void {
     this.onChange = fn;
   }
+  
 
   writeValue(item: ItemSelect): void {
     if (item) this.selectedValue = item;
@@ -80,6 +108,7 @@ export class InputSearchComponent implements ControlValueAccessor, OnInit {
   onClick(event: Event) {
     if (!this.elementRef.nativeElement.contains(event.target)) {
       this.isOpen = false;
+
     }
   }
 
@@ -88,6 +117,8 @@ export class InputSearchComponent implements ControlValueAccessor, OnInit {
   }
 
   submitSearch(searchType: string | number, searchText: string | null): void {
+
+    console.log(searchText);
     if (searchText === null) {
       return;
     }
@@ -101,6 +132,7 @@ export class InputSearchComponent implements ControlValueAccessor, OnInit {
 
   cleanSearch() {
     this.searchedValue = null;
+    // this.errorMessage = null; 
 
     if (!this.isSearchSubmitted) {
       return;

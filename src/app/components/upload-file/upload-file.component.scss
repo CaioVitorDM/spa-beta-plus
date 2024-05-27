@@ -11,8 +11,8 @@
   
 
   .upload-icon{
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     object-fit: cover; /* garante que a imagem do perfil cubra o espaço designado */
   }
   
@@ -34,9 +34,20 @@
     color: white;
   }
 
-  .error-message {
+  span {
     font-size: 0.75rem;
+  }
+  
+  .error-message {
     color: #ec3333 !important;
+  }
+
+  .download-button{
+    font-size: 12px;
+    color: #5F41B2;
+    border: none;
+    background: transparent;
+    cursor: pointer;
   }
   
   

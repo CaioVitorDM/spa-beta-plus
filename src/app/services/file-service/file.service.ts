@@ -25,7 +25,7 @@ export class FileService {
 
   constructor(private http: HttpClient) {}
 
-  uploadImage(file: File): Observable<ApiResponse<FileResponse>> {
+  uploadFile(file: File): Observable<ApiResponse<FileResponse>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
     return this.http.post<ApiResponse<FileResponse>>(`${this.baseUrl}/upload`, formData);
