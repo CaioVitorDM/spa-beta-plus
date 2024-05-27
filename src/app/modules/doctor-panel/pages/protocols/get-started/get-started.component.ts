@@ -139,7 +139,7 @@ export class GetStartedComponent implements OnInit{
         order: this.order,
         name: this.name!,
         createdAt: this.createdAt!,
-        doctorId: this.authService.doctorId!,
+        doctorId: this.authService.doctorId!
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {

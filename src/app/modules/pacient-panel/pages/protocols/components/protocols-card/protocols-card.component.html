@@ -1,0 +1,11 @@
+<div class="protocol-container">
+  <div *ngFor="let protocol of dataSource" class="protocol-box">
+    <button class="download-btn">
+        <img src="../../../assets/images/download.png" alt="Download">
+      </button>
+    <div class="content">
+      <h3>{{ protocol.name }}</h3>
+      <p>{{ protocol.description }}</p>
+    </div>
+  </div>
+</div>

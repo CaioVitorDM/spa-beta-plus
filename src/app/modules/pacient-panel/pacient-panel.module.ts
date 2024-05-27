@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PacientPanelComponent} from './pacient-panel.component';
 import {PacientPanelRoutes} from './pacient-panel.routes';
-import {RouterOutlet} from '@angular/router';
+import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {SharedModule} from '../../shared/shared.module';
 import {SidebarComponent} from './sidebar/sidebar.component';
 import {HeaderComponent} from '../../components/header/header.component';
@@ -37,6 +37,8 @@ import { BetaDateFilterComponent } from './pages/beta-graph/beta-date-filter/bet
   imports: [
     CommonModule,
     RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     PacientPanelRoutes,
     SharedModule,
     HeaderComponent,

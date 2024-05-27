@@ -13,6 +13,13 @@ export const routes: Routes = [
   {path: 'profile', component: ProfileComponent},
   {path: 'appointments', component: AppointmentsComponent},
   {path: 'beta-graph', component: BetaGraphComponent},
+  {
+    path: 'protocols',
+    loadChildren: () =>
+      import('src/app/modules/pacient-panel/pages/protocols/protocols.module').then(
+        (m) => m.ProtocolsModule
+      ),
+  },
 ];
 
 @NgModule({
