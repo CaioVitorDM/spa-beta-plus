@@ -19,7 +19,7 @@ export class AppointmentService {
     size = 10,
     sort = 'appointmentDate',
     order = Direction.DESC,
-    title,
+    description,
     patientId,
     local,
     appointmentDate,
@@ -30,7 +30,7 @@ export class AppointmentService {
       .set('sort', `${sort},${order}`);
 
     const parameters = {
-      title: title?.toString(),
+      description: description?.toString(),
       patientId: patientId?.toString(),
       local: local?.toString(),
       appointmentDate: appointmentDate?.toString(),

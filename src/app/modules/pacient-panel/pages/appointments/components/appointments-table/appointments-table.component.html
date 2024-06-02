@@ -4,7 +4,7 @@
       <thead>
       <tr style="border-radius: 10px !important;">
         <th>Médico</th>
-        <th>Titulo</th>
+        <th>Descrição</th>
         <th>Local</th>
         <th>Data</th>
       </tr>
@@ -12,7 +12,7 @@
       <tbody>
       <tr *ngFor="let appointment of dataSource">
         <td>{{ appointment.doctorName }}</td>
-        <td>{{ appointment.title }}</td>
+        <td>{{ appointment.description }}</td>
         <td>{{ appointment.local }}</td>
         <td>{{ appointment.appointmentDate| date:'dd/MM/yyyy' }}</td>
       </tr>
@@ -26,23 +26,23 @@
       <div *ngFor="let element of dataSource" class="protocols-list-mobile">
         <button class="list-card" (click)="printButton('card button')">
           <div class="protocol-detail">
-            <span class="title-detail">ID</span>
+            <span class="description-detail">ID</span>
             <span class="data-detail">{{element.id}}</span>
           </div>
           <div class="protocol-detail">
-            <span class="title-detail">Médico</span>
+            <span class="description-detail">Médico</span>
             <span class="data-detail">{{element.doctorName}}</span>
           </div>
           <div class="protocol-detail">
-            <span class="title-detail">Titulo</span>
-            <span class="data-detail">{{element.title}}</span>
+            <span class="description-detail">Titulo</span>
+            <span class="data-detail">{{element.description}}</span>
           </div>
           <div class="protocol-detail">
-            <span class="title-detail">Local</span>
+            <span class="description-detail">Local</span>
             <span class="data-detail">{{element.local}}</span>
           </div>
           <div class="protocol-detail">
-            <span class="title-detail">Data</span>
+            <span class="description-detail">Data</span>
             <span class="data-detail">{{element.appointmentDate | date: 'dd/MM/yyyy'}}</span>
           </div>
           <!-- <div class="protocol-actions">

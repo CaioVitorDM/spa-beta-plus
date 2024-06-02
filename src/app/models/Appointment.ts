@@ -1,6 +1,6 @@
 export interface Appointment {
     id: number;
-    title: string;
+    description: string;
     patientId: number;  
     doctorId: number;
     local: string;
@@ -9,7 +9,7 @@ export interface Appointment {
 
   export interface AppointmentList {
     id: number;
-    title: string;
+    description: string;
     doctorName: string;
     local: string;
     appointmentDate: string;

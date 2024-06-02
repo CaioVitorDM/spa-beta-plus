@@ -30,7 +30,7 @@ export class AppointmentsComponent implements OnInit {
   size = 10;
   sort: keyof AppointmentList = 'appointmentDate';
   order = Direction.DESC;
-  title: string | null = '';
+  description: string | null = '';
   local: string | null = '';
   appointmentDate: string | null = '';
  
@@ -61,7 +61,7 @@ export class AppointmentsComponent implements OnInit {
       this.page = params['page'] || this.page;
       this.size = params['size'] || this.size;
       this.sort = params['sort'] || this.sort;
-      this.title = params['title'] || this.title;
+      this.description = params['description'] || this.description;
       this.local = params['local'] || this.local;
       this.appointmentDate = params['appointmentDate'] || this.appointmentDate;
 
@@ -76,7 +76,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   searchOptions: ItemSelect[] = [
-    {value: 'title', label: 'Titulo'},
+    {value: 'description', label: 'Descrição'},
     {value: 'local', label: 'Local'},
     {value: 'appointmentDate', label: 'Data', isDate: true}
   ];
@@ -112,8 +112,8 @@ export class AppointmentsComponent implements OnInit {
   }
 
   submitSearch(searchType: string | number, searchText: string | null): void {
-    if (searchType === 'title') {
-      this.title = searchText
+    if (searchType === 'description') {
+      this.description = searchText
       this.local = '';
       this.appointmentDate = '';
     }
@@ -121,13 +121,13 @@ export class AppointmentsComponent implements OnInit {
 
     if (searchType === 'local') {
       this.local = searchText
-      this.title = '';
+      this.description = '';
       this.appointmentDate = '';
     }
 
     if (searchType === 'appointmentDate') {
       this.appointmentDate = searchText;
-      this.title = '';
+      this.description = '';
       this.local = '';
     }
 
@@ -137,7 +137,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   cleanSearch() {
-    this.title = '';
+    this.description = '';
     this.local = '';
     this.appointmentDate = '';
 
@@ -152,7 +152,7 @@ export class AppointmentsComponent implements OnInit {
         size: this.size,
         sort: this.sort,
         order: this.order,
-        title: this.title!,
+        description: this.description!,
         patientId: this.authService.patientId!,
         local: this.local!,
         appointmentDate: this.appointmentDate!,
@@ -181,7 +181,7 @@ export class AppointmentsComponent implements OnInit {
     this.isError = false;
 
     if (appointments.content.length === 0) {
-      this.appointmentData = [];  // Nenhum dado para processar
+      this.appointmentData = [];  
       return;
     }
    
@@ -198,7 +198,7 @@ export class AppointmentsComponent implements OnInit {
     forkJoin(medicDetails$).subscribe(fullAppointments => {
       this.appointmentData = fullAppointments.map((appointment): AppointmentList => ({
         id: appointment.id,
-        title: appointment.title || '',
+        description: appointment.description || '',
         local: appointment.local || '',
         doctorName: appointment.doctorName,
         appointmentDate: appointment.appointmentDate || ''
