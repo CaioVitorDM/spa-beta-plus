@@ -55,8 +55,9 @@ export class ProtocolsFormComponent {
       .pipe(
         mergeMap((protocol) => {
           if (
-            this.authService.role !== Role.MEDIC &&
-            protocol.id !== this.authService.getUserLogged?.id
+            this.authService.role !== Role.MEDIC 
+            // &&
+            // protocol.id !== this.authService.getUserLogged?.id
           ) {
             swal
               .fire({

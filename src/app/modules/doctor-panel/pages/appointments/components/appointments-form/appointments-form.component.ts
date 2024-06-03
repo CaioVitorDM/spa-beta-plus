@@ -10,8 +10,10 @@ import { AppointmentsFormService } from '../../service/appointments-form.service
 import { HttpErrorResponse } from '@angular/common/http';
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { User } from 'src/app/models/User';
-import { EMPTY, Subscription, catchError } from 'rxjs';
+import { EMPTY, Subscription, catchError, mergeMap } from 'rxjs';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import { Role } from 'src/app/models/Role';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-appointments-form',
@@ -46,9 +48,9 @@ export class AppointmentsFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    // if (this.patient) {
-    //   this.loadPatient(this.patient);
-    // }
+    if (this.appointment) {
+      this.loadAppointment(this.appointment);
+    }
     this.loadPatients();
   }
   
@@ -101,52 +103,48 @@ export class AppointmentsFormComponent implements OnDestroy, OnInit {
     return this.appointmentFormService.isInvalidField(field);
   }
 
-  // loadPatient(id: number) {
-  //   this.patientService
-  //     .getOne(id)
-  //     .pipe(
-  //       mergeMap((user) => {
-  //         if (
-  //           this.authService.role !== Role.MEDIC &&
-  //           user.id !== this.authService.getUserLogged?.id
-  //         ) {
-  //           swal
-  //             .fire({
-  //               icon: 'error',
-  //               title: 'Unathorized!',
-  //               text: 'Você não tem permissão para acessar essa página',
-  //               timer: 3000,
-  //               showConfirmButton: false,
-  //             })
-  //             .then(() => this.router.navigate(['/login-page']));
-  //           return EMPTY;
-  //         }
+  loadAppointment(id: number) {
+    this.appointmentService
+      .getOne(id)
+      .pipe(
+        mergeMap((appointment) => {
+          if (
+            this.authService.role !== Role.MEDIC 
+            // &&
+            // user.id !== this.authService.getUserLogged?.id
+          ) {
+            swal
+              .fire({
+                icon: 'error',
+                title: 'Unathorized!',
+                text: 'Você não tem permissão para acessar essa página',
+                timer: 3000,
+                showConfirmButton: false,
+              })
+              .then(() => this.router.navigate(['/login-page']));
+            return EMPTY;
+          }
 
-  //         this.patientForm.patchValue({
-  //           id: user.id,
-  //           doctorId: user.patient?.doctorId,
-  //           firstName: user.patient?.name.split(' ')[0].trim(),
-  //           lastName: user.patient?.name.split(' ')[1].trim(),
-  //           email: user.email,
-  //           phoneNumber: user.phoneNumber,
-  //           cpf: user.patient?.cpf,
-  //           birthDate: user.patient?.birthDate,
-  //           login: user.login,
-  //           password: user.password,
-  //           fileId: user.imgId,
-  //         });
+          this.appointmentForm.patchValue({
+            id: appointment.id,
+            doctorId: appointment.doctorId,
+            description: appointment.description,
+            local: appointment.local,
+            appointmentDate: appointment.appointmentDate,
+            patientId: appointment.patientId
+          });
 
-  //         this.formLoaded.emit();
+          this.formLoaded.emit();
 
-  //         return EMPTY;
-  //       }),
-  //       catchError((error: HttpErrorResponse) => {
-  //         this.onError(error);
-  //         return EMPTY;
-  //       })
-  //     )
-  //     .subscribe(() => {});
-  // }
+          return EMPTY;
+        }),
+        catchError((error: HttpErrorResponse) => {
+          this.onError(error);
+          return EMPTY;
+        })
+      )
+      .subscribe(() => {});
+  }
 
   private onError(error: Error) {
     if (error instanceof HttpErrorResponse) {

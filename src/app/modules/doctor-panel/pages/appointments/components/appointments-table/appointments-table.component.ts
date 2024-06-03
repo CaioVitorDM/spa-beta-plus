@@ -25,10 +25,9 @@ export class AppointmentsTableComponent {
     console.log(action);
   }
 
-  navigateToCreatePage() {}
 
   editAppointment(id: number) {
-    console.log('editar ' + id);
+    this.router.navigate([`/doctor-panel/appointments/edit/${id}`], {relativeTo: this.activatedRoute});
   }
 
   deleteAppointment(id: number) {

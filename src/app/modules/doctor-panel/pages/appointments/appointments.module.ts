@@ -14,6 +14,7 @@ import { CustomSelectComponent } from 'src/app/components/custom-select/custom-s
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { AppointmentsFormComponent } from './components/appointments-form/appointments-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
                   GetStartedComponent, 
                   AppointmentsTableComponent,
                   CreateAppointmentComponent,
-                  AppointmentsFormComponent],
+                  AppointmentsFormComponent,
+                  EditAppointmentComponent],
   imports: [
     CommonModule,
     AppointmentsRoutes,

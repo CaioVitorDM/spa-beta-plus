@@ -58,4 +58,11 @@ export class AppointmentService {
       map(({data}) => data)
     );
   }
+
+  getOne(id: number): Observable<Appointment> {
+    return this.httpClient.get<ApiResponse<Appointment>>(`${this.baseUrl}/${id}`).pipe(
+      first(),
+      map(({data: user}: ApiResponse<Appointment>) => user)
+    );
+  }
 }

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
+import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'create',
     component: CreateAppointmentComponent
+  },
+  {
+    path: 'edit/:id',
+    component: EditAppointmentComponent,
   },
 ];
 
