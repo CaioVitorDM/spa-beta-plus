@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {environment} from '../../../../../enviroments/environment';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {first, map, Observable} from 'rxjs';
-import {ApiResponse, Direction, Page, ParamsPageProtocol} from '../../../../../models/ApiResponse';
 import { Protocol } from 'src/app/models/Protocol';
 import { Patient, User } from 'src/app/models/User';
-
+import { environment } from 'src/app/enviroments/environment';
+import { ApiResponse, Direction, Page, ParamsPageProtocol } from 'src/app/models/ApiResponse';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class ProtocolService {
+
   private readonly baseUrl = environment.apiProtocolsUrl + '/v1/protocols';
 
   constructor(private httpClient: HttpClient) {}
@@ -19,22 +19,6 @@ export class ProtocolService {
       first(),
       map(({data: protocol}: ApiResponse<Protocol>) => protocol)
     );
-  }
-
-  getPatientsByDoctor(params: { doctorId: number, login?: string, name?: string }): Observable<User[]> {
-    let httpParams = new HttpParams();
-    Object.keys(params).forEach(key => {
-      const value = params[key as keyof typeof params];
-      if (value !== undefined && value !== null) {
-        httpParams = httpParams.set(key, value.toString());
-      }
-    });
-
-    return this.httpClient.get<ApiResponse<User[]>>(`${environment.apiPermissionUrl}/users/patients/doctor`, { params: httpParams })
-      .pipe(
-        first(),
-        map(response => response.data)  
-      );
   }
 
 
@@ -81,3 +65,5 @@ export class ProtocolService {
   }
 
 }
+
+

@@ -11,7 +11,7 @@
       </thead>
       <tbody>
       <tr *ngFor="let appointment of dataSource">
-        <td>{{ appointment.doctorName }}</td>
+        <td>{{ appointment.doctorInfo }}</td>
         <td>{{ appointment.description }}</td>
         <td>{{ appointment.local }}</td>
         <td>{{ appointment.appointmentDate| date:'dd/MM/yyyy' }}</td>
@@ -22,30 +22,30 @@
   
     
     <div class="list-container">
-      <div class="protocols-mobile-container">
-      <div *ngFor="let element of dataSource" class="protocols-list-mobile">
+      <div class="appointments-mobile-container">
+      <div *ngFor="let element of dataSource" class="appointments-list-mobile">
         <button class="list-card" (click)="printButton('card button')">
-          <div class="protocol-detail">
+          <div class="appointment-detail">
             <span class="description-detail">ID</span>
             <span class="data-detail">{{element.id}}</span>
           </div>
-          <div class="protocol-detail">
+          <div class="appointment-detail">
             <span class="description-detail">Médico</span>
-            <span class="data-detail">{{element.doctorName}}</span>
+            <span class="data-detail">{{element.doctorInfo}}</span>
           </div>
-          <div class="protocol-detail">
-            <span class="description-detail">Titulo</span>
+          <div class="appointment-detail">
+            <span class="description-detail">Descrição</span>
             <span class="data-detail">{{element.description}}</span>
           </div>
-          <div class="protocol-detail">
+          <div class="appointment-detail">
             <span class="description-detail">Local</span>
             <span class="data-detail">{{element.local}}</span>
           </div>
-          <div class="protocol-detail">
+          <div class="appointment-detail">
             <span class="description-detail">Data</span>
             <span class="data-detail">{{element.appointmentDate | date: 'dd/MM/yyyy'}}</span>
           </div>
-          <!-- <div class="protocol-actions">
+          <!-- <div class="appointment-actions">
             <button class="edit-btn" (click)="printButton('edit button')">
               <img src="assets/images/svg/edit.svg" alt="" srcset="" />
               <span> Editar </span>

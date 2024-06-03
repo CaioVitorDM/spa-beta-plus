@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { first, map } from 'rxjs';
+import { Observable, first, map } from 'rxjs';
 import { environment } from 'src/app/enviroments/environment';
 import { ApiResponse, Direction, Page, ParamsPageAppointment, ParamsPagePatient } from 'src/app/models/ApiResponse';
 import { Appointment } from 'src/app/models/Appointment';
@@ -14,6 +14,13 @@ export class AppointmentService {
 
   constructor(private httpClient: HttpClient) {}
 
+  create(record: Appointment): Observable<Appointment> {
+    return this.httpClient.post<ApiResponse<Appointment>>(this.baseUrl, record).pipe(
+      first(),
+      map(({data: appointment}: ApiResponse<Appointment>) => appointment)
+    );
+  }
+
   list({
     page = 0,
     size = 10,
@@ -21,6 +28,7 @@ export class AppointmentService {
     order = Direction.DESC,
     description,
     patientId,
+    doctorId,
     local,
     appointmentDate,
   }: ParamsPageAppointment) {

@@ -4,12 +4,12 @@ import { Protocol } from 'src/app/models/Protocol';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from 'src/app/services/file-service/file.service';
-import { ProtocolService } from '../services/protocol.service';
 import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { ProtocolsFormService } from '../components/protocols-form/service/protocols-form.service';
 import { HeaderService } from 'src/app/services/header/header-info.service';
+import { ProtocolService } from 'src/app/services/protocol/protocol.service';
 
 @Component({
   selector: 'app-edit-protocol',

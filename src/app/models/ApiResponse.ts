@@ -78,7 +78,8 @@ export interface ParamsPageProtocol extends ParamsPage<ProtocolList> {
 
 export interface ParamsPageAppointment extends ParamsPage<AppointmentList> {
   description?: string | null;
-  patientId: number | null;
+  patientId?: number | null;
+  doctorId?: number | null;
   local?: string | null;
   appointmentDate?: string | null;
 }

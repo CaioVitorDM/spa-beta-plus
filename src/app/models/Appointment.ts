@@ -10,7 +10,8 @@ export interface Appointment {
   export interface AppointmentList {
     id: number;
     description: string;
-    doctorName: string;
+    doctorInfo?: string;
+    patientInfo?: string;
     local: string;
     appointmentDate: string;
   }

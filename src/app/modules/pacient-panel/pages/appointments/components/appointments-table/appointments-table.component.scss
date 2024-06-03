@@ -56,7 +56,7 @@
     }
   }
   
-  .protocols-mobile-container{
+  .appointments-mobile-container{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -65,7 +65,7 @@
   
   }
   
-  .protocols-list-mobile{
+  .appointments-list-mobile{
     display: flex;
     width: 100%;
     background-color: #ffffff;
@@ -82,7 +82,7 @@
     background-color: #FFFFFF;
     cursor: pointer;
   
-    .protocol-detail{
+    .appointment-detail{
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -104,7 +104,7 @@
       line-height: normal;
     }
   
-    .protocol-actions {
+    .appointment-actions {
       display: flex;
       width: 100%;
       justify-content: center;

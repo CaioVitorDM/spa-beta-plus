@@ -6,11 +6,11 @@ import { ItemSelect } from 'src/app/components/custom-select/custom-select.compo
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { Direction, Page } from 'src/app/models/ApiResponse';
 import { Protocol, ProtocolList } from 'src/app/models/Protocol';
-import { ProtocolService } from 'src/app/modules/doctor-panel/pages/protocols/services/protocol.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HeaderService } from 'src/app/services/header/header-info.service';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import { ProtocolService } from 'src/app/services/protocol/protocol.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
@@ -144,6 +144,7 @@ export class GetStartedComponent implements OnInit {
   }
 
   onSuccess(protocols: Page<Protocol[]>) {
+    
     this.isLoading = false;
     this.isError = false;
     this.protocolData = protocols.content.map((protocol): ProtocolList => {

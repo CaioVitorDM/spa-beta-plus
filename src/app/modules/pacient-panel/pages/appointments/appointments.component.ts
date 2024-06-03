@@ -190,7 +190,7 @@ export class AppointmentsComponent implements OnInit {
         catchError(() => of({data: { doctor: { name: 'Desconhecido' }}})), 
         map(response => ({
           ...appointment,
-          doctorName: response.data.doctor?.name || 'Desconhecido' 
+          doctorInfo: response.data.doctor?.name || 'Desconhecido' 
         }))
       )
     );
@@ -200,7 +200,7 @@ export class AppointmentsComponent implements OnInit {
         id: appointment.id,
         description: appointment.description || '',
         local: appointment.local || '',
-        doctorName: appointment.doctorName,
+        doctorInfo: appointment.doctorInfo,
         appointmentDate: appointment.appointmentDate || ''
       }));
     });

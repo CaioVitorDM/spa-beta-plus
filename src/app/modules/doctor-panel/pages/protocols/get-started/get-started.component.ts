@@ -6,11 +6,11 @@ import { Protocol, ProtocolList } from 'src/app/models/Protocol';
 import { EMPTY, Subscription, catchError } from 'rxjs';
 import { Direction, Page } from 'src/app/models/ApiResponse';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ProtocolService } from '../services/protocol.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
+import { ProtocolService } from 'src/app/services/protocol/protocol.service';
 
 @Component({
   selector: 'app-get-started',
