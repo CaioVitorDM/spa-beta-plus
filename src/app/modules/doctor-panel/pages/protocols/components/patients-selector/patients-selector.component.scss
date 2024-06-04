@@ -5,6 +5,7 @@
 
 .patient-selector {
     background: rgba(95, 65, 178, 0.301);
+    border-left: 2px solid  #5F41B2;
     border-radius: 5px;
     font-size: 13px;
     overflow-y: auto;
@@ -20,6 +21,16 @@
     
 }
 
+.header-label {
+    color: #5F41B2;
+    font-weight: lighter;
+    
+} 
+
+.list-header {
+    padding-left: 10px; 
+    margin: 15px;
+}
 .patient-selector-container h3 {
     color: #5F41B2;
     font-weight: normal;
@@ -28,12 +39,23 @@
 }
 
 .checkbox-item {
-    display: grid;
-    grid-template-columns: auto 1fr 1fr; 
+    display: flex;
+    align-items: flex-start; 
     gap: 10px;
-    align-items: center;
     margin: 15px;
 }
+
+.checkbox-item input[type="checkbox"] {
+    flex-shrink: 0; 
+}
+.name-label {
+    flex-grow: 1; 
+    white-space: normal; 
+    text-indent: -20px; 
+    padding-left: 20px; 
+   
+}
+
 
 .title-and-message {
     display: flex;
@@ -47,17 +69,6 @@
 
 
 @media (max-width: 685px) {
-
-    .checkbox-item {
-        grid-template-columns: auto 1fr; 
-        grid-template-rows: auto auto; 
-    }
-
-    .login-label {
-        grid-column: 2;
-        grid-row: 2;
-        margin-left: 1.75em;
-    }
 
 
     .patients-header {

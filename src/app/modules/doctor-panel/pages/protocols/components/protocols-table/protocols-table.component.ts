@@ -53,6 +53,10 @@ export class ProtocolsTableComponent {
     this.router.navigate([`/doctor-panel/protocols/edit/${id}`], {relativeTo: this.activatedRoute});
   }
 
+  detailsProtocol(id: number) {
+    this.router.navigate([`/doctor-panel/protocols/details/${id}`], {relativeTo: this.activatedRoute});
+  }
+
   deleteProtocol(id: number) {
     console.log('delete ' + id);
   }

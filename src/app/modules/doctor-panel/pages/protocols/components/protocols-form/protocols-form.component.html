@@ -1,13 +1,15 @@
 <form class="register-form" #formRef="ngForm" [formGroup]="protocolForm">
     <div class="same-line-inputs-container">
-        <div class="align-inputs-and-error-messages">
-            <input type="text" placeholder="Nome do protocolo" formControlName="name" [ngClass]="{'input-error': isInputInvalid('name')}"/>
+        <div class="align-inputs-and-error-messages" [style.width]="isReadOnly ? '100%' : null">
+            <label for="name" *ngIf="isReadOnly">Nome: </label>
+            <input id="name" type="text" placeholder="Nome do protocolo" formControlName="name" 
+            [ngClass]="{'input-error': isInputInvalid('name')}"/>
             <span class="invalid-input-message" *ngIf="isInputInvalid('name')">
                 {{ formUtils.getErrorMessage(protocolForm, 'name') }}
             </span>
         </div>
 
-        <div class="align-inputs-and-error-messages">
+        <div class="align-inputs-and-error-messages" *ngIf="!isReadOnly">
             <div class="checkbox-wrapper-1">
                 <div class="input-check">
                     <input type="checkbox" id="isSpecific" formControlName="isSpecific" class="substituted" aria-hidden="true"/>
@@ -18,7 +20,9 @@
     </div>
 
     <div class="align-inputs-and-error-messages" style="width: 100%">
-        <textarea placeholder="Descrição" formControlName="description" [ngClass]="{'input-error': isInputInvalid('description')}"></textarea>
+        <label for="description" *ngIf="isReadOnly">Descrição: </label>
+        <textarea id="description" placeholder="Descrição" formControlName="description" 
+        [ngClass]="{'input-error': isInputInvalid('description'), 'read-only-border': isReadOnly}"></textarea>
         <span class="invalid-input-message" *ngIf="isInputInvalid('description')">
           {{ formUtils.getErrorMessage(protocolForm, 'description') }}
         </span>

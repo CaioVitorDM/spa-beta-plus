@@ -23,6 +23,22 @@
     outline: none;
   }
 
+  .read-only-border {
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+  }
+
+  .register-form label {
+    background-color: transparent;
+    color: #5F41B2;
+    font-size: 13px;
+    width: 100%;
+   
+  }
+
+  
+
+
   #isSpecific {
     border-bottom: none;
     width: 0 !important;

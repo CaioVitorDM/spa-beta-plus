@@ -1,8 +1,8 @@
 <div class="upload-container">
     <div class="icon-container">
-        <img src="/../assets/images/upload-file.png" alt="Upload Icon" class="upload-icon">
+        <img src="../../../assets/images/download.png" alt="Download" class="upload-icon"> 
     </div>
-    <label class="custom-file-upload">
+    <label class="custom-file-upload" *ngIf="!isReadOnly">
         <input type="file" id="file-input" (change)="onFileSelected($event)" hidden accept=".pdf"/>
         Enviar arquivo
     </label>

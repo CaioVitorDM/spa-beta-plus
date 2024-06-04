@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { GetStartedComponent } from './get-started/get-started.component';
 import { CreateProtocolComponent } from './create-protocol/create-protocol.component';
 import { EditProtocolComponent } from './edit-protocol/edit-protocol.component';
+import { ProtocolDetailsComponent } from './protocol-details/protocol-details.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditProtocolComponent,
+  },
+  {
+    path: 'details/:id',
+    component: ProtocolDetailsComponent,
   },
 ];
 

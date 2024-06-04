@@ -1,0 +1,71 @@
+.patient-list-container {
+    font-size: 13px;
+    padding: 0 40px;
+}
+
+.patients-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    
+}
+
+.patient-list {
+    background: rgba(95, 65, 178, 0.301);
+    border-left: 2px solid  #5F41B2;
+    border-radius: 5px;
+    font-size: 13px;
+    overflow-y: auto;
+    max-height: 200px;
+    margin: 15px 0;
+}
+
+
+h3 {
+    color: #5F41B2;
+    font-weight: normal;
+    font-size: 15px;
+    margin: 0;
+}
+
+
+.list-item {
+    padding-left: 10px;
+    margin: 15px;
+
+}
+
+.header-label, .patient-info {
+    flex: 1;
+    text-align: left;
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+}
+
+
+.header-label {
+    color: #5F41B2;
+    font-weight: lighter;
+    
+} 
+
+.list-header {
+    padding-left: 10px; 
+    margin: 15px;
+}
+
+
+@media (max-width: 600px) {
+    .header-label, .patient-info{
+        text-align: left;
+    }
+}
+
+@media (max-width: 897px) {
+    .patients-header {
+        flex-direction: column;
+        align-items: stretch; 
+    }
+
+}

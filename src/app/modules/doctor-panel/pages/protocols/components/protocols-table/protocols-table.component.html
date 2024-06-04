@@ -7,18 +7,18 @@
       <th style="width: 1rem;"></th>
     </tr>
     </thead>
-    <tbody>
-    <tr *ngFor="let protocol of dataSource">
+    <tbody> 
+    <tr *ngFor="let protocol of dataSource" (click)="detailsProtocol(protocol.id)">
       <td>{{ protocol.name }}</td>
       <td>{{ protocol.createdAt| date:'dd/MM/yyyy' }}</td>
       <td>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
           ⋮
         </button>
         <mat-menu #menu="matMenu">
           <div  class="floating-actions-menu">
-            <button mat-menu-item (click)="editProtocol(protocol.id!)">Editar</button>
-            <button mat-menu-item (click)="deleteProtocol(protocol.id!)">Excluir</button>
+            <button mat-menu-item (click)="editProtocol(protocol.id!); $event.stopPropagation()" >Editar</button>
+            <button mat-menu-item (click)="deleteProtocol(protocol.id!); $event.stopPropagation()">Excluir</button>
           </div>
         </mat-menu>
       </td>
@@ -31,7 +31,7 @@
   <div class="list-container">
     <div class="protocols-mobile-container">
     <div *ngFor="let element of dataSource" class="protocols-list-mobile">
-      <button class="list-card" (click)="printButton('card button')">
+      <button class="list-card" (click)="detailsProtocol(element.id)">
         <div class="protocol-detail">
           <span class="title-detail">ID</span>
           <span class="data-detail">{{element.id}}</span>
