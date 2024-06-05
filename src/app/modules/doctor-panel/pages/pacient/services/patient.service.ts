@@ -24,6 +24,15 @@ export class PatientService {
     );
   }
 
+  edit(record: PatientUserForm): Observable<User> {
+    const payload = toPatientUserEntity(record);
+
+    return this.httpClient.put<ApiResponse<User>>(`${this.baseUrl}/edit-patient`, payload).pipe(
+      first(),
+      map(({data: user}: ApiResponse<User>) => user)
+    );
+  }
+
   list({
     page = 0,
     size = 10,
@@ -66,5 +75,11 @@ export class PatientService {
       first(),
       map(({data: user}: ApiResponse<User>) => user)
     );
+  }
+
+  delete(id: number): Observable<Omit<ApiResponse<User>, 'data'>> {
+    return this.httpClient
+      .delete<Omit<ApiResponse<User>, 'data'>>(`${this.baseUrl}/${id}`)
+      .pipe(first());
   }
 }

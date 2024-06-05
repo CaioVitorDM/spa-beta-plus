@@ -11,6 +11,7 @@ import {apiErrorStatusMessage} from '../../../../../constants/messages';
 import {SnackbarService} from '../../../../../services/snackbar/snackbar.service';
 import {LineLoadingService} from '../../../../../services/line-loading/line-loading.service';
 import {PatientList, User} from '../../../../../models/User';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get-started',
@@ -20,6 +21,7 @@ import {PatientList, User} from '../../../../../models/User';
 export class GetStartedComponent implements OnInit {
   patientData!: PatientList[];
   loadPatientsSubscription = new Subscription();
+  deletePatientSubscription = new Subscription();
   isLoading: boolean = false;
   isError: boolean = false;
 
@@ -203,5 +205,30 @@ export class GetStartedComponent implements OnInit {
       this.lastItem = patients.totalElements;
     }
     this.lineLoadingService.hide();
+  }
+
+  deletePatient(id: number) {
+    this.lineLoadingService.show();
+    this.deletePatientSubscription = this.patientService
+      .delete(id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe((response) => {
+        if (response.success) {
+          swal.fire({
+            title: 'Sucesso!',
+            text: 'O usuário foi deletado!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.fetchData();
+        }
+      });
   }
 }
