@@ -13,6 +13,13 @@ export const routes: Routes = [
       ),
   },
   { path: 'protocols', loadChildren: () => import('./pages/protocols/protocols.module').then(m => m.ProtocolsModule) },
+  {
+    path: 'appointments',
+    loadChildren: () =>
+      import('src/app/modules/doctor-panel/pages/appointments/appointments.module').then(
+        (m) => m.AppointmentsModule
+      ),
+  },
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Protocol } from 'src/app/models/Protocol';
-import { ProtocolService } from '../services/protocol.service';
+import { ProtocolService } from 'src/app/services/protocol/protocol.service';
 
 @Component({
   selector: 'app-create-protocol',

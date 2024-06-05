@@ -1,0 +1,33 @@
+<div class="get-started-container">
+    <div class="filter-container">
+        <app-input-search
+        [items]="searchOptions"
+        [submitSearchFunction]="submitSearch.bind(this)"
+        [cleanSearchFunction]="cleanSearch.bind(this)"
+        ></app-input-search>
+        
+        <div class="paginators-container">
+            <app-custom-select style="width: 100px"
+                            [paginator]="true"
+                            ngClass="custom-select"
+                            [isActiveIcon]="true"
+                            [items]="pageNumber"
+                            (defaultItemSelectedChange)="handleSelectedPage($event)"
+                            [defaultItemSelected]="selectedPage"
+            />
+        
+            <app-custom-select style="width: 140px"
+                            [paginator]="true"
+                            ngClass="custom-select"
+                            [isActiveIcon]="true"
+                            [items]="paginatorItems"
+                            (defaultItemSelectedChange)="handleSelectedItem($event)"
+                            [defaultItemSelected]="selectedPaginator"
+            />
+        </div>
+    </div>
+  
+  <app-appointments-table [dataSource]="appointmentData"></app-appointments-table>
+  
+  </div>
+    

@@ -1,0 +1,40 @@
+<form class="register-form" #formRef="ngForm" [formGroup]="appointmentForm">
+    
+    <div class="align-inputs-and-error-messages" style="width: 100%;">
+        <input type="text" placeholder="Descrição" formControlName="description" [ngClass]="{'input-error': isInputInvalid('description')}"/>
+        <span class="invalid-input-message" *ngIf="isInputInvalid('description')">
+          {{ formUtils.getErrorMessage(appointmentForm, 'description') }}
+        </span>
+      </div>
+
+    
+    <div class="same-line-inputs-container">
+        <div class="align-inputs-and-error-messages">
+            <input type="date" formControlName="appointmentDate" style="height: 40px" [ngClass]="{'input-error': isInputInvalid('appointmentDate')}"/>
+            <span class="invalid-input-message" *ngIf="isInputInvalid('appointmentDate')">
+              {{ formUtils.getErrorMessage(appointmentForm, 'appointmentDate') }}
+            </span>
+        </div>
+        <div class="align-inputs-and-error-messages" >
+            <select formControlName="patientId" [ngClass]="{'input-error': isInputInvalid('patientId')}">
+                <option value="" disabled selected >Selecione um Paciente</option>
+                <option *ngFor="let patient of patients" [value]="patient.id">
+                    {{ patient.name }} ({{ patient.login }})
+                </option>
+            </select>
+            <span class="invalid-input-message" *ngIf="isInputInvalid('patientId')">
+                {{ formUtils.getErrorMessage(appointmentForm, 'patientId') }}
+            </span>
+        </div>
+
+    </div>
+
+    <div class="align-inputs-and-error-messages" style="width: 100%;"> 
+        <input type="text" placeholder="Local" formControlName="local" [ngClass]="{'input-error': isInputInvalid('local')}"/>
+        <span class="invalid-input-message" *ngIf="isInputInvalid('local')">
+          {{ formUtils.getErrorMessage(appointmentForm, 'local') }}
+        </span>
+      </div>
+
+  </form>
+  

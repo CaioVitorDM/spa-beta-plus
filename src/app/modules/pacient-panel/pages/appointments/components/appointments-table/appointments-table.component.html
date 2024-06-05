@@ -1,0 +1,62 @@
+
+<div class="container">
+    <table>
+      <thead>
+      <tr style="border-radius: 10px !important;">
+        <th>Médico</th>
+        <th>Descrição</th>
+        <th>Local</th>
+        <th>Data</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let appointment of dataSource">
+        <td>{{ appointment.doctorInfo }}</td>
+        <td>{{ appointment.description }}</td>
+        <td>{{ appointment.local }}</td>
+        <td>{{ appointment.appointmentDate| date:'dd/MM/yyyy' }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  
+    
+    <div class="list-container">
+      <div class="appointments-mobile-container">
+      <div *ngFor="let element of dataSource" class="appointments-list-mobile">
+        <button class="list-card" (click)="printButton('card button')">
+          <div class="appointment-detail">
+            <span class="description-detail">ID</span>
+            <span class="data-detail">{{element.id}}</span>
+          </div>
+          <div class="appointment-detail">
+            <span class="description-detail">Médico</span>
+            <span class="data-detail">{{element.doctorInfo}}</span>
+          </div>
+          <div class="appointment-detail">
+            <span class="description-detail">Descrição</span>
+            <span class="data-detail">{{element.description}}</span>
+          </div>
+          <div class="appointment-detail">
+            <span class="description-detail">Local</span>
+            <span class="data-detail">{{element.local}}</span>
+          </div>
+          <div class="appointment-detail">
+            <span class="description-detail">Data</span>
+            <span class="data-detail">{{element.appointmentDate | date: 'dd/MM/yyyy'}}</span>
+          </div>
+          <!-- <div class="appointment-actions">
+            <button class="edit-btn" (click)="printButton('edit button')">
+              <img src="assets/images/svg/edit.svg" alt="" srcset="" />
+              <span> Editar </span>
+            </button>
+            <button class="delete-btn" (click)="printButton('delete button')">
+              <img src="assets/images/svg/inventory-red.svg" alt="" srcset="" />
+              Excluir
+            </button>
+          </div> -->
+        </button>
+      </div>
+      </div>
+    </div>
+    
