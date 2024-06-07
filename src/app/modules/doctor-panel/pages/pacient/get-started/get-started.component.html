@@ -29,6 +29,6 @@
     />
   </div>
 
-  <app-patients-table [dataSource]="patientData"></app-patients-table>
+  <app-patients-table [dataSource]="patientData" (deleteUserEvent)="deletePatient($event)"></app-patients-table>
 
 </div>

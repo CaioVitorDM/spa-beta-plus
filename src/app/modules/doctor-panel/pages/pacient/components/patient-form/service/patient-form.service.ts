@@ -36,6 +36,7 @@ export class PatientFormService {
     return this.formBuilder.group({
       id: [null],
       doctorId: [null],
+      patientId: [null],
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required]),
@@ -52,6 +53,7 @@ export class PatientFormService {
     this.form.patchValue({
       id: '',
       doctorId: '',
+      patientId: '',
       firstName: '',
       lastName: '',
       email: '',
@@ -90,14 +92,16 @@ export class PatientFormService {
     };
   }
 
-  public onSuccess() {
+  public onSuccess(isEditing: boolean) {
     this.lineLoadingService.hide();
     this.form.markAsPristine();
     this.form.markAsUntouched();
     swal
       .fire({
         title: 'Sucesso!',
-        text: 'Paciente cadastrado na base de dados!',
+        text: isEditing
+          ? 'Paciente editado na base de dados!'
+          : 'Paciente cadastrado na base de dados!',
         icon: 'success',
         showConfirmButton: false,
         timer: 3000,
