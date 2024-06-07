@@ -1,5 +1,5 @@
 <div class="protocol-container">
-  <div *ngFor="let protocol of dataSource" class="protocol-box">
+  <div *ngFor="let protocol of dataSource" (click)="detailsProtocol(protocol.id)" class="protocol-box" >
     <button class="download-btn">
         <img src="../../../assets/images/download.png" alt="Download">
       </button>
