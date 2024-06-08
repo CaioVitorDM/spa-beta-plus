@@ -1,16 +1,15 @@
 import {NgClass, NgIf} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-upload-file',
   standalone: true,
   imports: [NgIf, NgClass],
   templateUrl: './upload-file.component.html',
-  styleUrls: ['./upload-file.component.scss']
+  styleUrls: ['./upload-file.component.scss'],
 })
 export class UploadFileComponent {
-  
   @Output() fileSelected = new EventEmitter<File>();
 
   @Input() fileName: string = '';
@@ -23,10 +22,7 @@ export class UploadFileComponent {
       this.fileName = file.name;
       this.errorMessage = '';
       this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
-      console.log("emitindo");
-      
+      console.log('emitindo');
     }
   }
-
-
 }

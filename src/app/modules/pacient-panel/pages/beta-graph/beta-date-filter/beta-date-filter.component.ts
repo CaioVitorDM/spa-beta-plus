@@ -15,4 +15,3 @@ export class BetaDateFilterComponent {
     this.dialogRef.close();
   }
 }
-
