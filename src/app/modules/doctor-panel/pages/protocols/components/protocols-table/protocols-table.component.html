@@ -45,11 +45,11 @@
           <span class="data-detail">{{element.createdAt | date: 'dd/MM/yyyy'}}</span>
         </div>
         <div class="protocol-actions">
-          <button class="edit-btn" (click)="editProtocol(element.id!)">
+          <button class="edit-btn" (click)="editProtocol(element.id!); $event.stopPropagation()">
             <img src="assets/images/svg/edit.svg" alt="" srcset="" />
             <span> Editar </span>
           </button>
-          <button class="delete-btn" (click)="printButton('delete button')">
+          <button class="delete-btn" (click)="deleteProtocol(element.id!); $event.stopPropagation()">
             <img src="assets/images/svg/inventory-red.svg" alt="" srcset="" />
             Excluir
           </button>

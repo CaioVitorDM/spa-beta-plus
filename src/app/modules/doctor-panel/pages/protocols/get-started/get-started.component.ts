@@ -11,6 +11,7 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { ProtocolService } from 'src/app/services/protocol/protocol.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get-started',
@@ -21,6 +22,8 @@ export class GetStartedComponent implements OnInit{
 
   protocolData!: ProtocolList[];
   loadProtocolsSubscription = new Subscription();
+  deleteProtocolSubscription = new Subscription();
+
   isLoading: boolean = false;
   isError: boolean = false;
 
@@ -186,6 +189,31 @@ export class GetStartedComponent implements OnInit{
       this.lastItem = protocols.totalElements;
     }
     this.lineLoadingService.hide();
+  }
+
+  deleteProtocol(id: number) {
+    this.lineLoadingService.show();
+    this.deleteProtocolSubscription = this.protocolService
+      .delete(id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe((response) => {
+        if (response.success) {
+          swal.fire({
+            title: 'Sucesso!',
+            text: 'O protocolo foi deletado!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.fetchData();
+        }
+      });
   }
 
   navigateToCreatePage() {

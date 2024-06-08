@@ -64,6 +64,12 @@ export class ProtocolService {
     );
   }
 
+  delete(id: number): Observable<Omit<ApiResponse<Protocol>, 'data'>> {
+    return this.httpClient
+      .delete<Omit<ApiResponse<Protocol>, 'data'>>(`${this.baseUrl}/${id}`)
+      .pipe(first());
+  }
+
 }
 
 
