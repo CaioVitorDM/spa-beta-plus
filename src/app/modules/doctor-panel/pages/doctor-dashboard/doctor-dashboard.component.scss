@@ -75,6 +75,7 @@ table {
     font-weight: 300;
     padding: 12px;
   }
+  
   tr:nth-child(even) {
     background-color: #f9f9f9;
   }
@@ -143,6 +144,7 @@ table {
 .info-paciente strong {
   display: block;
   color: #5F41B2;
+  font-weight: 500;
 }
 
 .info-paciente span {
