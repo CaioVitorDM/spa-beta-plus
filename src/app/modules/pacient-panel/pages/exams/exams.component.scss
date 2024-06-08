@@ -1,0 +1,37 @@
+* {
+  text-decoration: none;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+}
+
+#menu {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.menu-item {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  border: 1px solid #ccc; //lembrar de tirar
+}
+
+@media (max-width: 768px) {
+  #menu {
+    flex-direction: column;
+  }
+  .menu-item {
+    width: 100%;
+  }
+}
+
+.search {
+  width: 9.5rem;
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 1rem;
+  }
+}

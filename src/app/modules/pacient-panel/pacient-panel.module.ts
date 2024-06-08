@@ -11,9 +11,7 @@ import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashb
 import {DetailsCardComponent} from '../../components/details-card/details-card.component';
 import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
-import {AppointmentsComponent} from './pages/appointments/appointments.component';
 import {CustomSelectComponent} from 'src/app/components/custom-select/custom-select.component';
-import {AppointmentsTableComponent} from './pages/appointments/components/appointments-table/appointments-table.component';
 import {BetaGraphComponent} from './pages/beta-graph/beta-graph.component';
 import {BetaMenuComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/beta-menu/beta-menu.component';
 import {BetaGeneralComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/beta-general/beta-general.component';
