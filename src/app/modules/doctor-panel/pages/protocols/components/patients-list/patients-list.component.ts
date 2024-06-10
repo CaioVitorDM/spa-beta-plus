@@ -39,11 +39,6 @@ export class PatientsListComponent {
               private snackbar: SnackbarService,
             ) {}
 
-  searchOptions: ItemSelect[] = [
-    {value: 'name', label: 'Nome'},
-    {value: 'login', label: 'Login'}
-  ];
-
    ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.name = params['name'] || this.name;
@@ -53,25 +48,6 @@ export class PatientsListComponent {
     });
   }
 
-
-  submitSearch(searchType: string | number, searchText: string | null): void {
-    if (searchType === 'name') {
-      this.name = searchText;
-      this.login = '';
-    }
-    if (searchType === 'login') {
-      this.login = searchText;
-      this.name = '';
-    }
-
-    this.loadPatients();
-  }
-
-  cleanSearch() {
-    this.name = '';
-    this.login = '';
-    this.loadPatients();
-  }
 
 
   loadPatients() {
