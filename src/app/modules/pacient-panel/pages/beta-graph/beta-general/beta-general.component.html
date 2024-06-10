@@ -1,71 +1,104 @@
-<div class="container">
-  <table>
-    <thead>
-      <tr style="border-radius: 10px !important;">
-        <th>Nível (mUI/ml)</th>
-        <th>Data de Nascimento</th>
-        <th>Telefone</th>
-        <th>Email</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let patient of dataSource">
-        <td>{{ patient.name }}</td>
-        <td>{{ patient.birthDate | date:'dd/MM/yyyy' }}</td>
-        <td>{{ patient.phoneNumber }}</td>
-        <td>{{ patient.email }}</td>
-        <td>
-          <button mat-icon-button [matMenuTriggerFor]="menu">
-            ⋮
-          </button>
-          <mat-menu #menu="matMenu">
-            <div class="floating-actions-menu">
-              <button mat-menu-item (click)="editUser(patient.id!)">Editar</button>
-              <button mat-menu-item (click)="deleteUser(patient.id!)">Excluir</button>
-            </div>
-          </mat-menu>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div id="main">
+  <div class="paginators-container">
+    <app-custom-select
+      style="width: 100px"
+      [paginator]="true"
+      ngClass="custom-select"
+      [isActiveIcon]="true"
+      [items]="pageNumber"
+      (defaultItemSelectedChange)="handleSelectedPage($event)"
+      [defaultItemSelected]="selectedPage"
+    />
 
-<div class="list-container">
-  <div class="users-mobile-container">
-    <div *ngFor="let element of dataSource" class="users-list-mobile">
-      <button class="list-card" (click)="printButton('card button')">
-        <div class="user-detail">
-          <span class="title-detail">ID</span>
-          <span class="data-detail">{{element.id}}</span>
+    <app-custom-select
+      style="width: 140px"
+      [paginator]="true"
+      ngClass="custom-select"
+      [isActiveIcon]="true"
+      [items]="paginatorItems"
+      (defaultItemSelectedChange)="handleSelectedItem($event)"
+      [defaultItemSelected]="selectedPaginator"
+    />
+    <div class="dateFilter">
+      <form>
+        <div class="dateFilterElement">
+          <label for="firstDate">De</label>
+          <input
+            type="date"
+            id="firstDate"
+            name="firstDate"
+            (change)="filterPatients()"
+            [(ngModel)]="firstDate"
+          />
         </div>
-        <div class="user-detail">
-          <span class="title-detail">Nome</span>
-          <span class="data-detail">{{element.name}}</span>
+        <div class="dateFilterElement">
+          <label for="lastDate">Até</label>
+          <input
+            type="date"
+            id="lastDate"
+            name="lastDate"
+            (change)="filterPatients()"
+            [(ngModel)]="lastDate"
+          />
         </div>
-        <div class="user-detail">
-          <span class="title-detail">Data de Nascimento</span>
-          <span class="data-detail">{{element.birthDate | date: 'dd/MM/yyyy'}}</span>
-        </div>
-        <div class="user-detail">
-          <span class="title-detail">Telefone</span>
-          <span class="data-detail">{{element.phoneNumber}}</span>
-        </div>
-        <div class="user-detail">
-          <span class="title-detail">Email</span>
-          <span class="data-detail">{{element.email}}</span>
-        </div>
-        <div class="user-actions">
-          <button class="edit-btn" (click)="editUser(element.id!)">
-            <img src="assets/images/svg/edit.svg" alt="" />
-            <span> Editar </span>
-          </button>
-          <button class="delete-btn" (click)="deleteUser(element.id!)">
-            <img src="assets/images/svg/inventory-red.svg" alt="" />
-            Excluir
-          </button>
-        </div>
-      </button>
+      </form>
+    </div>
+  </div>
+  <div class="container">
+    <table>
+      <thead>
+        <tr class="trhover">
+          <th class="th-first">Nível (mUI/ml)</th>
+          <th (click)="toggleSortOrder()" style="cursor: pointer">
+            Data
+            <span *ngIf="sortOrder === 'asc'">▲</span>
+            <span *ngIf="sortOrder === 'desc'">▼</span>
+          </th>
+          <th class="th-last"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patientData">
+          <td>{{ patient.name }}</td>
+          <td>{{ patient.birthDate | date: 'dd/MM/yyyy' }}</td>
+          <td class="td-edit">
+            <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
+            <mat-menu #menu="matMenu">
+              <div class="floating-actions-menu">
+                <button (click)="editUser(patient.id!)">Editar</button>
+                <button (click)="deleteUser(patient.id!)">Excluir</button>
+              </div>
+            </mat-menu>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="list-container">
+    <div class="users-mobile-container">
+      <div *ngFor="let element of patientData" class="users-list-mobile">
+        <button class="list-card" (click)="printButton('card button')">
+          <div class="user-detail">
+            <span class="title-detail">Nível</span>
+            <span class="data-detail">{{ element.name }}</span>
+          </div>
+          <div class="user-detail">
+            <span class="title-detail">Data</span>
+            <span class="data-detail">{{ element.birthDate | date: 'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="user-actions">
+            <button class="edit-btn" (click)="editUser(element.id!)">
+              <img src="assets/images/svg/edit.svg" alt="" />
+              <span> Editar </span>
+            </button>
+            <button class="delete-btn" (click)="deleteUser(element.id!)">
+              <img src="assets/images/svg/inventory-red.svg" alt="" />
+              Excluir
+            </button>
+          </div>
+        </button>
+      </div>
     </div>
   </div>
 </div>

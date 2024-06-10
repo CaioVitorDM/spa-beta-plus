@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderService } from '../../../../services/header/header-info.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BetaPopUpComponent } from './beta-pop-up/beta-pop-up.component';
-import { BetaDateFilterComponent } from './beta-date-filter/beta-date-filter.component';
 
 @Component({
   selector: 'app-beta-graph',
@@ -38,8 +37,5 @@ export class BetaGraphComponent implements OnInit {
 
   openDialog(): void {
     this.dialog.open(BetaPopUpComponent);
-  }
-  openDialogFilter(): void {
-    this.dialog.open(BetaDateFilterComponent);
   }
 }

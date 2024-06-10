@@ -11,17 +11,22 @@ import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashb
 import {DetailsCardComponent} from '../../components/details-card/details-card.component';
 import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
-import { AppointmentsComponent } from './pages/appointments/appointments.component';
-import { CustomSelectComponent } from 'src/app/components/custom-select/custom-select.component';
-import { AppointmentsTableComponent } from './pages/appointments/components/appointments-table/appointments-table.component';
-import { BetaGraphComponent } from './pages/beta-graph/beta-graph.component';
-import { BetaMenuComponent } from 'src/app/modules/pacient-panel/pages/beta-graph/beta-menu/beta-menu.component';
-import { BetaGeneralComponent } from 'src/app/modules/pacient-panel/pages/beta-graph/beta-general/beta-general.component';
-import { InputSearchComponent } from 'src/app/components/input-search/input-search.component';
-import { MatDialogModule } from '@angular/material/dialog';
+import {AppointmentsComponent} from './pages/appointments/appointments.component';
+import {CustomSelectComponent} from 'src/app/components/custom-select/custom-select.component';
+import {AppointmentsTableComponent} from './pages/appointments/components/appointments-table/appointments-table.component';
+import {BetaGraphComponent} from './pages/beta-graph/beta-graph.component';
+import {BetaMenuComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/beta-menu/beta-menu.component';
+import {BetaGeneralComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/beta-general/beta-general.component';
+import {InputSearchComponent} from 'src/app/components/input-search/input-search.component';
+import {MatDialogModule} from '@angular/material/dialog';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BetaPopUpComponent } from './pages/beta-graph/beta-pop-up/beta-pop-up.component';
-import { BetaDateFilterComponent } from './pages/beta-graph/beta-date-filter/beta-date-filter.component';
+import {BetaPopUpComponent} from './pages/beta-graph/beta-pop-up/beta-pop-up.component';
+import {FormsModule} from '@angular/forms';
+import {ExamsComponent} from './pages/exams/exams.component';
+import {UploadFileComponent} from 'src/app/components/upload-file/upload-file.component';
+import {UploadExamsComponent} from './pages/exams/upload-exams/upload-exams.component';
+import {ExamsTableComponent} from './pages/exams/exams-table/exams-table.component';
+import {ProtocolsFormComponent} from '../doctor-panel/pages/protocols/components/protocols-form/protocols-form.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +38,7 @@ import { BetaDateFilterComponent } from './pages/beta-graph/beta-date-filter/bet
     AppointmentsComponent,
     AppointmentsTableComponent,
     BetaGraphComponent,
+    ExamsComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +48,7 @@ import { BetaDateFilterComponent } from './pages/beta-graph/beta-date-filter/bet
     PacientPanelRoutes,
     SharedModule,
     HeaderComponent,
+    FormsModule,
     UploadComponentComponent,
     DetailsCardComponent,
     InputSearchComponent,
@@ -50,8 +57,12 @@ import { BetaDateFilterComponent } from './pages/beta-graph/beta-date-filter/bet
     BetaGeneralComponent,
     InputSearchComponent,
     MatDialogModule,
-    BetaDateFilterComponent,
     BetaPopUpComponent,
+    UploadFileComponent,
+    UploadExamsComponent,
+    ExamsTableComponent,
+    CustomSelectComponent,
+    // ProtocolsFormComponent,
   ],
 })
 export class PacientPanelModule {}

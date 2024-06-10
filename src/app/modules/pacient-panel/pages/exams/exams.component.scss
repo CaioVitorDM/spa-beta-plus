@@ -1,0 +1,40 @@
+#exams {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 4px;
+}
+
+.upload {
+  border: none;
+  background-color: #5f41b2;
+  font-size: 14px;
+  padding: 7px 25px;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  #menu {
+    flex-direction: column-reverse;
+    gap: 20px;
+    align-items: center;
+  }
+  .upload {
+    min-width: 1rem;
+    width: 100%;
+  }
+}
+
+.paginators-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}

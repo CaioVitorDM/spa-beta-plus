@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UploadExamsComponent } from './upload-exams.component';
 
-import { BetaGeneralComponent } from './beta-general.component';
-
-describe('BetaGeneralComponent', () => {
-  let component: BetaGeneralComponent;
-  let fixture: ComponentFixture<BetaGeneralComponent>;
+describe('UploadExamsComponent', () => {
+  let component: UploadExamsComponent;
+  let fixture: ComponentFixture<UploadExamsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BetaGeneralComponent]
+      imports: [UploadExamsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(BetaGeneralComponent);
+    fixture = TestBed.createComponent(UploadExamsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

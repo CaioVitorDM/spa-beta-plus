@@ -1,9 +1,17 @@
 <div class="component-container">
   <div class="input-container" *ngIf="items && items.length > 0">
     <section tabindex="0" class="input-content" (click)="toggleList()" (keypress)="toggleList()">
-      <input class="item-select-input" [value]="selectedValue && selectedValue.label ? selectedValue.label : ''" readonly />
+      <input
+        class="item-select-input"
+        [value]="selectedValue && selectedValue.label ? selectedValue.label : ''"
+        readonly
+      />
 
-      <button class="w-5 h-5" style="border: none; background: transparent" (click)="toggleList(); $event.stopPropagation()">
+      <button
+        class="w-5 h-5"
+        style="border: none; background: transparent"
+        (click)="toggleList(); $event.stopPropagation()"
+      >
         <img
           style="width: 20px"
           *ngIf="isOpen"
@@ -40,29 +48,32 @@
     </ul>
   </div>
 
-    <div class="search-box">
-      <input *ngIf="!isDateSearch(); else dateInput"
-             type="text"
-             class="input-pesquisa"
-             [placeholder]="searchPlaceholder"
-             [(ngModel)]="searchedValue"
-             (keyup.enter)="submitSearch(selectedValue.value, searchedValue)">
-      
-      <ng-template #dateInput>
-        <input type="date"
-               class="input-pesquisa"
-               [placeholder]="searchPlaceholder"
-               [(ngModel)]="searchedValue"
-               (keyup.enter)="submitSearch(selectedValue.value, searchedValue)">
-      </ng-template>
-      
-      <button *ngIf="searchedValue" class="clear-icon" (click)="cleanSearch()">
-        <span>X</span>
-      </button>
-      
-      <button class="search-icon" (click)="submitSearch(selectedValue.value, searchedValue)">
-        <img src="assets/images/svg/search-white.svg" style="width: 20px" alt="Ícone de lupa" />
-      </button>
-    </div>
-  
+  <div class="search-box">
+    <input
+      *ngIf="!isDateSearch(); else dateInput"
+      type="text"
+      class="input-pesquisa"
+      [placeholder]="searchPlaceholder"
+      [(ngModel)]="searchedValue"
+      (keyup.enter)="submitSearch(selectedValue.value, searchedValue)"
+    />
+
+    <ng-template #dateInput>
+      <input
+        type="date"
+        class="input-pesquisa"
+        [placeholder]="searchPlaceholder"
+        [(ngModel)]="searchedValue"
+        (keyup.enter)="submitSearch(selectedValue.value, searchedValue)"
+      />
+    </ng-template>
+
+    <button *ngIf="searchedValue" class="clear-icon" (click)="cleanSearch()">
+      <span>X</span>
+    </button>
+
+    <button class="search-icon" (click)="submitSearch(selectedValue.value, searchedValue)">
+      <img src="assets/images/svg/search-white.svg" style="width: 20px" alt="Ícone de lupa" />
+    </button>
+  </div>
 </div>

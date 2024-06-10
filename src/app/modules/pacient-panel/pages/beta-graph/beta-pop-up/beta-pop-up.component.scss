@@ -20,7 +20,6 @@
     font-size: 1.2rem;
     background-color: #f8f8f8;
     width: 100%;
-    height: 60px;
     padding: 10px 0px;
     border-bottom: 1px solid #ededed;
     border-top: 1px solid #ededed;
@@ -37,11 +36,12 @@
     border: none;
     width: 60px;
     font-size: 10px;
-    border-radius: 7px;
+    font-weight: 400;
+    border-radius: 3px;
     color: #FFF;
-    box-shadow: 0 0.2rem #dfd9d9;
     cursor: pointer;
     margin-left: 10px;
+    padding: 5px;
   }
 
   .button-cancelar{
@@ -49,11 +49,12 @@
     border: none;
     width: 60px;
     font-size: 10px;
-    border-radius: 7px;
+    font-weight: 400;
+    border-radius: 3px;
     color: #FFF;
-    box-shadow: 0 0.2rem #dfd9d9;
     cursor: pointer;
     margin-right: 10px;
+    padding: 5px;
   }
 
   p.popup-text{
@@ -64,17 +65,16 @@
 
   .popup-input{
     text-decoration: none;
-    margin: 0px 15px;
+    outline: none;
+    margin: 0px 15px 10px 15px;
     width: 200px;
-    border-radius: 7px;
-    border: 1px solid #c7c7c7;
+    border-radius: 7px 7px 0px 0px;
+    border: none;
+    border-bottom: 1px solid #c7c7c7;
+    background-color: #f8f8f8;
+    
   }
 
-  input.popup-input:focus{
-    border: 1px solid #8e8e8e;
-    text-decoration: none;
-    outline: none;
-  }
 
   
   
