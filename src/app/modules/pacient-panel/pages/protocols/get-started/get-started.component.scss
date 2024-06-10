@@ -1,0 +1,42 @@
+.get-started-container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .filter-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+  
+  .filter-input{
+    background-color: #FFFFFF;
+    height: 30px;
+    width: 200px;
+    font-family: 'Poppins';
+    border-radius: 5px;
+    border: 0.5px solid rgba(108, 108, 108, 0.5);
+  }
+  
+  
+  @media (max-width: 768px) {
+    .filter-container{
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+    }
+    .filter-input, .new-button{
+      min-width: 1rem;
+      max-width: 100%;
+    }
+  
+  }
+  
+  .paginators-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+  }
+  

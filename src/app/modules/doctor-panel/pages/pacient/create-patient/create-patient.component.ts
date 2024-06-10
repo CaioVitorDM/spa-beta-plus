@@ -102,7 +102,7 @@ export class CreatePatientComponent {
   private handleSuccess() {
     this.isLoading = false;
     this.patientFormService.resetForm();
-    this.patientFormService.onSuccess();
+    this.patientFormService.onSuccess(false);
   }
 
   private onError(error: Error) {

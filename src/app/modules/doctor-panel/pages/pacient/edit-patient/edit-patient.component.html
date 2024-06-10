@@ -1,5 +1,5 @@
 <div class="container">
     <app-upload-component (fileSelected)="handleSelectedFile($event)" [filePath]="imageSrc"></app-upload-component>
-    <app-patient-form [patient]="patient"></app-patient-form>
-    <button class="submit-button" >Salvar</button>
+    <app-patient-form [patient]="patient" [isEditing]="true"></app-patient-form>
+    <button class="submit-button" (click)="onSubmit()">Salvar</button>
 </div>

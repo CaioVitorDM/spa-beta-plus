@@ -13,7 +13,8 @@ export interface Protocol {
   export interface ProtocolList {
     id: number;
     name: string;
-    createdAt: string;
+    description?: string;
+    createdAt?: string;
   }
   
   

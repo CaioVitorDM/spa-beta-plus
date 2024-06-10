@@ -27,6 +27,7 @@ export class PatientFormComponent implements OnDestroy, OnInit {
   formUtils: FormUtilsService;
   patientForm: FormGroup;
   @Input() patient?: number;
+  @Input() isEditing: boolean = false;
 
   constructor(
     private lineLoadingService: LineLoadingService,
@@ -42,8 +43,9 @@ export class PatientFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    if (this.patient) {
+    if (this.patient && this.isEditing) {
       this.loadPatient(this.patient);
+      this.patientForm.get('password')?.disable();
     }
   }
 
@@ -83,6 +85,7 @@ export class PatientFormComponent implements OnDestroy, OnInit {
           this.patientForm.patchValue({
             id: user.id,
             doctorId: user.patient?.doctorId,
+            patientId: user.patient?.id,
             firstName: user.patient?.name.split(' ')[0].trim(),
             lastName: user.patient?.name.split(' ')[1].trim(),
             email: user.email,

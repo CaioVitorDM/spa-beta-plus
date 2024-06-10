@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {PatientList} from '../../../../../../models/User';
 import {ActivatedRoute, Router} from '@angular/router';
 
@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class PatientsTableComponent {
   @Input() dataSource: PatientList[] = [];
+  @Output() deleteUserEvent = new EventEmitter<number>();
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,6 +30,6 @@ export class PatientsTableComponent {
   }
 
   deleteUser(id: number) {
-    console.log('delete ' + id);
+    this.deleteUserEvent.emit(id);
   }
 }

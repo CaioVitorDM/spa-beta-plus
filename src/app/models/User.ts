@@ -51,7 +51,9 @@ export interface MedicUserForm {
 }
 
 export interface PatientUserForm {
+  id?: number;
   doctorId: number;
+  patientId?: number;
   firstName: string;
   lastName: string;
   email: string;

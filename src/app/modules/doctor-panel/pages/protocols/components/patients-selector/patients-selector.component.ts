@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } fro
 import { ItemSelect } from 'src/app/components/custom-select/custom-select.component';
 import { Direction } from 'src/app/models/ApiResponse';
 import { AuthService } from 'src/app/services/auth/auth.service';
-import { ProtocolService } from '../../services/protocol.service';
 import { ActivatedRoute } from '@angular/router';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { EMPTY, Subscription, catchError } from 'rxjs';
@@ -10,6 +9,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { User } from 'src/app/models/User';
+import { ProtocolService } from 'src/app/services/protocol/protocol.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-patients-selector',
@@ -31,7 +32,8 @@ export class PatientsSelectorComponent implements OnInit {
   name: string | null = '';
   login: string | null = '';
   
-  constructor(private protocolService: ProtocolService,
+  constructor(
+              private patientService: PatientService,
               private authService: AuthService,
               private route: ActivatedRoute,
               private lineLoadingService: LineLoadingService,
@@ -73,7 +75,7 @@ export class PatientsSelectorComponent implements OnInit {
   }
 
   loadPatients() {
-    this.loadPatientsSubscription = this.protocolService
+    this.loadPatientsSubscription = this.patientService
       .getPatientsByDoctor({
         name: this.name!,
         login: this.login!,

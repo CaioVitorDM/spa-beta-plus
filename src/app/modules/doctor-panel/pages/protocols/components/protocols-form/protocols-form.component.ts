@@ -7,12 +7,12 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import {NgxMaskDirective, provideNgxMask} from 'ngx-mask';
 import swal from 'sweetalert2';
 import { ProtocolsFormService } from './service/protocols-form.service';
-import { ProtocolService } from '../../services/protocol.service';
 import { EMPTY, catchError, mergeMap } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Role } from 'src/app/models/Role';
 import { HttpErrorResponse } from '@angular/common/http';
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
+import { ProtocolService } from 'src/app/services/protocol/protocol.service';
 @Component({
   selector: 'app-protocols-form',
   templateUrl: './protocols-form.component.html',
@@ -55,8 +55,9 @@ export class ProtocolsFormComponent {
       .pipe(
         mergeMap((protocol) => {
           if (
-            this.authService.role !== Role.MEDIC &&
-            protocol.id !== this.authService.getUserLogged?.id
+            this.authService.role !== Role.MEDIC 
+            // &&
+            // protocol.id !== this.authService.getUserLogged?.id
           ) {
             swal
               .fire({
