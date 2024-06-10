@@ -1,0 +1,18 @@
+<div class="popup-container">
+  <h1 class="popup-title">Novo Exame</h1>
+  <div class="popup-content">
+    <p class="popup-text">Enviar arquivo</p>
+    <label class="custom-file-upload">
+      <input type="file" id="file-input" (change)="onFileSelected($event)" hidden accept=".pdf" />
+      <div class="icon-container">
+        <img src="/../assets/images/upload-file.png" alt="Upload Icon" class="upload-icon">
+    </div>
+    </label>
+    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+    <span *ngIf="fileName">{{ fileName }}</span>
+  </div>
+  <div class="popup-actions">
+    <button class="button-cancelar" mat-button (click)="onClose()">Cancelar</button>
+    <button class="button-enviar">Enviar</button>
+  </div>
+</div>

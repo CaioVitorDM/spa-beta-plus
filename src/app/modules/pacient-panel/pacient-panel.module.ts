@@ -17,12 +17,12 @@ import {BetaMenuComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/
 import {BetaGeneralComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/beta-general/beta-general.component';
 import {InputSearchComponent} from 'src/app/components/input-search/input-search.component';
 import {MatDialogModule} from '@angular/material/dialog';
-// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {BetaPopUpComponent} from './pages/beta-graph/beta-pop-up/beta-pop-up.component';
-import {BetaDateFilterComponent} from './pages/beta-graph/beta-date-filter/beta-date-filter.component';
 import {FormsModule} from '@angular/forms';
 import {ExamsComponent} from './pages/exams/exams.component';
 import {UploadFileComponent} from 'src/app/components/upload-file/upload-file.component';
+import {UploadExamsComponent} from './pages/exams/upload-exams/upload-exams.component';
+import { ExamsTableComponent } from './pages/exams/exams-table/exams-table.component';
 
 @NgModule({
   declarations: [
@@ -47,9 +47,11 @@ import {UploadFileComponent} from 'src/app/components/upload-file/upload-file.co
     BetaGeneralComponent,
     InputSearchComponent,
     MatDialogModule,
-    BetaDateFilterComponent,
     BetaPopUpComponent,
     UploadFileComponent,
+    UploadExamsComponent,
+    ExamsTableComponent,
+    CustomSelectComponent,
   ],
 })
 export class PacientPanelModule {}

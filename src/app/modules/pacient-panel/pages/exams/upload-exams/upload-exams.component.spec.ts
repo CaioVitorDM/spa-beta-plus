@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { UploadExamsComponent } from './upload-exams.component';
 
-import { BetaDateFilterComponent } from './beta-date-filter.component';
-
-describe('BetaDateFilterComponent', () => {
-  let component: BetaDateFilterComponent;
-  let fixture: ComponentFixture<BetaDateFilterComponent>;
+describe('UploadExamsComponent', () => {
+  let component: UploadExamsComponent;
+  let fixture: ComponentFixture<UploadExamsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BetaDateFilterComponent]
+      imports: [UploadExamsComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(BetaDateFilterComponent);
+    fixture = TestBed.createComponent(UploadExamsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

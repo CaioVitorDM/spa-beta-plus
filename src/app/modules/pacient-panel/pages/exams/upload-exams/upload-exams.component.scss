@@ -1,0 +1,105 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.popup-container {
+  border-radius: 10px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  width: 250px;
+}
+
+.popup-title {
+  color: #5F41B2;
+  font-weight: 500;
+  font-size: medium;
+  padding: 0px 10px; 
+}
+
+.popup-content {
+  font-size: 1.2rem;
+  background-color: #f8f8f8;
+  width: 100%;
+  padding: 10px 0px;
+  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #ededed;
+  display: flex; 
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.button-enviar {
+  background-color: #5F41B2;
+  border: none;
+  width: 60px;
+  font-size: 10px;
+  font-weight: 400;
+  border-radius: 3px;
+  color: #FFF;
+  cursor: pointer;
+  margin-left: 10px;
+  padding: 5px;
+}
+
+.button-cancelar {
+  background-color: #a4a4a4;
+  border: none;
+  width: 60px;
+  font-size: 10px;
+  font-weight: 400;
+  border-radius: 3px;
+  color: #FFF;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 5px;
+}
+
+p.popup-text {
+  color: rgb(47, 47, 47);
+  font-size: small;
+  margin: 0px 15px 10px 15px;
+  
+}
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 10px 20px;
+  cursor: pointer;
+  color: #5F41B2;
+  border: 1px solid #5F41B2;
+  border-radius: 5px;
+  background: transparent;
+  font-size: 14px;
+  transition: background-color 0.3s, color 0.3s;
+  margin-bottom: 10px;
+}
+
+.custom-file-upload:hover {
+  background-color: #5F41B2;
+  img{
+    // filter: invert(1) brightness(2);
+    filter: contrast(0%) brightness(2);
+
+  }
+}
+
+span {
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.error-message {
+  color: #ec3333 !important;
+}
+
+.upload-icon {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+}

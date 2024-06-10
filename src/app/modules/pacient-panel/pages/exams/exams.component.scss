@@ -1,37 +1,40 @@
-* {
-  text-decoration: none;
-  outline: none;
-  font-family: 'Poppins', sans-serif;
+#exams {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 #menu {
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  padding: 0 4px;
 }
 
-.menu-item {
-  flex: 1;
-  padding: 20px;
-  box-sizing: border-box;
-  text-align: center;
-  border: 1px solid #ccc; //lembrar de tirar
+.upload {
+  border: none;
+  background-color: #5f41b2;
+  font-size: 14px;
+  padding: 7px 25px;
+  color: #ffffff;
+  border-radius: 3px;
+  cursor: pointer;
 }
 
 @media (max-width: 768px) {
   #menu {
-    flex-direction: column;
+    flex-direction: column-reverse;
+    gap: 20px;
+    align-items: center;
   }
-  .menu-item {
+  .upload {
+    min-width: 1rem;
     width: 100%;
   }
 }
 
-.search {
-  width: 9.5rem;
-  @media (max-width: 768px) {
-    width: 100%;
-    max-width: 100%;
-    min-width: 1rem;
-  }
+.paginators-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 }
