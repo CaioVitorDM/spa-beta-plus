@@ -1,18 +1,33 @@
-<div class="popup-container">
-  <h1 class="popup-title">Novo Exame</h1>
-  <div class="popup-content">
-    <p class="popup-text">Enviar arquivo</p>
-    <label class="custom-file-upload">
-      <input type="file" id="file-input" (change)="onFileSelected($event)" hidden accept=".pdf" />
-      <div class="icon-container">
-        <img src="/../assets/images/upload-file.png" alt="Upload Icon" class="upload-icon">
+<div class="container">
+  <button class="back-button" (click)="navigateBack()">
+    <img src="../../../../../assets/images/voltar.png" class="img-back" alt="Voltar" />
+  </button>
+  <app-upload-file (fileSelected)="handleSelectedFile($event)"></app-upload-file>
+
+  <form class="register-form">
+    <div class="same-line-inputs-container">
+      <div class="align-inputs-and-error-messages">
+        <input
+          list="examsOptions"
+          placeholder="Escolha o Tipo de Exame"
+          formControlName="examsOptions"
+        />
+        <datalist id="examsOptions">
+          <option value="Sangue"></option>
+          <option value="Imagem"></option>
+          <option value="Outro"></option>
+        </datalist>
+      </div>
     </div>
-    </label>
-    <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
-    <span *ngIf="fileName">{{ fileName }}</span>
-  </div>
-  <div class="popup-actions">
-    <button class="button-cancelar" mat-button (click)="onClose()">Cancelar</button>
-    <button class="button-enviar">Enviar</button>
-  </div>
+
+    <div class="align-inputs-and-error-messages">
+      <input type="text" placeholder="Nome do Exame" formControlName="examsName">
+    </div>
+
+    <div class="align-inputs-and-error-messages">
+      <input type="date" placeholder="Date de Exame" formControlName="examsDate">
+    </div>
+  </form>
+
+  <button class="submit-button">Salvar</button>
 </div>

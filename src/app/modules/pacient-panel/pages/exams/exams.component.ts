@@ -11,8 +11,8 @@ import {apiErrorStatusMessage} from 'src/app/constants/messages';
 import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
 import {LineLoadingService} from 'src/app/services/line-loading/line-loading.service';
 import {PatientList, User} from 'src/app/models/User';
-import { UploadExamsComponent } from './upload-exams/upload-exams.component';
-import { MatDialog } from '@angular/material/dialog';
+import {UploadExamsComponent} from './upload-exams/upload-exams.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-exams',
@@ -50,8 +50,7 @@ export class ExamsComponent implements OnInit {
     private authService: AuthService,
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,
-    private route: ActivatedRoute,
-    private dialog: MatDialog
+    private route: ActivatedRoute
   ) {
     this.headerService.setTitulo('Exames');
   }
@@ -91,9 +90,10 @@ export class ExamsComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
-    this.dialog.open(UploadExamsComponent);
+  openUpload() {
+    this.router.navigate(['/patient-panel/upload-exams']);
   }
+  
 
   submitSearch(searchType: string | number, searchText: string | null): void {
     if (searchType === 'name') {

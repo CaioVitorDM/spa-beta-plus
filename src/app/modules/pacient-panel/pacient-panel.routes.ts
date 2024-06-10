@@ -3,9 +3,10 @@ import {NgModule} from '@angular/core';
 import {PatientDashboardComponent} from './pages/patient-dashboard/patient-dashboard.component';
 import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
-import { AppointmentsComponent } from './pages/appointments/appointments.component';
+import {AppointmentsComponent} from './pages/appointments/appointments.component';
 import {BetaGraphComponent} from './pages/beta-graph/beta-graph.component';
 import {ExamsComponent} from './pages/exams/exams.component';
+import {UploadExamsComponent} from './pages/exams/upload-exams/upload-exams.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -22,6 +23,7 @@ export const routes: Routes = [
       ),
   },
   {path: 'exams', component: ExamsComponent},
+  {path: 'upload-exams', component: UploadExamsComponent},
 ];
 
 @NgModule({

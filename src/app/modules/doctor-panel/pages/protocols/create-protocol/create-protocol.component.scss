@@ -1,13 +1,12 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
 
-.container{
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    padding: 4px;
-    margin-bottom: 20px;
-  }
-  
-.form-container{
+.form-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,9 +14,9 @@
   padding: 5px;
 }
 
-.submit-button{
-  background-color: #5F41B2;
-  color: #FFFFFF;
+.submit-button {
+  background-color: #5f41b2;
+  color: #ffffff;
   padding: 10px 20px;
   width: 100px;
   align-self: flex-end;
@@ -27,29 +26,31 @@
   cursor: pointer;
 }
 
-
 .back-button {
   cursor: pointer;
   border: none;
   border-radius: 50%;
   width: 2rem;
   height: 2rem;
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
   align-self: flex-start;
   margin: 0 20px;
-  transition: background-color 0.2s; 
+  transition: background-color 0.2s;
 }
 
 .back-button:hover {
-    background-color: rgba(95, 65, 178, 0.301);
+  background-color: rgba(95, 65, 178, 0.301);
 }
 
 .img-back {
-  width: 100%; 
-  height: auto; 
+  width: 100%;
+  height: auto;
 }
 
-  
+input::placeholder,
+input[type='date'] {
+  color: #6c6c6c;
+}
