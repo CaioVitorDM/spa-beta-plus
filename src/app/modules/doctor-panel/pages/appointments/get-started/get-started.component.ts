@@ -12,6 +12,7 @@ import { HeaderService } from 'src/app/services/header/header-info.service';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get-started',
@@ -23,6 +24,8 @@ export class GetStartedComponent implements OnInit {
   
   appointmentData!: AppointmentList[];
   loadAppointmentsSubscription = new Subscription();
+  deleteAppointmentSubscription = new Subscription();
+
   isLoading: boolean = false;
   isError: boolean = false;
 
@@ -184,6 +187,7 @@ export class GetStartedComponent implements OnInit {
 
     if (appointments.content.length === 0) {
       this.appointmentData = [];  
+      this.lineLoadingService.hide();
       return;
     }
    
@@ -222,6 +226,32 @@ export class GetStartedComponent implements OnInit {
       this.lastItem = appointments.totalElements;
     }
     this.lineLoadingService.hide();
+  }
+
+  deleteAppointment(id: number) {
+
+    this.lineLoadingService.show();
+    this.deleteAppointmentSubscription = this.appointmentService
+      .delete(id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe((response) => {
+        if (response.success) {
+          swal.fire({
+            title: 'Sucesso!',
+            text: 'A consulta foi deletada!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.fetchData();
+        }
+      });
   }
 
   navigateToCreatePage() {

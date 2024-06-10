@@ -35,7 +35,7 @@
     <div class="list-container">
       <div class="appointments-mobile-container">
       <div *ngFor="let element of dataSource" class="appointments-list-mobile">
-        <button class="list-card" (click)="printButton('card button')">
+        <button class="list-card">
           <div class="appointment-detail">
             <span class="title-detail">ID</span>
             <span class="data-detail">{{element.id}}</span>
@@ -61,7 +61,7 @@
               <img src="assets/images/svg/edit.svg" alt="" srcset="" />
               <span> Editar </span>
             </button>
-            <button class="delete-btn" (click)="printButton('delete button')">
+            <button class="delete-btn" (click)="deleteAppointment(element.id!)">
               <img src="assets/images/svg/inventory-red.svg" alt="" srcset="" />
               Excluir
             </button>

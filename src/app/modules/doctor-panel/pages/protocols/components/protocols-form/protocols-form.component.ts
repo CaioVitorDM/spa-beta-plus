@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, FormArray, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
@@ -18,11 +18,13 @@ import { ProtocolService } from 'src/app/services/protocol/protocol.service';
   templateUrl: './protocols-form.component.html',
   styleUrls: ['./protocols-form.component.scss','../../../../../../../assets/css/checkbox.scss']
 })
-export class ProtocolsFormComponent {
+export class ProtocolsFormComponent implements OnInit{
 
   @Output() specificChanged = new EventEmitter<boolean>();
-  @Output() formLoaded = new EventEmitter<void>()
+  @Output() formLoaded = new EventEmitter<void>();
+
   @Input() protocol?: number;
+  @Input() isReadOnly: boolean = false;
 
   formUtils: FormUtilsService;
   @Input() onSubmitEvent: boolean = false;
@@ -44,8 +46,25 @@ export class ProtocolsFormComponent {
   }
 
   ngOnInit() {
+    this.prepareForm();
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isReadOnly'] || changes['protocol']) {
+      this.prepareForm();
+    }
+  }
+  
+  prepareForm() {
+    if (this.isReadOnly) {
+      this.protocolForm.disable();
+    } else {
+      this.protocolForm.enable();
+    }
     if (this.protocol) {
       this.loadProtocol(this.protocol);
+    } else {
+      this.protocolForm.reset();
     }
   }
 

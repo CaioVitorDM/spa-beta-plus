@@ -8,14 +8,35 @@
     gap: 10px;
   }
   
-  
 
-  .upload-icon{
-    width: 60px;
-    height: 60px;
-    object-fit: cover; /* garante que a imagem do perfil cubra o espaço designado */
-  }
-  
+  .icon-container {
+    width: 50px;     
+    height: 50px;   
+    border-radius: 50%; 
+    border-style: solid;
+    border-width: 8px;
+    overflow: hidden; 
+    display: flex;    
+    justify-content: center; 
+    align-items: center;    
+    background-color: rgba(95,65,178,0.4);
+    border-color: #E5D7FF;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    transition: border-color 0.3s, color 0.3s ease;
+}
+
+.icon-container:hover {
+  // background-color: rgba(95,65,178,0.6); /* Mantém o fundo mais escuro no hover */
+  border-color: #EDE4FE;
+}
+
+
+.upload-icon {
+    width: 50%;      
+    height: auto;    
+}
+
 
   .custom-file-upload {
     display: inline-block;

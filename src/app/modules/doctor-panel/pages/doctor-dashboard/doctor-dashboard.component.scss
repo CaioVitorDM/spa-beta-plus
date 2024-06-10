@@ -1,6 +1,6 @@
 @import 'src/styles.scss';
 
-.container {
+.dashboard-container {
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -11,6 +11,21 @@ h1, p {
   margin: 0.3rem;
 }
 
+h2 {
+  margin: 0;
+  margin-bottom: 15px;
+  font-size: medium;
+}
+
+.info-container span {
+  color: #5F41B2;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+}
 
 .welcome-banner {
   display: flex;
@@ -23,6 +38,119 @@ h1, p {
   height: 180px;
   border-radius: 10px;
 }
+
+.dashboard-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+}
+
+.medical-info {
+  display: flex;
+  gap: 20px;
+}
+
+.info,
+.charts,
+.recent-exams, .pacientes-container  {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+  width: 45%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  th, td {
+    text-align: left;
+    padding: 8px;
+    font-size: 14px;
+  }
+  th {
+    background-color: #5F41B2;
+    color: #fff;
+    font-weight: 300;
+    padding: 12px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+}
+
+
+.lista-pacientes {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recent-exams thead th:first-child {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.recent-exams thead th:last-child {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.recent-exams tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 4px;
+}
+
+.recent-exams tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 4px;
+}
+
+.item-paciente {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #5F41B2;
+  border-radius: 10px;
+  margin-bottom: 10px; /* espaço entre itens */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  padding: 10px;
+  transition: box-shadow 0.3s;
+  font-size: 12px;
+}
+
+.item-paciente:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.icone-paciente {
+  background-color: rgba(95, 65, 178, 0.4);
+  color: #5F41B2;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 24px;
+}
+
+.icone-paciente img {
+  width: 1rem;
+  height: 1rem;
+}
+
+.info-paciente strong {
+  display: block;
+  color: #5F41B2;
+  font-weight: 500;
+}
+
+.info-paciente span {
+  color: #666;
+}
+
 
 @media (max-width: 768px) {
   .dashboard-content {
@@ -37,4 +165,28 @@ h1, p {
   .welcome-banner {
     padding: 15px;
   }
+}
+
+
+@media (max-width: 768px) {
+  .info-container{
+    flex-direction: column;
+    justify-content: center !important;
+    gap: 20px;
+  }
+
+  .info,
+  .charts,
+  .recent-exams,
+  .pacientes-container {
+    width: 100%;
+  }
+}
+.info-container{
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: space-evenly;
 }

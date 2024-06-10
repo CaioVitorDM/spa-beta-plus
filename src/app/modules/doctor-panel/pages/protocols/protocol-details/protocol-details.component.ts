@@ -1,22 +1,19 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ProtocolsFormComponent } from '../components/protocols-form/protocols-form.component';
-import { Protocol } from 'src/app/models/Protocol';
-import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from 'src/app/services/file-service/file.service';
-import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
-import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
-import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
-import { ProtocolsFormService } from '../components/protocols-form/service/protocols-form.service';
 import { HeaderService } from 'src/app/services/header/header-info.service';
+import { ProtocolsFormComponent } from '../components/protocols-form/protocols-form.component';
+import { FormGroup } from '@angular/forms';
+import { ProtocolsFormService } from '../components/protocols-form/service/protocols-form.service';
+import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
 import { ProtocolService } from 'src/app/services/protocol/protocol.service';
 
 @Component({
-  selector: 'app-edit-protocol',
-  templateUrl: './edit-protocol.component.html',
-  styleUrl: './edit-protocol.component.scss'
+  selector: 'app-protocol-details',
+  templateUrl: './protocol-details.component.html',
+  styleUrl: './protocol-details.component.scss'
 })
-export class EditProtocolComponent implements OnInit, AfterViewInit {
+export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
 
   @ViewChild(ProtocolsFormComponent) protocolsFormComponent!: ProtocolsFormComponent;
   protocol?: number;
@@ -39,7 +36,7 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
   ) {
     this.protocolForm = this.protocolFormService.form;
     this.formUtils = this.formUtilsService;
-    this.headerService.setTitulo('Edição de Protocolos');
+    this.headerService.setTitulo('Detalhes de Protocolos');
   }
   ngOnInit() {
     const {id} = this.activatedRoute.snapshot.params;

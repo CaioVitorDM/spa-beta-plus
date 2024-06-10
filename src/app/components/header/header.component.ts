@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() numero: number | null = null; // O número é opcional
   @Input() nomeUsuario: string = '';
   @Input() fotoUsuario: string = '';
+  @Input() rotaPerfil: string = '';
 
   constructor(
     private sidebarToggleService: SidebarToggleService,

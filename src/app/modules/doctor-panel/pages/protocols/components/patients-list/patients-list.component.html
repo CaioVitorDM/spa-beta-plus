@@ -1,0 +1,20 @@
+<div class="patient-list-container">
+    <div class="patients-header">
+      <h3>Pacientes</h3>
+      <app-input-search
+        [items]="searchOptions"
+        [submitSearchFunction]="submitSearch.bind(this)"
+        [cleanSearchFunction]="cleanSearch.bind(this)"
+    ></app-input-search>
+    </div>
+  
+    <div class="patient-list">
+      <div class="list-header">
+        <span class="header-label">Nome (Login)</span>
+      </div>
+      <div class="list-item" *ngFor="let patient of patients">
+        <span class="patient-info">{{ patient.name }} ({{ patient.login }})</span>
+      </div>
+    </div>
+  </div>
+  

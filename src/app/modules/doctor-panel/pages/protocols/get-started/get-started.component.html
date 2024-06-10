@@ -29,7 +29,7 @@
   />
 </div>
 
-<app-protocols-table [dataSource]="protocolData"></app-protocols-table>
+<app-protocols-table [dataSource]="protocolData" (deleteProtocolEvent)="deleteProtocol($event)"></app-protocols-table>
 
 </div>
   

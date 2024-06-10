@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { GetStartedComponent } from './get-started/get-started.component';
+import { ProtocolDetailsComponent } from './protocol-details/protocol-details.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'get-started',
     component: GetStartedComponent,
+  },
+  {
+    path: 'details/:id',
+    component: ProtocolDetailsComponent,
   },
   
 ];
