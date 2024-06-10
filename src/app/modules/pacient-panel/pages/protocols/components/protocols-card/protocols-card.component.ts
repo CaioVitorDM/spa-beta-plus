@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProtocolList } from 'src/app/models/Protocol';
 
 @Component({
@@ -8,9 +9,16 @@ import { ProtocolList } from 'src/app/models/Protocol';
 })
 export class ProtocolsCardComponent {
 
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
+
   @Input() dataSource: ProtocolList[] = [];
 
-  
+  detailsProtocol(id: number) {
+    this.router.navigate([`/patient-panel/protocols/details/${id}`], {relativeTo: this.activatedRoute});
+  }
 
 
 }

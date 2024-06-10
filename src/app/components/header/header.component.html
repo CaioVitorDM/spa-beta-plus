@@ -13,9 +13,8 @@
   </div>
   <div class="secao-usuario">
     <span>{{ nomeUsuario }}</span>
-    <a routerLink="/patient-panel/profile">
+    <a [routerLink]="rotaPerfil">
       <img [src]="fotoUsuario" alt="Perfil do Usuário" class="foto-perfil">
     </a>
   </div>
 </header>
-

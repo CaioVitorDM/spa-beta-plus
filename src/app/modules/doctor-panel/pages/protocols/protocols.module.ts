@@ -18,6 +18,8 @@ import { PatientsSelectorComponent } from './components/patients-selector/patien
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatIconButton } from '@angular/material/button';
 import { EditProtocolComponent } from './edit-protocol/edit-protocol.component';
+import { ProtocolDetailsComponent } from './protocol-details/protocol-details.component';
+import { PatientsListComponent } from './components/patients-list/patients-list.component';
 
 
 @NgModule({
@@ -29,6 +31,8 @@ import { EditProtocolComponent } from './edit-protocol/edit-protocol.component';
     ProtocolsFormComponent,
     PatientsSelectorComponent,
     EditProtocolComponent,
+    ProtocolDetailsComponent,
+    PatientsListComponent
   ],
   imports: [
     CommonModule,

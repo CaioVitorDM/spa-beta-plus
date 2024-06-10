@@ -65,4 +65,11 @@ export class AppointmentService {
       map(({data: user}: ApiResponse<Appointment>) => user)
     );
   }
+
+  
+  delete(id: number): Observable<Omit<ApiResponse<Appointment>, 'data'>> {
+    return this.httpClient
+      .delete<Omit<ApiResponse<Appointment>, 'data'>>(`${this.baseUrl}/${id}`)
+      .pipe(first());
+  }
 }

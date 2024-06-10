@@ -29,6 +29,6 @@
     />
   </div>
   
-  <app-appointments-table [dataSource]="appointmentData"></app-appointments-table>
+  <app-appointments-table [dataSource]="appointmentData" (deleteAppointmentEvent)="deleteAppointment($event)"></app-appointments-table>
   
   </div>

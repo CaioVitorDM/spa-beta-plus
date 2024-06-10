@@ -12,6 +12,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export class UploadFileComponent {
   @Output() fileSelected = new EventEmitter<File>();
 
+  @Input() isReadOnly: boolean = false;
   @Input() fileName: string = '';
   @Input() errorMessage: string = 'Por favor, escolha um arquivo.';
   dialogOpened: boolean = false;

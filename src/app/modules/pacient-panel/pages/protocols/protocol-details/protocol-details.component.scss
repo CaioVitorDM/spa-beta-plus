@@ -1,0 +1,35 @@
+
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+  
+
+.back-button {
+  cursor: pointer;
+  border: none;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  background: none;
+  align-self: flex-start;
+  margin: 0 20px;
+  transition: background-color 0.2s; 
+}
+
+.back-button:hover {
+    background-color: rgba(95, 65, 178, 0.301);
+}
+
+.img-back {
+  width: 100%; 
+  height: auto; 
+}
+
+  

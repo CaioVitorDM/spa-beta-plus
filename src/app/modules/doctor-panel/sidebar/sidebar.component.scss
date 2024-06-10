@@ -30,6 +30,12 @@
   width: 50px; /* Largura quando retraído */
 }
 
+.active-menu-item, .menu-item-container:hover{
+  background-color: rgba(151, 92, 228, 0.13);
+  border-radius: 7px;
+}
+
+
 .sidebar-items-container{
   display: flex;
   flex-direction: column;
