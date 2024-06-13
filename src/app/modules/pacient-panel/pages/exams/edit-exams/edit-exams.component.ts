@@ -8,13 +8,12 @@ import {LineLoadingService} from 'src/app/services/line-loading/line-loading.ser
 import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {FormsModule} from '@angular/forms';
-
 @Component({
-  selector: 'app-upload-exams',
-  templateUrl: './upload-exams.component.html',
-  styleUrl: './upload-exams.component.scss',
+  selector: 'app-edit-exams',
+  templateUrl: './edit-exams.component.html',
+  styleUrl: './edit-exams.component.scss'
 })
-export class UploadExamsComponent {
+export class EditExamsComponent {
   showPatientsSelector = false;
 
   createProtocolSubscription!: Subscription;
@@ -36,7 +35,8 @@ export class UploadExamsComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.headerService.setTitulo('Cadastro de Novo Exame');
+    //To-do, aparecer titulo novo
+    this.headerService.setTitulo('Edição de Exame');
     // this.protocolForm = this.protocolsFormService.form;
     this.formUtils = this.formUtilsService;
   }
@@ -99,3 +99,4 @@ export class UploadExamsComponent {
     this.router.navigate(['/patient-panel/exams']);
   }
 }
+

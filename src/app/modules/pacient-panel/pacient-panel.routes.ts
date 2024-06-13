@@ -5,8 +5,6 @@ import {MedicComponent} from './pages/medic/medic.component';
 import {ProfileComponent} from './pages/profile/profile.component';
 import {AppointmentsComponent} from './pages/appointments/appointments.component';
 import {BetaGraphComponent} from './pages/beta-graph/beta-graph.component';
-import {ExamsComponent} from './pages/exams/exams.component';
-import {UploadExamsComponent} from './pages/exams/upload-exams/upload-exams.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -14,7 +12,13 @@ export const routes: Routes = [
   {path: 'medic', component: MedicComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'appointments', component: AppointmentsComponent},
-  {path: 'beta-graph', component: BetaGraphComponent},
+  {
+    path: 'beta',
+    loadChildren: () =>
+      import('src/app/modules/pacient-panel/pages/beta-graph/beta-graph.module').then(
+        (m) => m.BetaGraphModule
+      ),
+  },
   {
     path: 'protocols',
     loadChildren: () =>
@@ -22,8 +26,13 @@ export const routes: Routes = [
         (m) => m.ProtocolsModule
       ),
   },
-  {path: 'exams', component: ExamsComponent},
-  {path: 'upload-exams', component: UploadExamsComponent},
+  {
+    path: 'exams',
+    loadChildren: () =>
+      import('src/app/modules/pacient-panel/pages/exams/exams.module').then(
+        (m) => m.ExamsModule
+      ),
+  },
 ];
 
 @NgModule({

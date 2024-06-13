@@ -8,8 +8,6 @@ import {PatientList} from 'src/app/models/User';
 
 @Component({
   selector: 'app-exams-table',
-  standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './exams-table.component.html',
   styleUrl: './exams-table.component.scss',
 })
@@ -81,11 +79,11 @@ export class ExamsTableComponent implements OnInit {
   navigateToCreatePage() {}
 
   //To-do
-  editUser(id: number) {
-    this.router.navigate([`/doctor-panel/patients/edit/${id}`], {relativeTo: this.activatedRoute});
+  editUser() {
+    this.router.navigate([`/patient-panel/exams/edit-exams`], {relativeTo: this.activatedRoute});
   }
 
-  deleteUser(id: number) {
-    console.log('delete ' + id);
+  deleteUser() {
+    console.log('delete ');
   }
 }

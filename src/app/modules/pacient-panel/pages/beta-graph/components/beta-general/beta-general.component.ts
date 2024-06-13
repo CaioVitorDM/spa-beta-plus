@@ -21,18 +21,11 @@ import {PatientList, User} from 'src/app/models/User';
 import {MatDialog} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import swal from 'sweetalert2';
+import { BetaEditComponent } from '../beta-edit/beta-edit.component';
+
 
 @Component({
   selector: 'app-beta-general',
-  standalone: true,
-  imports: [
-    CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    CustomSelectComponent,
-    FormsModule,
-  ],
   templateUrl: './beta-general.component.html',
   styleUrls: ['./beta-general.component.scss'],
 })
@@ -75,7 +68,7 @@ export class BetaGeneralComponent implements OnInit {
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,
     // private route: ActivatedRoute,
-    // private dialog: MatDialog,
+    private dialog: MatDialog,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -159,8 +152,8 @@ export class BetaGeneralComponent implements OnInit {
 
   navigateToCreatePage() {}
 
-  editUser(id: number) {
-    this.router.navigate([`/doctor-panel/patients/edit/${id}`], {relativeTo: this.activatedRoute});
+  editUser() : void{
+    this.dialog.open(BetaEditComponent);
   }
 
   deleteUser(id: number) {
@@ -298,4 +291,5 @@ export class BetaGeneralComponent implements OnInit {
       console.log('First Date or Last Date is null');
     }
   }
+
 }

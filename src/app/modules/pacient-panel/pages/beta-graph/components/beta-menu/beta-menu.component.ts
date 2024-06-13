@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {
   Chart,
   LineController,
@@ -13,18 +13,14 @@ import {
 
 @Component({
   selector: 'app-beta-menu',
-  standalone: true,
-  imports: [],
   templateUrl: './beta-menu.component.html',
-  styleUrls: ['./beta-menu.component.scss']
+  styleUrls: ['./beta-menu.component.scss'],
 })
-export class BetaMenuComponent implements OnInit, AfterViewInit{
+export class BetaMenuComponent implements OnInit, AfterViewInit {
   @ViewChild('lineChart') private chartRef!: ElementRef<HTMLCanvasElement>;
   chart!: Chart;
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit() {
     this.initializeGraph();
