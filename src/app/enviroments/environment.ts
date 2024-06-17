@@ -4,4 +4,5 @@ export const environment = {
   apiPermissionUrl: 'http://localhost:8070/api/auth-server/v1',
   apiFilesUrl: 'http://localhost:8070/api/file-server/v1/files',
   apiProtocolsUrl: 'http://localhost:8070/api/protocols',
+  apiBetaUrl: 'http://localhost:8070/api/beta',
 };

@@ -1,3 +1,18 @@
+
+
+//   loadBetas(): void {
+//     this.betaService.getAll().subscribe({
+//       next: (data) => {
+//         this.betas = data;
+//         this.cdr.detectChanges();
+//       },
+//       error: (error) => {
+//         console.error('Error loading betas:', error);
+//       }
+//     });
+//   }
+// }
+
 import {Component, Input, OnInit, ChangeDetectorRef} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
@@ -21,8 +36,9 @@ import {PatientList, User} from 'src/app/models/User';
 import {MatDialog} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import swal from 'sweetalert2';
-import { BetaEditComponent } from '../beta-edit/beta-edit.component';
-
+import {BetaEditComponent} from '../beta-edit/beta-edit.component';
+import {BetaService} from 'src/app/services/beta/beta.service';
+import {Beta} from 'src/app/models/Beta';
 
 @Component({
   selector: 'app-beta-general',
@@ -30,6 +46,8 @@ import { BetaEditComponent } from '../beta-edit/beta-edit.component';
   styleUrls: ['./beta-general.component.scss'],
 })
 export class BetaGeneralComponent implements OnInit {
+  betas: Beta[] = [];
+
   @Input() dataSource: PatientList[] = [];
   sortOrder: 'asc' | 'desc' = 'desc';
   patientData: PatientList[] = [];
@@ -69,6 +87,7 @@ export class BetaGeneralComponent implements OnInit {
     private lineLoadingService: LineLoadingService,
     // private route: ActivatedRoute,
     private dialog: MatDialog,
+    private betaService: BetaService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -89,33 +108,7 @@ export class BetaGeneralComponent implements OnInit {
   selectedPage = this.pageNumber[0];
 
   ngOnInit(): void {
-    // Mocking data
-    this.dataSource = [
-      {
-        id: 1,
-        createdAt: '2023-05-20T10:00:00Z',
-        name: '500',
-        birthDate: '2024-04-05',
-        phoneNumber: '123-456-7890',
-        email: 'john.doe@example.com',
-      },
-      {
-        id: 2,
-        createdAt: '2023-05-21T10:00:00Z',
-        name: '1000',
-        birthDate: '2024-03-05',
-        phoneNumber: '987-654-3210',
-        email: 'jane.smith@example.com',
-      },
-      {
-        id: 3,
-        createdAt: '2023-05-22T10:00:00Z',
-        name: '1500',
-        birthDate: '2024-05-05',
-        phoneNumber: '555-555-5555',
-        email: 'alice.johnson@example.com',
-      },
-    ];
+    this.loadBetas();
 
     this.patientData = this.dataSource;
     this.originalData = [...this.dataSource];
@@ -124,6 +117,18 @@ export class BetaGeneralComponent implements OnInit {
     this.fetchData();
     this.sortByBirthDate();
   }
+
+  loadBetas(): void {
+        this.betaService.getAll().subscribe({
+          next: (data) => {
+            this.betas = data;
+            this.cdr.detectChanges();
+          },
+          error: (error) => {
+            console.error('Error loading betas:', error);
+          }
+        });
+      }
 
   sortByBirthDate(): void {
     this.dataSource.sort((a, b) => {
@@ -152,11 +157,11 @@ export class BetaGeneralComponent implements OnInit {
 
   navigateToCreatePage() {}
 
-  editUser() : void{
+  editUser(): void {
     this.dialog.open(BetaEditComponent);
   }
 
-  deleteUser(id: number) {
+  deleteBeta(id: number) {
     console.log('delete ' + id);
   }
 
@@ -291,5 +296,4 @@ export class BetaGeneralComponent implements OnInit {
       console.log('First Date or Last Date is null');
     }
   }
-
 }

@@ -57,5 +57,6 @@ import {ProtocolsFormComponent} from '../doctor-panel/pages/protocols/components
     UploadFileComponent,
     CustomSelectComponent,
   ],
+  
 })
 export class PacientPanelModule {}

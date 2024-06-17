@@ -84,3 +84,13 @@ export interface ParamsPageAppointment extends ParamsPage<AppointmentList> {
   appointmentDate?: string | null;
 }
 
+export interface ParamsPageBeta {
+  page?: number;
+  size?: number;
+  sort?: string;
+  order?: Direction;
+  startDate?: string;
+  endDate?: string;
+}
+
+

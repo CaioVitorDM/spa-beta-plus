@@ -51,25 +51,13 @@
           <th class="th-first">Nível (mUI/ml)</th>
           <th (click)="toggleSortOrder()" style="cursor: pointer">
             Data
-            <span *ngIf="sortOrder === 'asc'">▲</span>
-            <span *ngIf="sortOrder === 'desc'">▼</span>
           </th>
-          <th class="th-last"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let patient of patientData">
-          <td>{{ patient.name }}</td>
-          <td>{{ patient.birthDate | date: 'dd/MM/yyyy' }}</td>
-          <td class="td-edit">
-            <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
-            <mat-menu #menu="matMenu">
-              <div class="floating-actions-menu">
-                <button (click)="editUser()">Editar</button>
-                <button (click)="deleteUser(patient.id!)">Excluir</button>
-              </div>
-            </mat-menu>
-          </td>
+        <tr *ngFor="let beta of betas">
+          <td>{{ beta.value }}</td>
+          <td>{{ beta.date | date: 'dd/MM/yyyy' }}</td>
         </tr>
       </tbody>
     </table>
@@ -77,22 +65,22 @@
 
   <div class="list-container">
     <div class="users-mobile-container">
-      <div *ngFor="let element of patientData" class="users-list-mobile">
+      <div *ngFor="let beta of betas" class="users-list-mobile">
         <button class="list-card" (click)="printButton('card button')">
           <div class="user-detail">
             <span class="title-detail">Nível</span>
-            <span class="data-detail">{{ element.name }}</span>
+            <span class="data-detail">{{ beta.value }}</span>
           </div>
           <div class="user-detail">
             <span class="title-detail">Data</span>
-            <span class="data-detail">{{ element.birthDate | date: 'dd/MM/yyyy' }}</span>
+            <span class="data-detail">{{ beta.date | date: 'dd/MM/yyyy' }}</span>
           </div>
           <div class="user-actions">
             <button class="edit-btn" (click)="editUser()">
               <img src="assets/images/svg/edit.svg" alt="" />
               <span> Editar </span>
             </button>
-            <button class="delete-btn" (click)="deleteUser(element.id!)">
+            <button class="delete-btn" (click)="deleteBeta(beta.id!)">
               <img src="assets/images/svg/inventory-red.svg" alt="" />
               Excluir
             </button>
