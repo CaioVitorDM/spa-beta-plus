@@ -4,19 +4,15 @@
       <tr class="trhover">
         <th>Nome</th>
         <th>Tipo</th>
-        <th (click)="toggleSortOrder()" style="cursor: pointer">
-          Data
-          <span *ngIf="sortOrder === 'asc'">▲</span>
-          <span *ngIf="sortOrder === 'desc'">▼</span>
-        </th>
+        <th>Data</th>
         <th class="th-last"></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let patient of dataSource">
-        <td>{{ patient.name }}</td>
-        <td>{{ patient.phoneNumber }}</td>
-        <td>{{ patient.birthDate | date: 'dd/MM/yyyy' }}</td>
+      <tr *ngFor="let exams of dataSource">
+        <td>{{ exams.name }}</td>
+        <td>{{ exams.examType }}</td>
+        <td>{{ exams.examDate | date: 'dd/MM/yyyy' }}</td>
         <td class="td-edit">
           <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
           <mat-menu #menu="matMenu">
@@ -34,19 +30,19 @@
 
 <div class="list-container">
   <div class="users-mobile-container">
-    <div *ngFor="let element of dataSource" class="users-list-mobile">
+    <div *ngFor="let exams of dataSource" class="users-list-mobile">
       <button class="list-card" (click)="printButton('card button')">
         <div class="user-detail">
           <span class="title-detail">Nome</span>
-          <span class="data-detail">{{ element.name }}</span>
+          <span class="data-detail">{{ exams.name }}</span>
         </div>
         <div class="user-detail">
           <span class="title-detail">Tipo</span>
-          <span class="data-detail">{{ element.phoneNumber }}</span>
+          <span class="data-detail">{{ exams.examType }}</span>
         </div>
         <div class="user-detail">
           <span class="title-detail">Data</span>
-          <span class="data-detail">{{ element.birthDate | date: 'dd/MM/yyyy' }}</span>
+          <span class="data-detail">{{ exams.examDate | date: 'dd/MM/yyyy' }}</span>
         </div>
         <div class="user-actions">
           <button class="download-btn">

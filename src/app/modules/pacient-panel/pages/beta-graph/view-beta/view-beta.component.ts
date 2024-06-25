@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { HeaderService } from 'src/app/services/header/header-info.service';
 import { BetaPopUpComponent } from '../components/beta-pop-up/beta-pop-up.component';
 import { BetaGeneralComponent } from '../components/beta-general/beta-general.component';
+import { BetaService } from 'src/app/services/beta/beta.service';
 
 @Component({
   selector: 'app-view-beta',
   templateUrl: './view-beta.component.html',
-  styleUrls: ['./view-beta.component.scss']
+  styleUrls: ['./view-beta.component.scss'],
 })
 export class ViewBetaComponent implements OnInit {
   imageSrc!: string;
@@ -19,7 +20,8 @@ export class ViewBetaComponent implements OnInit {
   constructor(
     private headerService: HeaderService,
     public dialog: MatDialog,
-    private betaGeneral: BetaGeneralComponent
+    private betaGeneral: BetaGeneralComponent,
+    private betaService: BetaService
   ) {}
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class ViewBetaComponent implements OnInit {
     const dialogRef = this.dialog.open(BetaPopUpComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.betaGeneral.loadBetas();  // Atualize a visão geral após adicionar um novo beta
+        this.betaGeneral.fetchData();  // Atualize a visão geral após adicionar um novo beta
       }
     });
   }

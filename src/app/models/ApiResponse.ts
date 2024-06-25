@@ -1,5 +1,7 @@
-import { AppointmentList } from './Appointment';
-import { ProtocolList } from './Protocol';
+import {AppointmentList} from './Appointment';
+import { BetaList } from './Beta';
+import {ExamsList} from './Exams';
+import {ProtocolList} from './Protocol';
 import {PatientList} from './User';
 
 export type ApiResponse<T> = {
@@ -84,13 +86,18 @@ export interface ParamsPageAppointment extends ParamsPage<AppointmentList> {
   appointmentDate?: string | null;
 }
 
-export interface ParamsPageBeta {
-  page?: number;
-  size?: number;
-  sort?: string;
-  order?: Direction;
-  startDate?: string;
-  endDate?: string;
+export interface ParamsPageBeta extends ParamsPage<BetaList> {
+  id?: number;
+  patientInfo?: string;
+  doctorInfo?: string;
+  date?: string;
+  value?: number;
 }
 
-
+export interface ParamsPageExams extends ParamsPage<ExamsList> {
+  patientId?: number;
+  name?: string;
+  fileId?: number;
+  examDate?: string;
+  examType?: string;
+}

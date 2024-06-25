@@ -55,7 +55,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let beta of betas">
+        <tr *ngFor="let beta of betaData">
           <td>{{ beta.value }}</td>
           <td>{{ beta.date | date: 'dd/MM/yyyy' }}</td>
         </tr>
@@ -65,7 +65,7 @@
 
   <div class="list-container">
     <div class="users-mobile-container">
-      <div *ngFor="let beta of betas" class="users-list-mobile">
+      <div *ngFor="let beta of betaData" class="users-list-mobile">
         <button class="list-card" (click)="printButton('card button')">
           <div class="user-detail">
             <span class="title-detail">Nível</span>

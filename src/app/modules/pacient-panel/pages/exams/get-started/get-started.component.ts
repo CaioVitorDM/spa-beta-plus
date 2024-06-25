@@ -2,8 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ItemSelect} from 'src/app/components/custom-select/custom-select.component';
 import {HeaderService} from 'src/app/services/header/header-info.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {catchError, EMPTY, Subscription} from 'rxjs';
-import {PatientService} from 'src/app/modules/doctor-panel/pages/pacient/services/patient.service';
+import {catchError, EMPTY, Subscription, switchMap} from 'rxjs';
 import {Direction, Page} from 'src/app/models/ApiResponse';
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -15,6 +14,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import {UploadExamsComponent} from '../upload-exams/upload-exams.component';
 import {ExamsRoutes} from '../exams.routes';
+import { Exams, ExamsList } from 'src/app/models/Exams';
+import { ExamsService } from 'src/app/services/exams/exams.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-get-started',
@@ -22,19 +24,24 @@ import {ExamsRoutes} from '../exams.routes';
   styleUrl: './get-started.component.scss',
 })
 export class GetStartedComponent implements OnInit {
-  patientData!: PatientList[];
-  loadPatientsSubscription = new Subscription();
+  // patientData!: PatientList[];
+  examsData!: ExamsList[];
+
+  loadExamsSubscription = new Subscription();
   isLoading: boolean = false;
   isError: boolean = false;
 
-  sort: keyof PatientList = 'createdAt';
+  sort: keyof ExamsList = 'examDate';
   order = Direction.DESC;
   page = 0;
   pageBySize = 0;
   size = 10;
   name: string | null = '';
-  email: string | null = '';
-  phoneNumber: string | null = '';
+  // email: string | null = '';
+  // phoneNumber: string | null = '';
+  examDate: string | null = '';
+  examType: string | null = '';
+  fileId: number | null = 0;
 
   offSet = 0;
   lastItem = 0;
@@ -51,6 +58,7 @@ export class GetStartedComponent implements OnInit {
     private patientService: PatientService,
     private authService: AuthService,
     private snackbar: SnackbarService,
+    private examsService: ExamsService,
     private lineLoadingService: LineLoadingService,
     private route: ActivatedRoute
   ) {
@@ -59,8 +67,8 @@ export class GetStartedComponent implements OnInit {
 
   searchOptions: ItemSelect[] = [
     {value: 'name', label: 'Nome'},
-    {value: 'phoneNumber', label: 'Tipo'},
-    {value: 'email', label: 'Data'},
+    {value: 'examType', label: 'Tipo'},
+    {value: 'examDate', label: 'Data'},
   ];
 
   paginatorItems: ItemSelect[] = [
@@ -73,14 +81,15 @@ export class GetStartedComponent implements OnInit {
   selectedPaginator = this.paginatorItems[0];
   selectedPage = this.pageNumber[0];
 
+
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.page = params['page'] || this.page;
       this.size = params['size'] || this.size;
       this.sort = params['sort'] || this.sort;
-      this.email = params['email'] || this.email;
+      this.examDate = params['examDate'] || this.examDate;
       this.name = params['name'] || this.name;
-      this.phoneNumber = params['phoneNumber'] || this.phoneNumber;
+      this.examType = params['examType'] || this.examType;
 
       if (parseInt(String(this.size)) !== this.selectedPaginator.value) {
         this.selectedPaginator = this.paginatorItems.find((item) => {
@@ -92,10 +101,6 @@ export class GetStartedComponent implements OnInit {
     });
   }
 
-  // openUpload() {
-  //   this.router.navigate(['/patient-panel/exams/upload-exams']);
-  // }
-
   openUpload() {
     this.router.navigate(['/patient-panel/exams/upload-exams'], {relativeTo: this.activatedRoute});
   }
@@ -103,18 +108,18 @@ export class GetStartedComponent implements OnInit {
   submitSearch(searchType: string | number, searchText: string | null): void {
     if (searchType === 'name') {
       this.name = searchText;
-      this.email = '';
-      this.phoneNumber = '';
+      this.examDate = '';
+      this.examType = '';
     }
-    if (searchType === 'email') {
-      this.email = searchText;
+    if (searchType === 'examDate') {
+      this.examDate = searchText;
       this.name = '';
-      this.phoneNumber = '';
+      this.examType = '';
     }
-    if (searchType === 'phoneNumber') {
-      this.phoneNumber = searchText;
+    if (searchType === 'examType') {
+      this.examType = searchText;
       this.name = '';
-      this.email = '';
+      this.examDate = '';
     }
 
     this.page = 0;
@@ -124,8 +129,8 @@ export class GetStartedComponent implements OnInit {
 
   cleanSearch() {
     this.name = '';
-    this.email = '';
-    this.phoneNumber = '';
+    this.examDate = '';
+    this.examType = '';
 
     this.fetchData();
   }
@@ -151,29 +156,24 @@ export class GetStartedComponent implements OnInit {
   }
 
   fetchData() {
-    this.loadPatientsSubscription = this.patientService
-      .list({
-        page: this.page,
-        size: this.size,
-        sort: this.sort,
-        order: this.order,
-        name: this.name!,
-        email: this.email!,
-        phoneNumber: this.phoneNumber!,
-        doctorId: this.authService.doctorId!,
+    this.loadExamsSubscription = this.patientService.getPatientDetails(this.authService.patientId!).
+    pipe(
+      switchMap(patientDetails => {
+        return this.examsService.list({
+          page: this.page,
+          size: this.size,
+          sort: this.sort,
+          order: this.order,
+          name: this.name!,
+          patientId: this.authService.patientId!,
+          examDate: this.examDate!,
+          examType: this.examType!,
+          fileId:this.fileId!,
+        });
       })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.isLoading = false;
-          this.isError = true;
-          this.snackbar.open(apiErrorStatusMessage[error.status]);
-          this.lineLoadingService.hide();
-          return EMPTY;
-        })
-      )
-      .subscribe({
-        next: (patients) => {
-          this.onSuccess(patients);
+    )  .subscribe({
+        next: (exams) => {
+          this.onSuccess(exams);
         },
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         error: (_error) => {
@@ -182,33 +182,40 @@ export class GetStartedComponent implements OnInit {
       });
   }
 
-  onSuccess(patients: Page<User[]>) {
+
+  onSuccess(exams: Page<Exams[]>) {
     this.isLoading = false;
     this.isError = false;
-    this.patientData = patients.content.map((user): PatientList => {
+
+    if (exams.content.length === 0) {
+      this.examsData = [];  
+      return;
+    }
+
+    this.examsData = exams.content.map((user): ExamsList => {
       return {
-        id: user.id,
-        createdAt: user.patient?.birthDate || '',
-        name: user.patient?.name || '',
-        birthDate: user.patient?.birthDate || '',
-        phoneNumber: user.phoneNumber || '',
-        email: user.email || '',
+        patientId: user.patientId,
+        fileId: user.fileId || 0,
+        name: user.name || '',
+        examDate: user.examDate || '',
+        examType: user.examType || '',
       };
     });
-    this.totalItems = patients.totalElements;
+
+    this.totalItems = exams.totalElements;
     this.pageBySize = Math.ceil(this.totalItems / this.size);
     this.pageNumber = Array.from({length: this.pageBySize}, (_, i) => ({
       value: i,
       label: 'Página ' + (i + 1),
     }));
-    this.isFirstPage = patients.first;
-    this.isLastPage = patients.last;
-    this.offSet = patients.pageable.offset + 1;
+    this.isFirstPage = exams.first;
+    this.isLastPage = exams.last;
+    this.offSet = exams.pageable.offset + 1;
 
-    if (!patients.last) {
+    if (!exams.last) {
       this.lastItem = this.size * (parseInt(String(this.page)) + 1);
     } else {
-      this.lastItem = patients.totalElements;
+      this.lastItem = exams.totalElements;
     }
     this.lineLoadingService.hide();
   }

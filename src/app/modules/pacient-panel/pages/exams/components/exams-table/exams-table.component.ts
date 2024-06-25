@@ -5,69 +5,22 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {PatientList} from 'src/app/models/User';
+import { ExamsList } from 'src/app/models/Exams';
 
 @Component({
   selector: 'app-exams-table',
   templateUrl: './exams-table.component.html',
   styleUrl: './exams-table.component.scss',
 })
-export class ExamsTableComponent implements OnInit {
-  @Input() dataSource: PatientList[] = [];
-  sortOrder: 'asc' | 'desc' = 'desc';
+export class ExamsTableComponent{
+  @Input() dataSource: ExamsList[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    // Mocking data
-    this.dataSource = [
-      {
-        id: 1,
-        createdAt: '2023-05-20T10:00:00Z',
-        name: 'Exame #C3',
-        birthDate: '2024-04-05',
-        phoneNumber: 'Exame de Sangue',
-        email: 'john.doe@example.com',
-      },
-      {
-        id: 2,
-        createdAt: '2023-05-21T10:00:00Z',
-        name: 'Exame #206',
-        birthDate: '2024-03-05',
-        phoneNumber: 'Exame de Imagem',
-        email: 'jane.smith@example.com',
-      },
-      {
-        id: 3,
-        createdAt: '2023-05-22T10:00:00Z',
-        name: 'Exame #RS5',
-        birthDate: '2024-05-05',
-        phoneNumber: 'Exame de Sangue',
-        email: 'alice.johnson@example.com',
-      },
-    ];
-    this.sortByBirthDate();
-  }
-
-  sortByBirthDate(): void {
-    this.dataSource.sort((a, b) => {
-      const dateA = new Date(a.birthDate).getTime();
-      const dateB = new Date(b.birthDate).getTime();
-
-      if (this.sortOrder === 'asc') {
-        return dateA - dateB;
-      } else {
-        return dateB - dateA;
-      }
-    });
-  }
-
-  toggleSortOrder(): void {
-    this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    this.sortByBirthDate();
-  }
+  
 
   printButton(action: string, event?: MouseEvent): void {
     if (event) {
