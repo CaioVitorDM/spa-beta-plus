@@ -12,7 +12,6 @@ export const routes: Routes = [
   {path: 'medic', component: MedicComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'appointments', component: AppointmentsComponent},
-  // {path: 'beta', component: BetaGraphComponent},
   {
     path: 'beta',
     loadChildren: () =>

@@ -5,12 +5,14 @@ import { map, first } from 'rxjs/operators';
 import { ApiResponse } from 'src/app/models/ApiResponse';
 import { Beta } from 'src/app/models/Beta';
 import { Page } from 'src/app/models/ApiResponse';
+import { environment } from 'src/app/enviroments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BetaService {
-  private readonly baseUrl = 'api/beta';
+  private readonly baseUrl = environment.apiBetaUrl + '/v1/beta';
+
 
   constructor(private httpClient: HttpClient) {}
 

@@ -4,16 +4,15 @@
   </button>
   <app-upload-file (fileSelected)="handleSelectedFile($event)"></app-upload-file>
 
-  <!-- Colocar ngForm e criar rota (algo do tipo)-->
-  <form class="register-form">
+  <form class="register-form" #formRef="ngForm" [formGroup]="examsForm">
     <div class="same-line-inputs-container">
       <div class="align-inputs-and-error-messages">
         <input
-          list="examsOptions"
+          list="examType"
           placeholder="Escolha o Tipo de Exame"
-          formControlName="examsOptions"
+          formControlName="examType"
         />
-        <datalist id="examsOptions">
+        <datalist id="examType">
           <option value="Sangue"></option>
           <option value="Imagem"></option>
           <option value="Outro"></option>
@@ -22,11 +21,11 @@
     </div>
 
     <div class="align-inputs-and-error-messages">
-      <input type="text" placeholder="Nome do Exame" formControlName="examsName" />
+      <input type="text" placeholder="Nome do Exame" formControlName="name" />
     </div>
 
     <div class="align-inputs-and-error-messages">
-      <input type="date" placeholder="Date de Exame" formControlName="examsDate" />
+      <input type="date" placeholder="Date de Exame" formControlName="examDate" />
     </div>
   </form>
 

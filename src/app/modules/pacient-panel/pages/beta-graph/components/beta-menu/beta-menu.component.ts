@@ -23,9 +23,10 @@ export class BetaMenuComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {}
 
   ngAfterViewInit() {
-    this.initializeGraph();
+    this.initializeGraph();    
+    
+  
   }
-
   initializeGraph() {
     Chart.register(
       LineController,

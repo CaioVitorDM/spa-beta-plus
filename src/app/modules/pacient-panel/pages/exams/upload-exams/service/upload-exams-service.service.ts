@@ -27,13 +27,13 @@ export class UploadExamsServiceService {
 
   private initializeForm(): FormGroup {
     const form = this.formBuilder.group({
-      id: [null],
-      doctorId: [null],
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
       examDate: new FormControl(''),
-      examType: new FormControl(''),
+      examType: new FormControl('',[Validators.required, Validators.minLength(3)]),
       patientId: [null],
       fileId: [null],
+      id: [null],
+      doctorId: [null],
     });
   
     // form.setValidators(this.patientsIdListValidator());
