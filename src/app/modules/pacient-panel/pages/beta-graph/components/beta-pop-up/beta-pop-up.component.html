@@ -1,13 +1,16 @@
-<!-- <div class="popup-container">
+<div class="popup-container">
   <h1 class="popup-title">Lançamento</h1>
-  <div class="popup-content">
-    <p class="popup-text">Data do exame</p>
-    <input type="date" class="popup-input" [(ngModel)]="beta.date" />
-    <p class="popup-text">Valor *</p>
-    <input type="text" class="popup-input" [(ngModel)]="beta.value" />
-  </div>
-  <div class="popup-actions">
-    <button class="button-cancelar" mat-button (click)="onClose()">Cancelar</button>
-    <button class="button-salvar" mat-button (click)="onSave()">Salvar</button>
-  </div>
-</div> -->
+  <form [formGroup]="betaForm" (ngSubmit)="onSave()">
+    <div class="popup-content">
+      <p class="popup-text">Data do exame</p>
+      <input type="date" class="popup-input" formControlName="date" />
+      <p class="popup-text">Valor *</p>
+      <input type="text" class="popup-input" formControlName="value" />
+    </div>
+    <div class="popup-actions">
+      <button class="button-cancelar" mat-button type="button" (click)="onClose()">Cancelar</button>
+      <button class="button-salvar" mat-button type="submit" [disabled]="!betaForm.valid">Salvar</button>
+    </div>
+  </form>
+</div>
+

@@ -9,7 +9,7 @@ import {BetaMenuComponent} from './components/beta-menu/beta-menu.component';
 import {BetaPopUpComponent} from './components/beta-pop-up/beta-pop-up.component';
 import {ViewBetaComponent} from './view-beta/view-beta.component';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BetaGraphRoutes } from './beta-graph.routes';
 import { BetaEditComponent } from './components/beta-edit/beta-edit.component';
 
@@ -25,6 +25,7 @@ import { BetaEditComponent } from './components/beta-edit/beta-edit.component';
     FormsModule,
     MatMenu,
     MatMenuTrigger,
+    ReactiveFormsModule
   ],
 })
 export class BetaGraphModule {}

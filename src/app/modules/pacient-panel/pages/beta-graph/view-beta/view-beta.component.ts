@@ -2,6 +2,7 @@ import { Component , OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { HeaderService } from 'src/app/services/header/header-info.service';
 import { BetaPopUpComponent } from '../components/beta-pop-up/beta-pop-up.component';
+import { BetaService } from 'src/app/services/beta/beta.service';
 
 @Component({
   selector: 'app-view-beta',
@@ -15,7 +16,8 @@ export class ViewBetaComponent implements OnInit {
 
   constructor(
     private headerService: HeaderService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private betaService: BetaService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +38,13 @@ export class ViewBetaComponent implements OnInit {
   }
 
   openDialog(): void {
-    this.dialog.open(BetaPopUpComponent);
+    const dialogRef = this.dialog.open(BetaPopUpComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Lógica para lidar com o novo beta criado, como atualizar uma lista de betas
+        console.log('Beta criado:', result);
+      }
+    });
   }
 }
