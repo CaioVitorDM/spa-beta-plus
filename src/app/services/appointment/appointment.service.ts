@@ -74,9 +74,11 @@ export class AppointmentService {
   }
 
   edit(record: Appointment): Observable<Appointment> {
-    return this.httpClient.put<ApiResponse<Appointment>>(`${this.baseUrl}/edit-appointment`, record).pipe(
+    return this.httpClient.put<ApiResponse<Appointment>>(`${this.baseUrl}/${record.id}`, record).pipe(
       first(),
       map(({data: appointment}: ApiResponse<Appointment>) => appointment)
     );
   }
+
+  
 }
