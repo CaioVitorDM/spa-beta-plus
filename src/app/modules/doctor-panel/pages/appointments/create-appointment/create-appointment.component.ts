@@ -51,7 +51,6 @@ export class CreateAppointmentComponent {
       this.appointmentForm.get('doctorId')?.setValue(this.authService.doctorId);
       const formDataAppointment = this.appointmentForm.value;
 
-
       this.createAppointmentSubscription = this.appointmentService.create(formDataAppointment).subscribe({
         next: (result: Appointment) => {
           this.handleSuccess();
@@ -70,7 +69,7 @@ export class CreateAppointmentComponent {
   private handleSuccess() {
     this.isLoading = false;
     this.appointmentFormService.resetForm();
-    this.appointmentFormService.onSuccess();
+    this.appointmentFormService.onSuccess(false);
   }
 
   private onError(error: Error) {

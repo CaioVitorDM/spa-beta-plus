@@ -72,4 +72,11 @@ export class AppointmentService {
       .delete<Omit<ApiResponse<Appointment>, 'data'>>(`${this.baseUrl}/${id}`)
       .pipe(first());
   }
+
+  edit(record: Appointment): Observable<Appointment> {
+    return this.httpClient.put<ApiResponse<Appointment>>(`${this.baseUrl}/edit-appointment`, record).pipe(
+      first(),
+      map(({data: appointment}: ApiResponse<Appointment>) => appointment)
+    );
+  }
 }
