@@ -24,6 +24,7 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
   @ViewChild(ProtocolsFormComponent) protocolsFormComponent!: ProtocolsFormComponent;
   protocol?: number;
   uploadingFile!: File;
+  fileName!: string;
   formUtils: FormUtilsService;
   protocolForm: FormGroup;
 
@@ -69,6 +70,7 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
   fetchFile(fileId: number) {
     this.fileService.downloadImage(fileId).subscribe({
       next: (file) => {
+       this.fileName = file.name;
        this.uploadingFile = file;
 
       },
@@ -97,7 +99,7 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
       }
 
       const formDataProtocol = this.protocolForm.value;
-
+      
       const existingFileId = this.protocolForm.get('fileId')?.value;
 
       if (!existingFileId) {
@@ -127,7 +129,7 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
             error: (error) => this.onError(error)
           });
       }
-    
+
     } else {
       this.formUtils.validateAllFormFields(this.protocolForm);
       this.snackbar.open('Atenção! Campos obrigatórios não preenchidos');
