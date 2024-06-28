@@ -87,7 +87,7 @@ export class CreateProtocolComponent {
   private handleSuccess() {
     this.isLoading = false;
     this.protocolsFormService.resetForm();
-    this.protocolsFormService.onSuccess();
+    this.protocolsFormService.onSuccess(false);
   }
 
   private onError(error: Error) {

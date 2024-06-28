@@ -70,6 +70,13 @@ export class ProtocolService {
       .pipe(first());
   }
 
+  edit(record: Protocol): Observable<Protocol> {
+    return this.httpClient.put<ApiResponse<Protocol>>(`${this.baseUrl}/edit-protocol`, record).pipe(
+      first(),
+      map(({data: appointment}: ApiResponse<Protocol>) => appointment)
+    );
+  }
+
 }
 
 

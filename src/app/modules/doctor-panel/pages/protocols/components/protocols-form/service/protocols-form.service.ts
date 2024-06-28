@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
-import Swal from 'sweetalert2';
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -53,14 +53,16 @@ export class ProtocolsFormService {
   }
 
 
-  public onSuccess() {
+  public onSuccess(isEditing: boolean) {
     this.lineLoadingService.hide();
     this.form.markAsPristine();
     this.form.markAsUntouched();
-    Swal
+    swal
       .fire({
         title: 'Sucesso!',
-        text: 'Protocolo cadastrado na base de dados!',
+        text: isEditing
+          ? 'Protocolo editado na base de dados!'
+          : 'Protocolo cadastrado na base de dados!',
         icon: 'success',
         showConfirmButton: false,
         timer: 3000,
