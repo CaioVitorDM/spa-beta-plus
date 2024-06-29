@@ -1,6 +1,6 @@
 <div class="upload-container">
     <div class="icon-container"  (click)="downloadFile()">
-        <img src="../../../assets/images/download.png" alt="Download" class="upload-icon"> 
+        <i class="fa-solid fa-download"></i>
     </div>
     <label class="custom-file-upload" *ngIf="!isReadOnly">
         <input type="file" id="file-input" (change)="onFileSelected($event)" hidden accept=".pdf"/>
