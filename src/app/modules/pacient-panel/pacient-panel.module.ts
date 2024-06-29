@@ -64,5 +64,6 @@ import {ProtocolsFormComponent} from '../doctor-panel/pages/protocols/components
     CustomSelectComponent,
     // ProtocolsFormComponent,
   ],
+  exports: [ProfileComponent, AppointmentsTableComponent, BetaGraphComponent],
 })
 export class PacientPanelModule {}

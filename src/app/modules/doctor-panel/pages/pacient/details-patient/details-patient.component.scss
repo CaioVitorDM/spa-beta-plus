@@ -1,0 +1,54 @@
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+.get-started-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0;
+
+  @media (max-width: 1024px) {
+    padding: 0.5rem;
+  }
+}
+
+.buttons-container{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 50%;
+  flex-wrap: wrap;
+
+  @media(max-width: 1024px){
+    width: 100%;
+    gap: 0.5rem;
+  }
+}
+
+.components-button{
+  border: none;
+  background: none;
+  font-size: 14px;
+  padding: 7px 25px;
+  color: #5F41B2;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.components-button:hover{
+  background-color: rgba(151, 92, 228, 0.13);
+  border-radius: 7px;
+}
+
+.selected-button {
+  border-bottom: 2px solid #5f41b2;
+}
+
+.selected-button:hover {
+  border-bottom: 2px solid #5f41b2;
+  border-radius: 7px 7px 0px 0px;
+}
+
+

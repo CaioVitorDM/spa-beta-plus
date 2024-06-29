@@ -14,16 +14,18 @@ import { CustomSelectComponent } from 'src/app/components/custom-select/custom-s
 import { CreateAppointmentComponent } from './create-appointment/create-appointment.component';
 import { AppointmentsFormComponent } from './components/appointments-form/appointments-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { EditAppointmentComponent } from './edit-appointment/edit-appointment.component';
-
+import {EditAppointmentComponent} from './edit-appointment/edit-appointment.component';
 
 @NgModule({
-  declarations: [AppointmentsComponent, 
-                  GetStartedComponent, 
-                  AppointmentsTableComponent,
-                  CreateAppointmentComponent,
-                  AppointmentsFormComponent,
-                  EditAppointmentComponent],
+  declarations: [
+    AppointmentsComponent,
+    GetStartedComponent,
+    AppointmentsTableComponent,
+    CreateAppointmentComponent,
+    AppointmentsFormComponent,
+    EditAppointmentComponent,
+  ],
+  exports: [AppointmentsTableComponent],
   imports: [
     CommonModule,
     AppointmentsRoutes,
@@ -35,6 +37,6 @@ import { EditAppointmentComponent } from './edit-appointment/edit-appointment.co
     InputSearchComponent,
     CustomSelectComponent,
     ReactiveFormsModule,
-  ]
+  ],
 })
-export class AppointmentsModule { }
+export class AppointmentsModule {}
