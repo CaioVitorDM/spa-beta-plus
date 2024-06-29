@@ -91,23 +91,22 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
   onSubmit() {
     if (this.protocolForm.valid && this.uploadingFile) {
       this.lineLoadingService.show();
-
+  
       this.protocolForm.get('doctorId')?.setValue(this.authService.doctorId);
     
-      if(!this.showPatientsSelector){
+      if (!this.showPatientsSelector) {
         this.protocolForm.get('patientsIdList')?.setValue([]);
       }
-
+  
       const formDataProtocol = this.protocolForm.value;
-      
-      const existingFileId = this.protocolForm.get('fileId')?.value;
-
-      if (!existingFileId) {
-        this.editProtocolSubscription = this.fileService.uploadFile(this.uploadingFile)
+      if (this.uploadingFile) {
+        console.log(" entrou");
+        const existingFileId = formDataProtocol.fileId; 
+        this.editProtocolSubscription = this.fileService.uploadFile(this.uploadingFile, existingFileId)
           .pipe(
             switchMap((fileResponse) => {
-              this.protocolForm.get('fileId')?.setValue(fileResponse.data.id);
-              return this.protocolService.edit(this.protocolForm.value);
+              formDataProtocol.fileId = fileResponse.data.id;
+              return this.protocolService.edit(formDataProtocol);
             }),
             catchError((error: HttpErrorResponse) => {
               this.onError(error);
@@ -121,7 +120,7 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
             error: (error) => this.onError(error)
           });
       } else {
-        this.protocolService.edit(this.protocolForm.value)
+        this.protocolService.edit(formDataProtocol)
           .subscribe({
             next: (result: Protocol) => {
               this.handleSuccess();
@@ -129,13 +128,13 @@ export class EditProtocolComponent implements OnInit, AfterViewInit {
             error: (error) => this.onError(error)
           });
       }
-
+  
     } else {
       this.formUtils.validateAllFormFields(this.protocolForm);
       this.snackbar.open('Atenção! Campos obrigatórios não preenchidos');
     }
   }
-
+  
 
   private handleSuccess() {
     this.isLoading = false;

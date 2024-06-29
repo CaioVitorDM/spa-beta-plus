@@ -30,9 +30,9 @@ export class ProtocolsFormService {
       id: [null],
       doctorId: [null],
       name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-      isSpecific: new FormControl(false, [Validators.required]),
+      isSpecific: new FormControl(false),
       description: new FormControl(''),
-      patientsIdList: [null],
+      patientsIdList: [],
       fileId: [null],
     });
   

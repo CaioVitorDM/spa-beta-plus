@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, Subject, Subscription, catchError, switchMap } from 'rxjs';
@@ -46,6 +46,8 @@ export class CreateProtocolComponent {
     this.formUtils = this.formUtilsService;
   }
 
+  
+
   handleSelectedFile(file: File): void {
     this.uploadingFile = file;
   }
@@ -60,6 +62,7 @@ export class CreateProtocolComponent {
       this.lineLoadingService.show();
 
       this.protocolForm.get('doctorId')?.setValue(this.authService.doctorId);
+  
       const formDataProtocol = this.protocolForm.value;
 
       this.createProtocolSubscription = this.fileService
