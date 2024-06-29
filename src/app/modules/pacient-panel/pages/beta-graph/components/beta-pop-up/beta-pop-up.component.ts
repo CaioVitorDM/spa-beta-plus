@@ -21,6 +21,9 @@ export class BetaPopUpComponent {
     this.betaForm = this.fb.group({
       date: ['', Validators.required],
       value: ['', Validators.required],
+      fileId: [null],
+      id: [null],
+      doctorId: [null],
     });
   }
   onClose(): void {

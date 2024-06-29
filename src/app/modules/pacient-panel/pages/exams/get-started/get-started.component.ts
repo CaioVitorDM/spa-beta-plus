@@ -17,6 +17,7 @@ import {ExamsRoutes} from '../exams.routes';
 import { Exams, ExamsList } from 'src/app/models/Exams';
 import { ExamsService } from 'src/app/services/exams/exams.service';
 import { PatientService } from 'src/app/services/patient/patient.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-get-started',
@@ -28,6 +29,8 @@ export class GetStartedComponent implements OnInit {
   examsData!: ExamsList[];
 
   loadExamsSubscription = new Subscription();
+  deleteExamSubscription = new Subscription();
+
   isLoading: boolean = false;
   isError: boolean = false;
 
@@ -42,6 +45,7 @@ export class GetStartedComponent implements OnInit {
   examDate: string | null = '';
   examType: string | null = '';
   fileId: number | null = 0;
+  id: number | null = 0;
 
   offSet = 0;
   lastItem = 0;
@@ -55,12 +59,11 @@ export class GetStartedComponent implements OnInit {
     private headerService: HeaderService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private patientService: PatientService,
     private authService: AuthService,
     private snackbar: SnackbarService,
     private examsService: ExamsService,
     private lineLoadingService: LineLoadingService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
     this.headerService.setTitulo('Exames');
   }
@@ -156,11 +159,9 @@ export class GetStartedComponent implements OnInit {
   }
 
   fetchData() {
-    this.loadExamsSubscription = this.patientService.getPatientDetails(this.authService.patientId!).
-    pipe(
-      switchMap(patientDetails => {
-        return this.examsService.list({
-          page: this.page,
+    this.loadExamsSubscription = this.examsService
+      .list({
+        page: this.page,
           size: this.size,
           sort: this.sort,
           order: this.order,
@@ -169,19 +170,53 @@ export class GetStartedComponent implements OnInit {
           examDate: this.examDate!,
           examType: this.examType!,
           fileId:this.fileId!,
-        });
+          id:this.id!,
+          doctorId:this.authService.doctorId!,
       })
-    )  .subscribe({
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.isError = true;
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe({
         next: (exams) => {
           this.onSuccess(exams);
         },
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         error: (_error) => {
           this.lineLoadingService.hide();
         },
       });
   }
 
+  deleteExam(id: number) {
+    console.log("entrou 2 delete");
+    this.lineLoadingService.show();
+    this.deleteExamSubscription = this.examsService
+      .delete(id)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe((response) => {
+        if (response.success) {
+          Swal.fire({
+            title: 'Sucesso!',
+            text: 'O exame foi deletado!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          this.fetchData();
+        }
+      });
+  }
 
   onSuccess(exams: Page<Exams[]>) {
     this.isLoading = false;
@@ -199,6 +234,7 @@ export class GetStartedComponent implements OnInit {
         name: user.name || '',
         examDate: user.examDate || '',
         examType: user.examType || '',
+        id: user.id || 0,
       };
     });
 

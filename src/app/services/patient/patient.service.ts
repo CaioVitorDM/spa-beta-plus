@@ -37,4 +37,6 @@ export class PatientService {
   getPatientDetails(id: number): Observable<ApiResponse<Patient>> {
     return this.httpClient.get<ApiResponse<Patient>>(this.apiUrlPatients + "/" + id);
   }
+
+  
 }

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import {EMPTY, Subject, Subscription, catchError, mergeMap, switchMap} from 'rxjs';
+import {EMPTY, Observable, Subject, Subscription, catchError, map, mergeMap, switchMap} from 'rxjs';
 import {FileService} from 'src/app/services/file-service/file.service';
 import {FormUtilsService} from 'src/app/services/form-utils/form-utils.service';
 import {HeaderService} from 'src/app/services/header/header-info.service';
@@ -15,6 +15,7 @@ import {ExamsService} from 'src/app/services/exams/exams.service';
 import {Role} from 'src/app/models/Role';
 import Swal from 'sweetalert2';
 import {apiErrorStatusMessage} from 'src/app/constants/messages';
+import {PatientService} from 'src/app/services/patient/patient.service';
 
 @Component({
   selector: 'app-upload-exams',
@@ -48,7 +49,8 @@ export class UploadExamsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private examsService: ExamsService,
-    private examsFormService: UploadExamsServiceService
+    private examsFormService: UploadExamsServiceService,
+    private patientService: PatientService
   ) {
     this.headerService.setTitulo('Cadastro de Novo Exame');
     this.examsForm = this.examsFormService.form;
@@ -129,43 +131,46 @@ export class UploadExamsComponent implements OnInit {
     this.uploadingFile = file;
   }
 
-  handlePatientsSelected(selectedPatientIds: number[]) {
-    this.examsForm.get('patientsIdList')?.setValue(selectedPatientIds);
+  loadDoctor(patientId: number): Observable<number> {
+    return this.patientService
+      .getPatientDetails(patientId)
+      .pipe(map((response) => response.data.doctorId));
   }
 
   onSubmit() {
     if (this.examsForm.valid && this.uploadingFile) {
       this.lineLoadingService.show();
 
-      this.examsForm.get('patientId')?.setValue(this.authService.patientId);
+      const patientId = this.authService.patientId;
 
-      //Adicionei esse DoctorId, mas ele não busca doctor
-      // const doctorId = this.authService.doctorId;
-      // if (doctorId) {
-      //   this.examsForm.get('doctorId')?.setValue(doctorId);
-      // } else {
-      //   this.snackbar.open('Erro: Doctor ID não está disponível.');
-      //   this.lineLoadingService.hide();
-      //   return;
-      // }
+      if (typeof patientId === 'number') {
+        this.examsForm.get('patientId')?.setValue(patientId);
 
-      const formDataExam = this.examsForm.value;
+        this.loadDoctor(patientId)
+          .pipe(
+            switchMap((doctorId) => {
+              const formDataExam = this.examsForm.value;
+              formDataExam.doctorId = doctorId;
 
-      this.createExamsSubscription = this.fileService
-        .uploadFile(this.uploadingFile)
-        .pipe(
-          switchMap((fileResponse) => {
-            formDataExam.fileId = fileResponse.data.id;
-            return this.examsService.create(formDataExam);
-          }),
-          catchError((error: HttpErrorResponse) => {
-            this.onError(error);
-            return EMPTY;
-          })
-        )
-        .subscribe((result: Exams) => {
-          this.handleSuccess();
-        });
+              return this.fileService.uploadFile(this.uploadingFile).pipe(
+                switchMap((fileResponse) => {
+                  formDataExam.fileId = fileResponse.data.id;
+                  return this.examsService.create(formDataExam);
+                })
+              );
+            }),
+            catchError((error: HttpErrorResponse) => {
+              this.onError(error);
+              return EMPTY;
+            })
+          )
+          .subscribe((result: Exams) => {
+            this.handleSuccess();
+          });
+      } else {
+        this.lineLoadingService.hide();
+        this.snackbar.open('Erro: ID do paciente não encontrado');
+      }
     } else {
       this.formUtils.validateAllFormFields(this.examsForm);
       this.snackbar.open('Atenção! Campos obrigatórios não preenchidos');

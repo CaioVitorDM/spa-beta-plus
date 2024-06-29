@@ -15,4 +15,5 @@
         fileId: number;
         examDate: string;
         examType: string;
+        id: number;
     }

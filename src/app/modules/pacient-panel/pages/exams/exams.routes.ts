@@ -19,7 +19,7 @@ const routes: Routes = [
     component: UploadExamsComponent,
   },
   {
-    path: 'edit-exams',
+    path: 'edit-exams/:id',
     component: EditExamsComponent,
   },
 ];

@@ -16,11 +16,19 @@ export class ExamsService {
   constructor(private httpClient: HttpClient) {}
 
   create(record: Exams): Observable<Exams> {
-    return this.httpClient.post<ApiResponse<Exams>>(this.baseUrl, record).pipe(
+    return this.httpClient.post<ApiResponse<Exams>>(this.baseUrl + '/save', record).pipe(
       first(),
-      map(({data: appointment}: ApiResponse<Exams>) => appointment)
+      map(({data: exam}: ApiResponse<Exams>) => exam)
     );
   }
+
+  update(id: number,record: Exams): Observable<Exams> {
+    return this.httpClient.put<ApiResponse<Exams>>(`${this.baseUrl}/edit-exams/${id}`, record).pipe(
+      first(),
+      map(({data: exam}: ApiResponse<Exams>) => exam)
+    );
+  }
+
 
   list({
     page = 0,
@@ -32,6 +40,8 @@ export class ExamsService {
         fileId,
         examDate,
         examType,
+        doctorId,
+        id,
   }: ParamsPageExams) {
     let params = new HttpParams()
       .set('page', page.toString())
@@ -44,6 +54,8 @@ export class ExamsService {
       examDate: examDate?.toString(),
       examType: examType?.toString(),
       fileId: fileId?.toString(),
+      doctorId: doctorId?.toString(),
+      id: id?.toString(),
     };
 
     Object.keys(parameters).forEach((key) => {
@@ -70,6 +82,7 @@ export class ExamsService {
 
   
   delete(id: number): Observable<Omit<ApiResponse<Exams>, 'data'>> {
+    console.log("entrou delete service");
     return this.httpClient
       .delete<Omit<ApiResponse<Exams>, 'data'>>(`${this.baseUrl}/${id}`)
       .pipe(first());

@@ -18,8 +18,8 @@
           <mat-menu #menu="matMenu">
             <div class="floating-actions-menu">
               <button>Download</button>
-              <button (click)="editUser()">Editar</button>
-              <button (click)="deleteUser()">Excluir</button>
+              <button (click)="editExam(exams.id!)">Editar</button>
+              <button (click)="deleteExam(exams.id!)">Excluir</button>
             </div>
           </mat-menu>
         </td>
@@ -49,11 +49,11 @@
             <img src="assets/images/svg/download-icon.svg" alt="" />
             <span> Baixar </span>
           </button>
-          <button class="edit-btn" (click)="editUser()">
+          <button class="edit-btn" (click)="editExam(exams.id!)">
             <img src="assets/images/svg/edit.svg" alt="" />
             <span> Editar </span>
           </button>
-          <button class="delete-btn" (click)="deleteUser()">
+          <button class="delete-btn" (click)="deleteExam(exams.id!)">
             <img src="assets/images/svg/inventory-red.svg" alt="" />
             Excluir
           </button>

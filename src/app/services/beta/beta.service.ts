@@ -37,6 +37,56 @@ export class BetaService {
     );
   }
 
+  // create(record: Beta): Observable<Beta> {
+  //   return this.httpClient.post<ApiResponse<Beta>>(this.baseUrl, record).pipe(
+  //     first(),
+  //     map(({data: appointment}: ApiResponse<Beta>) => appointment)
+  //   );
+  // }
+
+  // list({
+  //   page = 0,
+  //   size = 10,
+  //   sort = 'examDate',
+  //   // order = Direction.DESC,
+  //   patientId,
+  //       name,
+  //       fileId,
+  //       examDate,
+  //       examType,
+  //       doctorId,
+  //       id,
+  // }: ParamsPageExams) {
+  //   let params = new HttpParams()
+  //     .set('page', page.toString())
+  //     .set('size', size.toString())
+  //     .set('sort', `${sort},${order}`);
+
+  //   const parameters = {
+  //     name: name?.toString(),
+  //     patientId: patientId?.toString(),
+  //     examDate: examDate?.toString(),
+  //     examType: examType?.toString(),
+  //     fileId: fileId?.toString(),
+  //     doctorId: doctorId?.toString(),
+  //     id: id?.toString(),
+  //   };
+
+  //   Object.keys(parameters).forEach((key) => {
+  //     const value = parameters[key as keyof typeof parameters];
+  //     if (value !== null && value !== undefined) {
+  //       params = params.set(key, value);
+  //     }
+  //   });
+
+  //   return this.httpClient
+  //   .get<ApiResponse<Page<Exams []>>>(this.baseUrl + '/find-exams', {params})
+  //   .pipe(
+  //     first(),
+  //     map(({data}) => data)
+  //   );
+  // }
+
   update(id: number, beta: Beta): Observable<Beta> {
     return this.httpClient.put<ApiResponse<Beta>>(`${this.baseUrl}/${id}`, beta).pipe(
       first(),

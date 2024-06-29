@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonModule} from '@angular/common';
 import {MatButtonModule} from '@angular/material/button';
@@ -14,6 +14,8 @@ import { ExamsList } from 'src/app/models/Exams';
 })
 export class ExamsTableComponent{
   @Input() dataSource: ExamsList[] = [];
+  @Output() deleteExamEvent = new EventEmitter <number>();
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,12 +33,13 @@ export class ExamsTableComponent{
 
   navigateToCreatePage() {}
 
-  //To-do
-  editUser() {
-    this.router.navigate([`/patient-panel/exams/edit-exams`], {relativeTo: this.activatedRoute});
+  editExam(id: number) {
+    this.router.navigate([`/patient-panel/exams/edit-exams/${id}`], {relativeTo: this.activatedRoute});
   }
 
-  deleteUser() {
-    console.log('delete ');
+  deleteExam(id: number) {
+    console.log("Entrou 1 delete");
+    console.log(id)
+    this.deleteExamEvent.emit(id);
   }
 }

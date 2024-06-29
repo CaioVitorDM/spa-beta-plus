@@ -88,8 +88,8 @@ export interface ParamsPageAppointment extends ParamsPage<AppointmentList> {
 
 export interface ParamsPageBeta extends ParamsPage<BetaList> {
   id?: number;
-  patientInfo?: string;
-  doctorInfo?: string;
+  patientId?: string;
+  doctorId?: string;
   date?: string;
   value?: number;
 }
@@ -100,4 +100,6 @@ export interface ParamsPageExams extends ParamsPage<ExamsList> {
   fileId?: number;
   examDate?: string;
   examType?: string;
+  doctorId?: number;
+  id?: number;
 }

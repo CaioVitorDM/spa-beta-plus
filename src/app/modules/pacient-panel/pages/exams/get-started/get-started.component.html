@@ -29,8 +29,7 @@
       />
     </div>
     <div id="tabela">
-      <!-- <app-exams-table></app-exams-table> -->
-      <app-exams-table [dataSource]="examsData"></app-exams-table>
+      <app-exams-table [dataSource]="examsData" (deleteExamEvent)="deleteExam($event)"></app-exams-table>
     </div>
   </div>
   
