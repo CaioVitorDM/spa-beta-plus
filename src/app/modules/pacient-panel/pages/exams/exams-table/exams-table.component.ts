@@ -32,6 +32,7 @@ export class ExamsTableComponent implements OnInit {
         birthDate: '2024-04-05',
         phoneNumber: 'Exame de Sangue',
         email: 'john.doe@example.com',
+        patientId: 1,
       },
       {
         id: 2,
@@ -40,6 +41,7 @@ export class ExamsTableComponent implements OnInit {
         birthDate: '2024-03-05',
         phoneNumber: 'Exame de Imagem',
         email: 'jane.smith@example.com',
+        patientId: 2,
       },
       {
         id: 3,
@@ -48,6 +50,7 @@ export class ExamsTableComponent implements OnInit {
         birthDate: '2024-05-05',
         phoneNumber: 'Exame de Sangue',
         email: 'alice.johnson@example.com',
+        patientId: 3,
       },
     ];
     this.sortByBirthDate();

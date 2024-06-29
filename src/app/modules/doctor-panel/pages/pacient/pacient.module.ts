@@ -15,6 +15,9 @@ import {NgxMaskDirective} from 'ngx-mask';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from '@angular/material/menu';
 import {EditPatientComponent} from './edit-patient/edit-patient.component';
 import {MatIconButton} from '@angular/material/button';
+import {DetailsPatientComponent} from './details-patient/details-patient.component';
+import {PacientPanelModule} from '../../../pacient-panel/pacient-panel.module';
+import {DetailsCardComponent} from '../../../../components/details-card/details-card.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import {MatIconButton} from '@angular/material/button';
     CreatePatientComponent,
     PatientFormComponent,
     EditPatientComponent,
+    DetailsPatientComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +42,8 @@ import {MatIconButton} from '@angular/material/button';
     MatMenuTrigger,
     MatMenuItem,
     MatIconButton,
+    PacientPanelModule,
+    DetailsCardComponent,
   ],
 })
 export class PacientModule {}

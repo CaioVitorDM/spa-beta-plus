@@ -3,6 +3,7 @@ import {GetStartedComponent} from './get-started/get-started.component';
 import {RouterModule, Routes} from '@angular/router';
 import {CreatePatientComponent} from './create-patient/create-patient.component';
 import {EditPatientComponent} from './edit-patient/edit-patient.component';
+import {DetailsPatientComponent} from './details-patient/details-patient.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: EditPatientComponent,
+  },
+  {
+    path: 'details/:id',
+    component: DetailsPatientComponent,
   },
 ];
 

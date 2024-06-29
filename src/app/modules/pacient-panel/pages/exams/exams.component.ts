@@ -93,7 +93,6 @@ export class ExamsComponent implements OnInit {
   openUpload() {
     this.router.navigate(['/patient-panel/upload-exams']);
   }
-  
 
   submitSearch(searchType: string | number, searchText: string | null): void {
     if (searchType === 'name') {
@@ -188,6 +187,7 @@ export class ExamsComponent implements OnInit {
         birthDate: user.patient?.birthDate || '',
         phoneNumber: user.phoneNumber || '',
         email: user.email || '',
+        patientId: user.patient?.id || 0,
       };
     });
     this.totalItems = patients.totalElements;

@@ -1,15 +1,20 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, first, map } from 'rxjs';
-import { environment } from 'src/app/enviroments/environment';
-import { ApiResponse, Direction, Page, ParamsPageAppointment, ParamsPagePatient } from 'src/app/models/ApiResponse';
-import { Appointment } from 'src/app/models/Appointment';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, first, map} from 'rxjs';
+import {environment} from 'src/app/enviroments/environment';
+import {
+  ApiResponse,
+  Direction,
+  Page,
+  ParamsPageAppointment,
+  ParamsPagePatient,
+} from 'src/app/models/ApiResponse';
+import {Appointment} from 'src/app/models/Appointment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AppointmentService {
-
   private readonly baseUrl = environment.apiProtocolsUrl + '/v1/appointments';
 
   constructor(private httpClient: HttpClient) {}
@@ -40,6 +45,7 @@ export class AppointmentService {
     const parameters = {
       description: description?.toString(),
       patientId: patientId?.toString(),
+      doctorId: doctorId?.toString(),
       local: local?.toString(),
       appointmentDate: appointmentDate?.toString(),
     };
@@ -52,11 +58,11 @@ export class AppointmentService {
     });
 
     return this.httpClient
-    .get<ApiResponse<Page<Appointment []>>>(this.baseUrl + '/find-appointments', {params})
-    .pipe(
-      first(),
-      map(({data}) => data)
-    );
+      .get<ApiResponse<Page<Appointment[]>>>(this.baseUrl + '/find-appointments', {params})
+      .pipe(
+        first(),
+        map(({data}) => data)
+      );
   }
 
   getOne(id: number): Observable<Appointment> {
@@ -66,7 +72,6 @@ export class AppointmentService {
     );
   }
 
-  
   delete(id: number): Observable<Omit<ApiResponse<Appointment>, 'data'>> {
     return this.httpClient
       .delete<Omit<ApiResponse<Appointment>, 'data'>>(`${this.baseUrl}/${id}`)
