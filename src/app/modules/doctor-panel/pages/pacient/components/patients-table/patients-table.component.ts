@@ -32,4 +32,10 @@ export class PatientsTableComponent {
   deleteUser(id: number) {
     this.deleteUserEvent.emit(id);
   }
+
+  viewPatientsDetails(id: number | undefined) {
+    this.router.navigate([`/doctor-panel/patients/details/${id}`], {
+      relativeTo: this.activatedRoute,
+    });
+  }
 }

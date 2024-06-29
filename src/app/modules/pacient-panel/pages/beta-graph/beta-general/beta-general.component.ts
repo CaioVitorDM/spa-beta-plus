@@ -105,6 +105,7 @@ export class BetaGeneralComponent implements OnInit {
         birthDate: '2024-04-05',
         phoneNumber: '123-456-7890',
         email: 'john.doe@example.com',
+        patientId: 1,
       },
       {
         id: 2,
@@ -113,6 +114,7 @@ export class BetaGeneralComponent implements OnInit {
         birthDate: '2024-03-05',
         phoneNumber: '987-654-3210',
         email: 'jane.smith@example.com',
+        patientId: 2,
       },
       {
         id: 3,
@@ -121,6 +123,7 @@ export class BetaGeneralComponent implements OnInit {
         birthDate: '2024-05-05',
         phoneNumber: '555-555-5555',
         email: 'alice.johnson@example.com',
+        patientId: 3,
       },
     ];
 
@@ -230,6 +233,7 @@ export class BetaGeneralComponent implements OnInit {
         birthDate: user.patient?.birthDate || '',
         phoneNumber: user.phoneNumber || '',
         email: user.email || '',
+        patientId: user.patient?.id || 0,
       };
     });
     this.patientData = [...this.originalData];
