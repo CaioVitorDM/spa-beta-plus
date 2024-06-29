@@ -29,10 +29,6 @@
     transition: border-color 0.3s, color 0.3s ease;
 }
 
-.icon-container i{
-  color: #5F41B2;
-}
-
 .icon-container:hover {
   // background-color: rgba(95,65,178,0.6); /* Mantém o fundo mais escuro no hover */
   border-color: #EDE4FE;
@@ -40,8 +36,8 @@
 
 
 .upload-icon {
-    width: 50%;      
-    height: auto;    
+    width: 16px;      
+    height: 16px;    
 }
 
 
