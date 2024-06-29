@@ -19,6 +19,7 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
   protocol?: number;
   uploadingFile!: File;
   fileName!: string;
+  fileId!: number;
   formUtils: FormUtilsService;
   protocolForm: FormGroup;
 
@@ -48,9 +49,9 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
 
   ngAfterViewInit() {
     this.protocolsFormComponent.formLoaded.subscribe(() => {
-      const fileId = this.protocolsFormComponent.protocolForm.get('fileId')?.value;
+      this.fileId = this.protocolsFormComponent.protocolForm.get('fileId')?.value;
       this.selectedPatients =  this.protocolsFormComponent.protocolForm.get('patientsIdList')?.value;
-      this.fetchFile(fileId);
+      this.fetchFile(this.fileId);
     });
   }
 
