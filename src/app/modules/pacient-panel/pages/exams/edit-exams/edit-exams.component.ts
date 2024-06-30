@@ -60,7 +60,7 @@ export class EditExamsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.examForm = this.fb.group({
       id: [null], // Campo adicional
       examType: ['', Validators.required],
-      examName: ['', Validators.required],
+      name: ['', Validators.required],
       examDate: ['', Validators.required],
       fileId: [null],
       doctorId: [null], // Campo adicional
@@ -86,7 +86,7 @@ export class EditExamsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.examForm.patchValue({
         id: exam.id,
         examType: exam.examType,
-        examName: exam.name,
+        name: exam.name,
         examDate: exam.examDate,
         fileId: exam.fileId,
         doctorId: exam.doctorId,
@@ -103,31 +103,36 @@ export class EditExamsComponent implements OnInit, AfterViewInit, OnDestroy {
     this.uploadingFile = file;
   }
 
-  
+
   onSubmit() {
     if (this.examForm.valid && this.uploadingFile) {
       this.lineLoadingService.show();
-
+  
       const patientId = this.authService.patientId;
       this.examForm.get('patientId')?.setValue(patientId);
-
+  
       const formDataExam = this.examForm.value;
+      
+      // Log the form data for debugging
+      console.log("Form data before submission:", formDataExam);
+  
       if (patientId === undefined) {
         this.snackbar.open('Atenção! O paciente não está autenticado.');
         this.lineLoadingService.hide();
         return;
       }
-
+  
       if (this.uploadingFile) {
-        console.log(' entrou');
         const existingFileId = formDataExam.fileId;
+        const id = formDataExam.id;
+  
         this.editExamSubscription = this.fileService
           .uploadFile(this.uploadingFile, existingFileId)
           .pipe(
             switchMap((fileResponse) => {
               formDataExam.fileId = fileResponse.data.id;
-              //aqui estava recebendo patientId mas deve receber id
-              return this.examsService.update(formDataExam.id,formDataExam);
+              console.log("Form data on submission:", formDataExam);
+              return this.examsService.update(id, formDataExam);
             }),
             catchError((error: HttpErrorResponse) => {
               this.onError(error);
@@ -146,6 +151,51 @@ export class EditExamsComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     }
   }
+  
+  
+  // onSubmit() {
+  //   if (this.examForm.valid && this.uploadingFile) {
+  //     this.lineLoadingService.show();
+
+  //     const patientId = this.authService.patientId;
+  //     this.examForm.get('patientId')?.setValue(patientId);
+
+  //     const formDataExam = this.examForm.value;
+  //     if (patientId === undefined) {
+  //       this.snackbar.open('Atenção! O paciente não está autenticado.');
+  //       this.lineLoadingService.hide();
+  //       return;
+  //     }
+
+  //     if (this.uploadingFile) {
+  //       const existingFileId = formDataExam.fileId;
+  //       const id = formDataExam.id;
+
+
+  //       this.editExamSubscription = this.fileService
+  //         .uploadFile(this.uploadingFile, existingFileId)
+  //         .pipe(
+  //           switchMap((fileResponse) => {
+  //             formDataExam.fileId = fileResponse.data.id;
+  //             return this.examsService.update(id,formDataExam);
+  //           }),
+  //           catchError((error: HttpErrorResponse) => {
+  //             this.onError(error);
+  //             return EMPTY;
+  //           })
+  //         )
+  //         .subscribe({
+  //           next: (result: Exams) => {
+  //             this.handleSuccess();
+  //           },
+  //           error: (error) => this.onError(error),
+  //         });
+  //     } else {
+  //       this.formUtilsService.validateAllFormFields(this.examForm);
+  //       this.snackbar.open('Atenção! Campos obrigatórios não preenchidos');
+  //     }
+  //   }
+  // }
 
 
   // updateExam(formDataExam: any): Observable<Exams> {
