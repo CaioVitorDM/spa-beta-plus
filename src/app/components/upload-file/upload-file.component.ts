@@ -33,15 +33,15 @@ export class UploadFileComponent {
     const file = event.target.files[0];
     if (file) {
       this.fileName = file.name;
-      this.errorMessage = '';
       this.uploadingFile = file;
       this.fileId = null;
       this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
     }
+    this.errorMessage = '';
   }
 
   handleUploadAttempt(): void {
-    if (!this.uploadingFile) { 
+    if (!this.uploadingFile && !this.fileId) { 
       this.errorMessage = 'Por favor, escolha um arquivo.';
     }
   }
