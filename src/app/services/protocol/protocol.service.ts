@@ -77,6 +77,15 @@ export class ProtocolService {
     );
   }
 
+  findByDoctorId(doctorId: number): Observable<Protocol[]> {
+    let params = new HttpParams().set('doctorId', doctorId.toString());
+
+    return this.httpClient.get<ApiResponse<Protocol[]>>(`${this.baseUrl}/find-by-doctor`, { params }).pipe(
+      first(),
+      map(({ data }) => data)
+    );
+  }
+
 }
 
 

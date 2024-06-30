@@ -4,6 +4,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 import { FileService } from 'src/app/services/file-service/file.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { apiErrorStatusMessage } from 'src/app/constants/messages';
 
 @Component({
   selector: 'app-upload-file',
@@ -17,7 +18,7 @@ export class UploadFileComponent {
 
   @Input() isReadOnly: boolean = false;
   @Input() fileName: string = '';
-  @Input() errorMessage: string = 'Por favor, escolha um arquivo.';
+  @Input() errorMessage: string = '';
   dialogOpened: boolean = false;
 
   @Input() fileId: number | null = null;  
@@ -36,7 +37,12 @@ export class UploadFileComponent {
       this.uploadingFile = file;
       this.fileId = null;
       this.fileSelected.emit(file); // Emitindo o caminho/processado da imagem
-      console.log('emitindo');
+    }
+  }
+
+  handleUploadAttempt(): void {
+    if (!this.uploadingFile) { 
+      this.errorMessage = 'Por favor, escolha um arquivo.';
     }
   }
 
@@ -48,9 +54,7 @@ export class UploadFileComponent {
           window.open(url, '_blank');
         },
         error: (error) => {
-          if (error instanceof HttpErrorResponse) {
-            this.snackbar.open(error.error.error.message);
-          }
+          this.snackbar.open(apiErrorStatusMessage[error.status])
         },
       });
     } else if (this.uploadingFile) {

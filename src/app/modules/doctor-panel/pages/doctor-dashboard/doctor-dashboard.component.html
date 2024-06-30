@@ -57,10 +57,10 @@
             </thead>
             <!-- corpo da tabela -->
             <tbody>
-            <tr>
-              <td>Protocolo X</td>
-              <td>11/06/2024</td>
-            </tr>
+              <tr *ngFor="let protocol of protocols">
+                <td>{{ protocol.name }}</td>
+                <td>{{ protocol.createdAt | date:'dd/MM/yyyy' }}</td>
+              </tr>
             <!-- outros exames -->
             </tbody>
           </table>
