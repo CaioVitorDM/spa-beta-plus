@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { Direction, Page } from 'src/app/models/ApiResponse';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { Appointment } from 'src/app/models/Appointment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-doctor-dashboard',
@@ -19,7 +20,7 @@ import { Appointment } from 'src/app/models/Appointment';
 export class DoctorDashboardComponent implements OnInit, OnDestroy {
   protocols: ProtocolList[] = [];
   doctorName: string = '';
-  nextAppointment: string = 'Nenhuma consulta';
+  nextAppointment: string = '';
   isLoading: boolean = true;
   protocolsLoaded: boolean = false;
   appointmentsLoaded: boolean = false;
@@ -33,7 +34,9 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     private snackbar: SnackbarService,
     private protocolService: ProtocolService,
     private appointmentService: AppointmentService,
-    private lineLoadingService: LineLoadingService
+    private lineLoadingService: LineLoadingService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -82,10 +85,10 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     if (doctorId) {
       this.loadAppointmentsSubscription = this.appointmentService.getNextAppointment(doctorId).subscribe({
         next: (appointment) => {
-          if (appointment) {
+          if (appointment && appointment.appointmentDate) {
             this.nextAppointment = appointment.appointmentDate;
           } else {
-            this.nextAppointment = 'Nenhuma consulta';
+            this.nextAppointment = '';
           }
           this.appointmentsLoaded = true;
           this.checkIfLoadingComplete();
@@ -106,9 +109,16 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     }
   }
 
+  detailsProtocol(id: number) {
+    const currentUrl = this.router.url;
+    this.router.navigate([`/doctor-panel/protocols/details/${id}`], {
+      queryParams: { returnUrl: currentUrl }
+    });
+  }
+  
+  
   ngOnDestroy() {
     this.loadProtocolsSubscription.unsubscribe();
-    this.loadDoctorNameSubscription.unsubscribe();
-    this.loadAppointmentsSubscription.unsubscribe();
+    this.loadDoctorNameSubscription.unsubscribe();    this.loadAppointmentsSubscription.unsubscribe();
   }
 }

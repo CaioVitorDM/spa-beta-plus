@@ -7,8 +7,13 @@
     <div class="dashboard-content">
         <div class="info-container">
           <div class="info" style="width: 100%;">
-            <span>Próxima consulta </span>
-            <strong>{{ nextAppointment | date:'dd/MM/yyyy' }}</strong>   <!-- Tem que modificar para o nome do medico do usuario logado -->
+            <span>Próxima consulta</span>
+            <strong *ngIf="nextAppointment; else noAppointment">
+              {{ nextAppointment | date:'dd/MM/yyyy' }}
+            </strong>
+            <ng-template #noAppointment>
+              <strong>Nenhuma consulta </strong>
+            </ng-template>   
           </div>
         </div>
   
@@ -57,7 +62,7 @@
             </thead>
             <!-- corpo da tabela -->
             <tbody>
-              <tr *ngFor="let protocol of protocols">
+              <tr *ngFor="let protocol of protocols" (click)="detailsProtocol(protocol.id)">
                 <td>{{ protocol.name }}</td>
                 <td>{{ protocol.createdAt | date:'dd/MM/yyyy' }}</td>
               </tr>

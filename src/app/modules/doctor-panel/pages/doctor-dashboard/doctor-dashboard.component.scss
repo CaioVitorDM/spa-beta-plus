@@ -80,6 +80,11 @@ table {
   tr:nth-child(even) {
     background-color: #f9f9f9;
   }
+    
+  tr:hover {
+    background-color: #E5D7FF; 
+    cursor: pointer;
+  }
 }
 
 

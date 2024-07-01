@@ -26,6 +26,8 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
   selectedPatients: number[] = [];
   showPatientsSelector = false;
 
+  returnUrl: string = '/doctor-panel/protocols';
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private fileService: FileService,
@@ -45,6 +47,10 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
     if (id) {
       this.protocol = id;
     }
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'] || '/doctor-panel/protocols';
+    });
   }
 
   ngAfterViewInit() {
@@ -77,6 +83,6 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
   }
 
   navigateBack() {
-    this.router.navigate(['/doctor-panel/protocols'], {relativeTo: this.activatedRoute});
+    this.router.navigateByUrl(this.returnUrl);
   }
 }
