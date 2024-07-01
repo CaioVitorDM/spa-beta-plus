@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, Subject, Subscription, catchError, switchMap } from 'rxjs';
@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Protocol } from 'src/app/models/Protocol';
 import { ProtocolService } from 'src/app/services/protocol/protocol.service';
+import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.component';
 
 @Component({
   selector: 'app-create-protocol',
@@ -28,6 +29,9 @@ export class CreateProtocolComponent {
   protocolForm: FormGroup;
   isLoading = false;
   formUtils: FormUtilsService;
+
+  @ViewChild(UploadFileComponent) uploadFileComponent!: UploadFileComponent;
+
   
   constructor(
     private headerService: HeaderService,
@@ -58,6 +62,10 @@ export class CreateProtocolComponent {
 
 
   onSubmit() {
+
+    this.uploadFileComponent.handleUploadAttempt();
+
+
     if (this.protocolForm.valid && this.uploadingFile) {
       this.lineLoadingService.show();
 

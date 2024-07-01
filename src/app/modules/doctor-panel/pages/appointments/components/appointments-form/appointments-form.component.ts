@@ -25,6 +25,7 @@ export class AppointmentsFormComponent implements OnDestroy, OnInit {
   formUtils: FormUtilsService;
   appointmentForm: FormGroup;
   @Input() appointment?: number;
+  
 
   patients: PatientList[] = [];
   loadPatientsSubscription = new Subscription();

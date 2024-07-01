@@ -19,7 +19,6 @@ export class UploadFileComponent {
   @Input() isReadOnly: boolean = false;
   @Input() fileName: string = '';
   @Input() errorMessage: string = '';
-  dialogOpened: boolean = false;
 
   @Input() fileId: number | null = null;  
   uploadingFile: File | null = null;

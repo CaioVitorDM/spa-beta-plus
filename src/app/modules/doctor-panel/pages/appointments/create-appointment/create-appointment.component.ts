@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { Appointment } from 'src/app/models/Appointment';
 import { HttpErrorResponse } from '@angular/common/http';
+import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.component';
 
 @Component({
   selector: 'app-create-appointment',
@@ -45,6 +46,7 @@ export class CreateAppointmentComponent {
 
 
   onSubmit() {
+
     if (this.appointmentForm.valid) {
       this.lineLoadingService.show();
 
