@@ -1,4 +1,4 @@
-<!-- <div id="main">
+<div id="main">
   <div class="paginators-container">
     <app-custom-select
       style="width: 100px"
@@ -49,15 +49,25 @@
       <thead>
         <tr class="trhover">
           <th class="th-first">Nível (mUI/ml)</th>
-          <th (click)="toggleSortOrder()" style="cursor: pointer">
+          <th style="cursor: pointer">
             Data
           </th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let beta of betaData">
-          <td>{{ beta.value }}</td>
-          <td>{{ beta.date | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ beta.betaValue }}</td>
+          <td>{{ beta.betaDate | date: 'dd/MM/yyyy' }}</td>
+          <td class="td-edit">
+            <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
+            <mat-menu #menu="matMenu">
+              <div class="floating-actions-menu">
+                <button (click)="edit(beta.id!)">Editar</button>
+                <button (click)="deleteBeta(beta.id!)">Excluir</button>
+              </div>
+            </mat-menu>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -69,14 +79,14 @@
         <button class="list-card" (click)="printButton('card button')">
           <div class="user-detail">
             <span class="title-detail">Nível</span>
-            <span class="data-detail">{{ beta.value }}</span>
+            <span class="data-detail">{{ beta.betaValue }}</span>
           </div>
           <div class="user-detail">
             <span class="title-detail">Data</span>
-            <span class="data-detail">{{ beta.date | date: 'dd/MM/yyyy' }}</span>
+            <span class="data-detail">{{ beta.betaDate | date: 'dd/MM/yyyy' }}</span>
           </div>
           <div class="user-actions">
-            <button class="edit-btn" (click)="editUser()">
+            <button class="edit-btn" (click)="edit(beta.id!)">
               <img src="assets/images/svg/edit.svg" alt="" />
               <span> Editar </span>
             </button>
@@ -89,4 +99,4 @@
       </div>
     </div>
   </div>
-</div> -->
+</div>

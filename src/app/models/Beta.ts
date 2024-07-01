@@ -2,14 +2,14 @@ export interface Beta {
   id: number;
   patientId: number;
   doctorId: number;
-  date: string;
-  value: number;
+  betaDate: string;
+  betaValue: number;
 }
 
 export interface BetaList {
   id: number;
-  patientInfo?: string;
-  doctorInfo?: string;
-  date: string;
-  value: number;
+  patientId?: number;
+  doctorId?: number;
+  betaDate: string;
+  betaValue: number;
 }

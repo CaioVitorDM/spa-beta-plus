@@ -193,10 +193,6 @@ export class UploadExamsComponent implements OnInit {
     this.lineLoadingService.hide();
   }
 
-  // togglePatientsSelector(isSpecific: boolean) {
-  //   this.showPatientsSelector = isSpecific;
-  // }
-
   navigateBack() {
     this.router.navigate(['/patient-panel/exams']);
   }
