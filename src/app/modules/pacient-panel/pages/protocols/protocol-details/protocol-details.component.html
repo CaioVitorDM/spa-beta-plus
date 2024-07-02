@@ -2,6 +2,6 @@
     <button class="back-button" (click)="navigateBack()">
         <img src="../../../../../assets/images/voltar.png" class="img-back" alt="Voltar">
     </button> 
-    <app-upload-file  [isReadOnly]="true" [fileName]="fileName" [errorMessage]="''"></app-upload-file>
-    <app-protocol-info [protocol]="protocol" (fileIdEmitter)="fetchFile($event)"></app-protocol-info>
+    <app-upload-file  [isReadOnly]="true" [fileName]="fileName" [fileId]="fileId" [errorMessage]="''"></app-upload-file>
+    <app-protocol-info [protocol]="protocol"></app-protocol-info>
 </div>

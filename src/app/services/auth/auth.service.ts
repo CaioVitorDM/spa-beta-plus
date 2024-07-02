@@ -8,7 +8,7 @@ import {AuthRequest, IJWTUserDecoded, IToken, User} from '../../models/User';
 import {ApiResponse} from '../../models/ApiResponse';
 import {environment} from '../../enviroments/environment';
 import {jwtDecode} from 'jwt-decode';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpParams} from '@angular/common/http';
 import {HeaderService} from '../header/header-info.service';
 
 @Injectable({
@@ -156,5 +156,21 @@ export class AuthService {
 
   getUserDetails(id: number): Observable<ApiResponse<User>> {
     return this.httpClient.get<ApiResponse<User>>(`${environment.apiPermissionUrl}/users/${id}`);
+  }
+
+  getRecentPatientsByDoctor(doctorId: number): Observable<User[]> {
+    const threeMonthsAgo = new Date();
+    threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
+    const fromDate = threeMonthsAgo.toISOString().split('T')[0]; 
+
+    let httpParams = new HttpParams()
+      .set('doctorId', doctorId.toString())
+      .set('fromDate', fromDate)
+      .set('limit', '3');
+
+    return this.httpClient.get<ApiResponse<User[]>>(`${environment.apiPermissionUrl}/users/patients/recent`, { params: httpParams })
+      .pipe(
+        map(response => response.data)
+      );
   }
 }

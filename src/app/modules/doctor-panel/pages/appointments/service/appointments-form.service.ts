@@ -46,14 +46,16 @@ export class AppointmentsFormService {
     });
   }
 
-  public onSuccess() {
+  public onSuccess(isEditing: boolean) {
     this.lineLoadingService.hide();
     this.form.markAsPristine();
     this.form.markAsUntouched();
     swal
       .fire({
         title: 'Sucesso!',
-        text: 'Consulta cadastrada na base de dados!',
+        text: isEditing
+          ? 'Consulta editada na base de dados!'
+          : 'Consulta cadastrada na base de dados!',
         icon: 'success',
         showConfirmButton: false,
         timer: 3000,
@@ -62,6 +64,7 @@ export class AppointmentsFormService {
         this.router.navigate(['/doctor-panel/appointments/']);
       });
   }
+
 
   isInvalidField(field: string): boolean {
     const isInvalid = this.form.get(field)?.invalid && this.form.get(field)?.touched;

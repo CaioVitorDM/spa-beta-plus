@@ -67,10 +67,11 @@ table {
   th, td {
     text-align: left;
     padding: 8px;
-    font-size: 14px;
+    font-size: 12px;
   }
   th {
     background-color: #5F41B2;
+    font-size: 14px;
     color: #fff;
     font-weight: 300;
     padding: 12px;
@@ -78,6 +79,11 @@ table {
   
   tr:nth-child(even) {
     background-color: #f9f9f9;
+  }
+    
+  tr:hover {
+    background-color: #E5D7FF; 
+    cursor: pointer;
   }
 }
 
@@ -124,7 +130,7 @@ table {
 }
 
 .icone-paciente {
-  background-color: rgba(95, 65, 178, 0.4);
+  background-color: rgba(95, 65, 178, 0.6);
   color: #5F41B2;
   border-radius: 50%;
   width: 40px;

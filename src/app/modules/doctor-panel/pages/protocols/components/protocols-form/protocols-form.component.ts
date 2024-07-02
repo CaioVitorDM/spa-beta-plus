@@ -47,6 +47,11 @@ export class ProtocolsFormComponent implements OnInit{
 
   ngOnInit() {
     this.prepareForm();
+
+    this.protocolForm.patchValue({
+      isSpecific: false
+    });
+    
   }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -141,6 +146,7 @@ export class ProtocolsFormComponent implements OnInit{
 
 
 }
+
 
 
 

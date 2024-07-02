@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, Subject, Subscription, catchError, switchMap } from 'rxjs';
@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Protocol } from 'src/app/models/Protocol';
 import { ProtocolService } from 'src/app/services/protocol/protocol.service';
+import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.component';
 
 @Component({
   selector: 'app-create-protocol',
@@ -28,6 +29,9 @@ export class CreateProtocolComponent {
   protocolForm: FormGroup;
   isLoading = false;
   formUtils: FormUtilsService;
+
+  @ViewChild(UploadFileComponent) uploadFileComponent!: UploadFileComponent;
+
   
   constructor(
     private headerService: HeaderService,
@@ -46,6 +50,8 @@ export class CreateProtocolComponent {
     this.formUtils = this.formUtilsService;
   }
 
+  
+
   handleSelectedFile(file: File): void {
     this.uploadingFile = file;
   }
@@ -56,10 +62,15 @@ export class CreateProtocolComponent {
 
 
   onSubmit() {
+
+    this.uploadFileComponent.handleUploadAttempt();
+
+
     if (this.protocolForm.valid && this.uploadingFile) {
       this.lineLoadingService.show();
 
       this.protocolForm.get('doctorId')?.setValue(this.authService.doctorId);
+  
       const formDataProtocol = this.protocolForm.value;
 
       this.createProtocolSubscription = this.fileService
@@ -87,7 +98,7 @@ export class CreateProtocolComponent {
   private handleSuccess() {
     this.isLoading = false;
     this.protocolsFormService.resetForm();
-    this.protocolsFormService.onSuccess();
+    this.protocolsFormService.onSuccess(false);
   }
 
   private onError(error: Error) {

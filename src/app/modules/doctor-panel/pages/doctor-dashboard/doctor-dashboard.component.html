@@ -1,14 +1,19 @@
  <div class="dashboard-container">
     <div class="welcome-banner">
-      <h1>Olá, Gabriel!</h1> <!-- Tem que modificar para o nome do usuario logado -->
+      <h1>Olá, {{ doctorName }}!</h1> <!-- Tem que modificar para o nome do usuario logado -->
       <p>Fique à vontade para revisar seu protocolo e atualizar suas informações</p>
     </div>
   
     <div class="dashboard-content">
         <div class="info-container">
           <div class="info" style="width: 100%;">
-            <span>Próxima consulta </span>
-            <strong>12/06/2024</strong>  <!-- Tem que modificar para o nome do medico do usuario logado -->
+            <span>Próxima consulta</span>
+            <strong *ngIf="nextAppointment; else noAppointment">
+              {{ nextAppointment | date:'dd/MM/yyyy' }}
+            </strong>
+            <ng-template #noAppointment>
+              <strong>Nenhuma consulta </strong>
+            </ng-template>   
           </div>
         </div>
   
@@ -16,32 +21,15 @@
         <div class="pacientes-container">
           <h2>Novos Pacientes</h2>
           <ul class="lista-pacientes">
-              <li class="item-paciente">
-                  <div class="icone-paciente">
-                      <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">
-                  </div>
-                  <div class="info-paciente">
-                      <strong>Luíza Almeida</strong>
-                      <span>luizaalmeida</span>
-                  </div>
-              </li>
-              <li class="item-paciente">
-                  <div class="icone-paciente">
-                    <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">
-                  </div>
-                  <div class="info-paciente">
-                      <strong>Carla Medeiros</strong>
-                      <span>carlamedeiros</span>
-                  </div>
-              </li>
-              <li class="item-paciente">
-                  <div class="icone-paciente">
-                    <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">                  </div>
-                  <div class="info-paciente">
-                      <strong>Luisa Almeida</strong>
-                      <span>luisaalmeida</span>
-                  </div>
-              </li>
+            <li *ngFor="let patient of recentPatients" class="item-paciente">
+              <div class="icone-paciente">
+                <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">
+              </div>
+              <div class="info-paciente">
+                <strong>{{ patient.patient?.name }}</strong>
+                <span>{{ patient.login }}</span>
+              </div>
+            </li>
           </ul>
       </div>
   
@@ -57,10 +45,10 @@
             </thead>
             <!-- corpo da tabela -->
             <tbody>
-            <tr>
-              <td>Protocolo X</td>
-              <td>11/06/2024</td>
-            </tr>
+              <tr *ngFor="let protocol of protocols" (click)="detailsProtocol(protocol.id)">
+                <td>{{ protocol.name }}</td>
+                <td>{{ protocol.createdAt | date:'dd/MM/yyyy' }}</td>
+              </tr>
             <!-- outros exames -->
             </tbody>
           </table>

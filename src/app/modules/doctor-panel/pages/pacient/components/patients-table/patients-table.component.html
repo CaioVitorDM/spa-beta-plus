@@ -16,7 +16,7 @@
       <td>{{ element.phoneNumber }}</td>
       <td>{{ element.email }}</td>
       <td>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="$event.stopPropagation()">
           ⋮
         </button>
         <mat-menu #menu="matMenu">

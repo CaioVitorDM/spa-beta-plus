@@ -19,11 +19,14 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
   protocol?: number;
   uploadingFile!: File;
   fileName!: string;
+  fileId!: number;
   formUtils: FormUtilsService;
   protocolForm: FormGroup;
 
   selectedPatients: number[] = [];
   showPatientsSelector = false;
+
+  returnUrl: string = '/doctor-panel/protocols';
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,13 +47,17 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
     if (id) {
       this.protocol = id;
     }
+
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.returnUrl = params['returnUrl'] || '/doctor-panel/protocols';
+    });
   }
 
   ngAfterViewInit() {
     this.protocolsFormComponent.formLoaded.subscribe(() => {
-      const fileId = this.protocolsFormComponent.protocolForm.get('fileId')?.value;
+      this.fileId = this.protocolsFormComponent.protocolForm.get('fileId')?.value;
       this.selectedPatients =  this.protocolsFormComponent.protocolForm.get('patientsIdList')?.value;
-      this.fetchFile(fileId);
+      this.fetchFile(this.fileId);
     });
   }
 
@@ -76,6 +83,6 @@ export class ProtocolDetailsComponent implements OnInit , AfterViewInit{
   }
 
   navigateBack() {
-    this.router.navigate(['/doctor-panel/protocols'], {relativeTo: this.activatedRoute});
+    this.router.navigateByUrl(this.returnUrl);
   }
 }

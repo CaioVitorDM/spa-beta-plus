@@ -25,12 +25,22 @@ export class FileService {
 
   constructor(private http: HttpClient) {}
 
-  uploadFile(file: File): Observable<ApiResponse<FileResponse>> {
+  // uploadFile(file: File): Observable<ApiResponse<FileResponse>> {
+  //   const formData: FormData = new FormData();
+  //   formData.append('file', file);
+  //   return this.http.post<ApiResponse<FileResponse>>(`${this.baseUrl}/upload`, formData);
+  // }
+
+  uploadFile(file: File, existingFileId?: number): Observable<ApiResponse<FileResponse>> {
     const formData: FormData = new FormData();
     formData.append('file', file);
+
+    if (existingFileId !== undefined) {
+      formData.append('existingFileId', existingFileId.toString());
+    }
+
     return this.http.post<ApiResponse<FileResponse>>(`${this.baseUrl}/upload`, formData);
   }
-
   downloadImage(id: number): Observable<File> {
     const url = `${this.baseUrl}/${id}`;
 
@@ -48,6 +58,7 @@ export class FileService {
       })
     );
   }
+  
 
   /**
    * Reads a File object and returns a Promise that resolves with a data URL, an ArrayBuffer, or null.

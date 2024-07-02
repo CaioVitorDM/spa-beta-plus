@@ -1,14 +1,15 @@
 <div class="infos">
+    <!-- Nome -->
     <div class="align-infos" style="width: 100%">
-        <label for="name">Nome: </label>
-        <span id="name">{{ protocolData?.name }}</span>
+        <label for="name">Nome:</label>
+        <span id="name">{{ (protocolData$ | async)?.name }}</span>
     </div>
 
-
+    <!-- Descrição -->
     <div class="align-infos" style="width: 100%">
-        <label for="description">Descrição: </label>
+        <label for="description">Descrição:</label>
         <div id="description" class="read-only-border">
-            {{ protocolData?.description }}
+            {{ (protocolData$ | async)?.description }}
         </div>
     </div>
 </div>

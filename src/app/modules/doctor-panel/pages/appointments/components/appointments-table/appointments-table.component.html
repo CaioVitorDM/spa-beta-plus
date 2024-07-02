@@ -1,6 +1,6 @@
 <div class="container">
-    <table>
-      <thead>
+  <table>
+    <thead>
       <tr style="border-radius: 10px !important;">
         <th>Paciente</th>
         <th>Descrição</th>
@@ -8,8 +8,8 @@
         <th>Data</th>
         <th style="width: 1rem;"></th>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       <tr *ngFor="let appointment of dataSource">
         <td>{{ appointment.patientInfo }}</td>
         <td>{{ appointment.description }}</td>
@@ -20,54 +20,47 @@
             ⋮
           </button>
           <mat-menu #menu="matMenu">
-            <div  class="floating-actions-menu">
-              <button mat-menu-item (click)="editAppointment(appointment.id!)">Editar</button>
-              <button mat-menu-item (click)="deleteAppointment(appointment.id!)">Excluir</button>
-            </div>
+            <button mat-menu-item (click)="editAppointment(appointment.id)">Editar</button>
+            <button mat-menu-item (click)="deleteAppointment(appointment.id)">Excluir</button>
           </mat-menu>
         </td>
       </tr>
-      </tbody>
-    </table>
-  </div>
-  
-    
-    <div class="list-container">
-      <div class="appointments-mobile-container">
-      <div *ngFor="let element of dataSource" class="appointments-list-mobile">
-        <button class="list-card">
-          <div class="appointment-detail">
-            <span class="title-detail">ID</span>
-            <span class="data-detail">{{element.id}}</span>
-          </div>
-          <div class="appointment-detail">
-            <span class="title-detail">Paciente</span>
-            <span class="data-detail">{{element.patientInfo}}</span>
-          </div>
-          <div class="appointment-detail">
-            <span class="title-detail">Descrição</span>
-            <span class="data-detail">{{element.description }}</span>
-          </div>
-          <div class="appointment-detail">
-            <span class="title-detail">Local</span>
-            <span class="data-detail">{{element.local}}</span>
-          </div>
-          <div class="appointment-detail">
-            <span class="title-detail">Data</span>
-            <span class="data-detail">{{element.appointmentDate | date: 'dd/MM/yyyy'}}</span>
-          </div>
-          <div class="appointment-actions">
-            <button class="edit-btn" (click)="editAppointment(element.id!)">
-              <img src="assets/images/svg/edit.svg" alt="" srcset="" />
-              <span> Editar </span>
-            </button>
-            <button class="delete-btn" (click)="deleteAppointment(element.id!)">
-              <img src="assets/images/svg/inventory-red.svg" alt="" srcset="" />
-              Excluir
-            </button>
-          </div>
-        </button>
-      </div>
-      </div>
+    </tbody>
+  </table>
+</div>
+
+<!-- Lista para visualização móvel -->
+<div class="list-container">
+  <div class="appointments-mobile-container">
+    <div *ngFor="let element of dataSource" class="appointments-list-mobile">
+      <button class="list-card">
+        <div class="appointment-detail">
+          <span class="title-detail">Paciente</span>
+          <span class="data-detail">{{element.patientInfo}}</span>
+        </div>
+        <div class="appointment-detail">
+          <span class="title-detail">Descrição</span>
+          <span class="data-detail">{{element.description}}</span>
+        </div>
+        <div class="appointment-detail">
+          <span class="title-detail">Local</span>
+          <span class="data-detail">{{element.local}}</span>
+        </div>
+        <div class="appointment-detail">
+          <span class="title-detail">Data</span>
+          <span class="data-detail">{{element.appointmentDate | date: 'dd/MM/yyyy HH:mm'}}</span>
+        </div>
+        <div class="appointment-actions">
+          <button class="edit-btn" (click)="editAppointment(element.id)">
+            <img src="assets/images/svg/edit.svg" alt="Editar" />
+            <span> Editar </span>
+          </button>
+          <button class="delete-btn" (click)="deleteAppointment(element.id)">
+            <img src="assets/images/svg/inventory-red.svg" alt="Excluir" />
+            <span> Excluir </span>
+          </button>
+        </div>
+      </button>
     </div>
-    
+  </div>
+</div>

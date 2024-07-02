@@ -6,13 +6,14 @@ import {catchError, EMPTY, forkJoin, map, of, Subscription} from 'rxjs';
 import {HttpErrorResponse} from '@angular/common/http';
 import {apiErrorStatusMessage} from '../../../../../constants/messages';
 import {Appointment, AppointmentList} from '../../../../../models/Appointment';
-import {Direction, Page} from '../../../../../models/ApiResponse';
+import {ApiResponse, Direction, Page} from '../../../../../models/ApiResponse';
 import {SnackbarService} from '../../../../../services/snackbar/snackbar.service';
 import {ItemSelect} from '../../../../../components/custom-select/custom-select.component';
 import {PatientService as PatientServiceDetails} from '../../../../../services/patient/patient.service';
 import {User} from '../../../../../models/User';
 import {PatientService} from '../services/patient.service';
 import {FileService} from '../../../../../services/file-service/file.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-details-patient',
@@ -64,6 +65,7 @@ export class DetailsPatientComponent implements OnInit {
     private snackbar: SnackbarService,
     private patientServiceDetails: PatientServiceDetails,
     private patientService: PatientService,
+    private authService: AuthService,
     private fileService: FileService
   ) {
     const {id} = this.activatedRoute.snapshot.params;
@@ -117,27 +119,38 @@ export class DetailsPatientComponent implements OnInit {
       return;
     }
 
-    const patientDetails$ = appointments.content.map((appointment) =>
-      this.patientServiceDetails.getPatientDetails(appointment.patientId).pipe(
-        catchError(() => of({data: {name: 'Desconhecido'}})),
-        map((response) => ({
+    const appointmentDetails$ = appointments.content.map((appointment) =>
+      forkJoin({
+        patient: this.patientServiceDetails.getPatientDetails(appointment.patientId).pipe(
+          catchError(() => of({ data: { name: 'Desconhecido' } })),
+          map(response => response.data.name || 'Desconhecido')
+        ),
+        doctor: this.authService.getMedicDetails(appointment.doctorId).pipe(
+          catchError(() => of({ data: { doctor: { name: 'Desconhecido' } } } as ApiResponse<User>)),
+          map(response => response.data.doctor?.name || 'Desconhecido')
+        )
+      }).pipe(
+        map(details => ({
           ...appointment,
-          patientInfo: response.data.name || 'Desconhecido',
+          patientInfo: details.patient,
+          doctorInfo: details.doctor
         }))
       )
     );
-
-    forkJoin(patientDetails$).subscribe((fullAppointments) => {
+  
+    forkJoin(appointmentDetails$).subscribe((fullAppointments) => {
       this.appointmentData = fullAppointments.map(
         (appointment): AppointmentList => ({
           id: appointment.id,
           description: appointment.description || '',
           local: appointment.local || '',
           patientInfo: appointment.patientInfo,
+          doctorInfo: appointment.doctorInfo,
           appointmentDate: appointment.appointmentDate || '',
         })
       );
     });
+  
     this.totalItems = appointments.totalElements;
     this.pageBySize = Math.ceil(this.totalItems / this.size);
     this.pageNumber = Array.from({length: this.pageBySize}, (_, i) => ({

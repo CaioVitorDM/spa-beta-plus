@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { EMPTY, catchError } from 'rxjs';
+import { BehaviorSubject, EMPTY, catchError } from 'rxjs';
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { Protocol } from 'src/app/models/Protocol';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
@@ -16,15 +16,13 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 export class ProtocolInfoComponent implements OnInit{
 
   @Input() protocol?: number;
-  protocolData?: Protocol;
-  @Output() fileIdEmitter = new EventEmitter<number>();
+  private protocolDataSubject = new BehaviorSubject<Protocol | null>(null);
+  protocolData$ = this.protocolDataSubject.asObservable();  
 
   constructor(
     private lineLoadingService: LineLoadingService,
     private snackbar: SnackbarService,
     private protocolService: ProtocolService,
-    private router: Router
-
   ) {  }
   
   ngOnInit(): void {
@@ -36,10 +34,7 @@ export class ProtocolInfoComponent implements OnInit{
   loadProtocol(id: number): void {
     this.protocolService.getOne(id).subscribe({
       next: (protocol) => {
-        this.protocolData = protocol;
-        if (protocol.fileId) {
-          this.fileIdEmitter.emit(protocol.fileId);
-        }
+        this.protocolDataSubject.next(protocol);  // Atualiza o BehaviorSubject
       },
       error: (err) => {
         console.error('Failed to load protocol data:', err);

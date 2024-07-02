@@ -1,18 +1,22 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FileService } from 'src/app/services/file-service/file.service';
 import { HeaderService } from 'src/app/services/header/header-info.service';
 import { ProtocolService } from 'src/app/services/protocol/protocol.service';
+import { ProtocolInfoComponent } from '../components/protocol-info/protocol-info.component';
 
 @Component({
   selector: 'app-protocol-details',
   templateUrl: './protocol-details.component.html',
   styleUrl: './protocol-details.component.scss'
 })
-export class ProtocolDetailsComponent {
+export class ProtocolDetailsComponent  implements AfterViewInit {
+  @ViewChild(ProtocolInfoComponent) protocolInfo!: ProtocolInfoComponent;
 
   protocol?: number;
   fileName!: string;
+  fileId!: number;
+
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -22,6 +26,15 @@ export class ProtocolDetailsComponent {
     private headerService: HeaderService
   ) {
     this.headerService.setTitulo('Detalhes de Protocolos');
+  }
+
+  ngAfterViewInit(): void {
+    this.protocolInfo.protocolData$.subscribe(protocolData => {
+      if (protocolData && protocolData.fileId) {
+        this.fileId = protocolData.fileId;
+        this.fetchFile(this.fileId);
+      }
+    });
   }
 
   ngOnInit() {
