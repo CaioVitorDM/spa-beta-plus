@@ -53,9 +53,7 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
   }
 
   private loadDoctorName() {
-    const doctorId = this.authService.doctorId;
-    if (doctorId) {
-      this.loadDoctorNameSubscription = this.authService.getMedicDetails(doctorId).subscribe({
+      this.loadDoctorNameSubscription = this.authService.getMedicDetails(this.authService.doctorId!).subscribe({
         next: (response) => {
           this.doctorName = response.data.doctor!.name;
           this.checkIfLoadingComplete();
@@ -66,7 +64,6 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
           this.lineLoadingService.hide();
         }
       });
-    }
   }
 
   private loadProtocols() {
@@ -85,9 +82,7 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
   }
 
   private loadNextAppointment() {
-    const doctorId = this.authService.doctorId;
-    if (doctorId) {
-      this.loadAppointmentsSubscription = this.appointmentService.getNextAppointment(doctorId).subscribe({
+      this.loadAppointmentsSubscription = this.appointmentService.getNextAppointment(this.authService.doctorId!).subscribe({
         next: (appointment) => {
           if (appointment && appointment.appointmentDate) {
             this.nextAppointment = appointment.appointmentDate;
@@ -103,13 +98,10 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
           this.lineLoadingService.hide();
         }
       });
-    }
   }
 
   private loadRecentPatients() {
-    const doctorId = this.authService.doctorId;
-    if (doctorId) {
-      this.loadPatientsSubscription = this.authService.getRecentPatientsByDoctor(doctorId).subscribe({
+      this.loadPatientsSubscription = this.authService.getRecentPatientsByDoctor(this.authService.doctorId!).subscribe({
         next: (patients) => {
           this.recentPatients = patients;
           this.patientsLoaded = true;
@@ -121,7 +113,6 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
           this.lineLoadingService.hide();
         }
       });
-    }
   }
 
   private checkIfLoadingComplete() {
