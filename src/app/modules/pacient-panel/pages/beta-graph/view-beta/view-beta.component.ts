@@ -1,13 +1,15 @@
-import { Component , OnInit} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { HeaderService } from 'src/app/services/header/header-info.service';
-import { BetaPopUpComponent } from '../components/beta-pop-up/beta-pop-up.component';
-import { BetaService } from 'src/app/services/beta/beta.service';
+import {Component, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {HeaderService} from 'src/app/services/header/header-info.service';
+import {BetaPopUpComponent} from '../components/beta-pop-up/beta-pop-up.component';
+import {BetaService} from 'src/app/services/beta/beta.service';
+import {BetaGeneralComponent} from '../components/beta-general/beta-general.component';
+import { Beta } from 'src/app/models/Beta';
 
 @Component({
   selector: 'app-view-beta',
   templateUrl: './view-beta.component.html',
-  styleUrl: './view-beta.component.scss'
+  styleUrl: './view-beta.component.scss',
 })
 export class ViewBetaComponent implements OnInit {
   imageSrc!: string;
@@ -42,7 +44,6 @@ export class ViewBetaComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        // Lógica para lidar com o novo beta criado, como atualizar uma lista de betas
         console.log('Beta criado:', result);
       }
     });

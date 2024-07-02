@@ -153,7 +153,7 @@ export class BetaPopUpComponent implements OnInit {
             })
           )
           .subscribe((result: Beta) => {
-            this.handleSuccess();
+            this.handleSuccess(result);
           });
       } else {
         this.lineLoadingService.hide();
@@ -165,10 +165,10 @@ export class BetaPopUpComponent implements OnInit {
     }
   }
 
-  private handleSuccess() {
+  private handleSuccess(result : Beta) {
     this.isLoading = false;
     this.betaFormService.resetForm();
-    this.betaFormService.onSuccess();
+    this.betaFormService.onSuccess(() => this.dialogRef.close(result)); // Passa o callback para fechar o pop-up
   }
 
   private onError(error: Error) {

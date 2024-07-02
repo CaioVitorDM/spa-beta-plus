@@ -9,7 +9,7 @@ import {
   ItemSelect,
 } from 'src/app/components/custom-select/custom-select.component';
 import {HeaderService} from 'src/app/services/header/header-info.service';
-import {catchError, EMPTY, Subscription, throwError} from 'rxjs';
+import {catchError, EMPTY, Subject, Subscription, throwError} from 'rxjs';
 import {PatientService} from 'src/app/modules/doctor-panel/pages/pacient/services/patient.service';
 import {Direction, Page} from 'src/app/models/ApiResponse';
 import {AuthService} from 'src/app/services/auth/auth.service';
@@ -22,9 +22,10 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormsModule} from '@angular/forms';
 import swal from 'sweetalert2';
 import {BetaEditComponent} from '../beta-edit/beta-edit.component';
-import { Beta, BetaList } from 'src/app/models/Beta';
-import { BetaService } from 'src/app/services/beta/beta.service';
+import {Beta, BetaList} from 'src/app/models/Beta';
+import {BetaService} from 'src/app/services/beta/beta.service';
 import Swal from 'sweetalert2';
+import {BetaExamsService} from '../beta-pop-up/beta-exams.service';
 
 @Component({
   selector: 'app-beta-general',
@@ -35,6 +36,7 @@ export class BetaGeneralComponent implements OnInit {
   betaData!: BetaList[];
   patientData!: BetaList[];
 
+  private betaEditedSubject = new Subject<void>();
 
   loadBetaSubscription = new Subscription();
   deleteBetaSubscription = new Subscription();
@@ -61,7 +63,6 @@ export class BetaGeneralComponent implements OnInit {
   firstDate: string | null = null;
   lastDate: string | null = null;
 
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -76,6 +77,7 @@ export class BetaGeneralComponent implements OnInit {
     private headerService: HeaderService,
     private betaService: BetaService,
     private route: ActivatedRoute,
+    private betaExamService: BetaExamsService
   ) {}
 
   paginatorItems: ItemSelect[] = [
@@ -87,7 +89,6 @@ export class BetaGeneralComponent implements OnInit {
   pageNumber: ItemSelect[] = [{value: 0, label: 'Página 1'}];
   selectedPaginator = this.paginatorItems[0];
   selectedPage = this.pageNumber[0];
-
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -103,23 +104,24 @@ export class BetaGeneralComponent implements OnInit {
         })!;
       }
       this.cdr.detectChanges();
-      this.fetchData();
+      this.fetchData(); // Chama o método para recarregar os dados após a edição bem-sucedida
     });
   }
 
   edit(id: number) {
     const dialogRef = this.dialog.open(BetaEditComponent, {
-      data: { id: id }
+      data: {id: id},
     });
-  
+
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Beta editado:', result);
+        this.cdr.detectChanges();
+        this.fetchData();
       }
     });
   }
 
-  
   handleSelectedPage(item: ItemSelect) {
     if (!this.isFirstRender) {
       this.page = item.value as number;
@@ -144,14 +146,14 @@ export class BetaGeneralComponent implements OnInit {
     this.loadBetaSubscription = this.betaService
       .list({
         page: this.page,
-          size: this.size,
-          sort: this.sort,
-          order: this.order,
-          patientId: this.authService.patientId!,
-          betaDate: this.betaDate!,
-          betaValue: this.betaValue!,
-          id:this.id!,
-          doctorId:this.authService.doctorId!,
+        size: this.size,
+        sort: this.sort,
+        order: this.order,
+        patientId: this.authService.patientId!,
+        betaDate: this.betaDate!,
+        betaValue: this.betaValue!,
+        id: this.id!,
+        doctorId: this.authService.doctorId!,
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -203,7 +205,7 @@ export class BetaGeneralComponent implements OnInit {
     this.isError = false;
 
     if (beta.content.length === 0) {
-      this.betaData = [];  
+      this.betaData = [];
       return;
     }
 
@@ -233,7 +235,6 @@ export class BetaGeneralComponent implements OnInit {
     }
     this.lineLoadingService.hide();
   }
-
 
   filterPatients(): void {
     if (this.firstDate && this.lastDate) {
@@ -274,5 +275,4 @@ export class BetaGeneralComponent implements OnInit {
   }
 
   navigateToCreatePage() {}
-
 }

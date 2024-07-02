@@ -1,21 +1,20 @@
-import {HttpErrorResponse} from '@angular/common/http';
-import {Component, EventEmitter, Input, Output, SimpleChanges} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {MatDialogRef} from '@angular/material/dialog';
-import {EMPTY, Observable, Subject, catchError, map, mergeMap, switchMap} from 'rxjs';
-import {apiErrorStatusMessage} from 'src/app/constants/messages';
-import {Beta} from 'src/app/models/Beta';
-import {BetaService} from 'src/app/services/beta/beta.service';
-import {FormUtilsService} from 'src/app/services/form-utils/form-utils.service';
-import {BetaExamsService} from '../beta-pop-up/beta-exams.service';
-import {BetaEditService} from './service/beta-edit.service';
-import {PatientService} from 'src/app/services/patient/patient.service';
-import {LineLoadingService} from 'src/app/services/line-loading/line-loading.service';
-import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
-import {AuthService} from 'src/app/services/auth/auth.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Role} from 'src/app/models/Role';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, Output, SimpleChanges, Inject } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EMPTY, Observable, Subject, catchError, map, mergeMap, switchMap } from 'rxjs';
+import { apiErrorStatusMessage } from 'src/app/constants/messages';
+import { Beta } from 'src/app/models/Beta';
+import { BetaService } from 'src/app/services/beta/beta.service';
+import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
+import { BetaExamsService } from '../beta-pop-up/beta-exams.service';
+import { BetaEditService } from './service/beta-edit.service';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Role } from 'src/app/models/Role';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -49,14 +48,15 @@ export class BetaEditComponent {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private betaEditService: BetaEditService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    @Inject(MAT_DIALOG_DATA) public data: any // Injeta os dados passados
   ) {
     this.betaForm = this.betaEditService.form;
     this.formUtils = this.formUtilsService;
   }
 
   ngOnInit() {
-    this.id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+    this.id = this.data.id; // Usa o id passado para o componente
     this.prepareForm();
   }
 
@@ -103,7 +103,7 @@ export class BetaEditComponent {
           if (this.authService.role !== Role.PATIENT) {
             Swal.fire({
               icon: 'error',
-              title: 'Unathorized!',
+              title: 'Unauthorized!',
               text: 'Você não tem permissão para acessar essa página',
               timer: 3000,
               showConfirmButton: false,
@@ -170,7 +170,8 @@ export class BetaEditComponent {
             })
           )
           .subscribe((result: Beta) => {
-            this.handleSuccess();
+            this.handleSuccess(result);
+            
           });
       } else {
         this.lineLoadingService.hide();
@@ -182,10 +183,10 @@ export class BetaEditComponent {
     }
   }
 
-  private handleSuccess() {
+  private handleSuccess(result: Beta) {
     this.isLoading = false;
     this.betaEditService.resetForm();
-    this.betaEditService.onSuccess();
+    this.betaEditService.onSuccess(() => this.dialogRef.close(result)); // Passa o callback para fechar o pop-up
   }
 
   private onError(error: Error) {

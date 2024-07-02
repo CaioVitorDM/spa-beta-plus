@@ -5,6 +5,8 @@ import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import Swal from 'sweetalert2';
+import { BetaGeneralComponent } from '../../beta-general/beta-general.component';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,8 @@ import Swal from 'sweetalert2';
 export class BetaEditService {
   form!: FormGroup;
   formUtils!: FormUtilsService;
+  private betaEditedSubject = new Subject<void>();
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,7 +49,7 @@ export class BetaEditService {
     });
   }
 
-  public onSuccess() {
+  public onSuccess(callback: () => void) {
     this.lineLoadingService.hide();
     this.form.markAsPristine();
     this.form.markAsUntouched();
@@ -58,7 +62,8 @@ export class BetaEditService {
         timer: 3000,
       })
       .then(() => {
-        this.router.navigate(['/patient-panel/beta/']);
+        callback(); // Chama o callback passado como parâmetro
+        this.betaEditedSubject.next(); // Emite o evento de beta editado com sucesso
       });
   }
 

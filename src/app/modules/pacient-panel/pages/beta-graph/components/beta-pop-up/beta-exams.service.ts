@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
@@ -13,6 +14,8 @@ export class BetaExamsService {
 
   form!: FormGroup;
   formUtils!: FormUtilsService;
+  private betaCreatedSubject = new Subject<void>();
+
   file?: File;
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +50,7 @@ export class BetaExamsService {
   }
 
 
-  public onSuccess() {
+  public onSuccess(callback: () => void) {
     this.lineLoadingService.hide();
     this.form.markAsPristine();
     this.form.markAsUntouched();
@@ -60,8 +63,13 @@ export class BetaExamsService {
         timer: 3000,
       })
       .then(() => {
-        this.router.navigate(['/patient-panel/beta/']);
+        callback(); // Chama o callback passado como parâmetro
+        this.betaCreatedSubject.next(); // Emite o evento de beta criado com sucesso
       });
+  }
+
+  getBetaCreatedSubject() {
+    return this.betaCreatedSubject.asObservable();
   }
 
 
