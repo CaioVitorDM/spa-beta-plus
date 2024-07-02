@@ -21,32 +21,15 @@
         <div class="pacientes-container">
           <h2>Novos Pacientes</h2>
           <ul class="lista-pacientes">
-              <li class="item-paciente">
-                  <div class="icone-paciente">
-                      <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">
-                  </div>
-                  <div class="info-paciente">
-                      <strong>Luíza Almeida</strong>
-                      <span>luizaalmeida</span>
-                  </div>
-              </li>
-              <li class="item-paciente">
-                  <div class="icone-paciente">
-                    <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">
-                  </div>
-                  <div class="info-paciente">
-                      <strong>Carla Medeiros</strong>
-                      <span>carlamedeiros</span>
-                  </div>
-              </li>
-              <li class="item-paciente">
-                  <div class="icone-paciente">
-                    <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">                  </div>
-                  <div class="info-paciente">
-                      <strong>Luisa Almeida</strong>
-                      <span>luisaalmeida</span>
-                  </div>
-              </li>
+            <li *ngFor="let patient of recentPatients" class="item-paciente">
+              <div class="icone-paciente">
+                <img src="../../../../../assets/images/svg/user-regular.svg" alt="Ícone do Usuário">
+              </div>
+              <div class="info-paciente">
+                <strong>{{ patient.patient?.name }}</strong>
+                <span>{{ patient.login }}</span>
+              </div>
+            </li>
           </ul>
       </div>
   

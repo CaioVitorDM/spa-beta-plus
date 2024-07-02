@@ -11,22 +11,26 @@ import { Direction, Page } from 'src/app/models/ApiResponse';
 import { AppointmentService } from 'src/app/services/appointment/appointment.service';
 import { Appointment } from 'src/app/models/Appointment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-doctor-dashboard',
   templateUrl: './doctor-dashboard.component.html',
-  styleUrl: './doctor-dashboard.component.scss',
+  styleUrls: ['./doctor-dashboard.component.scss'],
 })
 export class DoctorDashboardComponent implements OnInit, OnDestroy {
   protocols: ProtocolList[] = [];
   doctorName: string = '';
   nextAppointment: string = '';
+  recentPatients: User[] = [];
   isLoading: boolean = true;
   protocolsLoaded: boolean = false;
   appointmentsLoaded: boolean = false;
+  patientsLoaded: boolean = false;
   loadProtocolsSubscription: Subscription = new Subscription();
   loadDoctorNameSubscription: Subscription = new Subscription();
   loadAppointmentsSubscription: Subscription = new Subscription();
+  loadPatientsSubscription: Subscription = new Subscription();
 
   constructor(
     private headerService: HeaderService,
@@ -45,6 +49,7 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     this.loadDoctorName();
     this.loadProtocols();
     this.loadNextAppointment();
+    this.loadRecentPatients();
   }
 
   private loadDoctorName() {
@@ -79,7 +84,6 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  
   private loadNextAppointment() {
     const doctorId = this.authService.doctorId;
     if (doctorId) {
@@ -102,8 +106,26 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     }
   }
 
+  private loadRecentPatients() {
+    const doctorId = this.authService.doctorId;
+    if (doctorId) {
+      this.loadPatientsSubscription = this.authService.getRecentPatientsByDoctor(doctorId).subscribe({
+        next: (patients) => {
+          this.recentPatients = patients;
+          this.patientsLoaded = true;
+          this.checkIfLoadingComplete();
+        },
+        error: (error) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.isLoading = false;
+          this.lineLoadingService.hide();
+        }
+      });
+    }
+  }
+
   private checkIfLoadingComplete() {
-    if (this.doctorName && this.protocolsLoaded && this.appointmentsLoaded) {
+    if (this.doctorName && this.protocolsLoaded && this.appointmentsLoaded && this.patientsLoaded) {
       this.isLoading = false;
       this.lineLoadingService.hide();
     }
@@ -116,9 +138,10 @@ export class DoctorDashboardComponent implements OnInit, OnDestroy {
     });
   }
   
-  
   ngOnDestroy() {
     this.loadProtocolsSubscription.unsubscribe();
-    this.loadDoctorNameSubscription.unsubscribe();    this.loadAppointmentsSubscription.unsubscribe();
+    this.loadDoctorNameSubscription.unsubscribe();    
+    this.loadAppointmentsSubscription.unsubscribe();
+    this.loadPatientsSubscription.unsubscribe();
   }
 }
