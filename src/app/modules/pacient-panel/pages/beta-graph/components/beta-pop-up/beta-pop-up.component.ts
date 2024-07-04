@@ -169,6 +169,9 @@ export class BetaPopUpComponent implements OnInit {
     this.isLoading = false;
     this.betaFormService.resetForm();
     this.betaFormService.onSuccess(() => this.dialogRef.close(result)); // Passa o callback para fechar o pop-up
+    this.betaFormService.notifyBetaCreated(); // Notifica que um novo Beta foi criado
+
+
   }
 
   private onError(error: Error) {

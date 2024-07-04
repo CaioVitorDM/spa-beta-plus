@@ -72,6 +72,10 @@ export class BetaExamsService {
     return this.betaCreatedSubject.asObservable();
   }
 
+  notifyBetaCreated() {
+    this.betaCreatedSubject.next();
+  }
+
 
   isInvalidField(field: string): boolean {
     const isInvalid = this.form.get(field)?.invalid && this.form.get(field)?.touched;

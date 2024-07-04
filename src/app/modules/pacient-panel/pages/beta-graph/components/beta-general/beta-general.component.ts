@@ -36,7 +36,8 @@ export class BetaGeneralComponent implements OnInit {
   betaData!: BetaList[];
   patientData!: BetaList[];
 
-  private betaEditedSubject = new Subject<void>();
+  private betaCreatedSubscription!: Subscription;
+
 
   loadBetaSubscription = new Subscription();
   deleteBetaSubscription = new Subscription();
@@ -103,6 +104,9 @@ export class BetaGeneralComponent implements OnInit {
       }
       this.cdr.detectChanges();
       this.fetchData(); // Chama o método para recarregar os dados após a edição bem-sucedida
+    });
+    this.betaCreatedSubscription = this.betaExamService.getBetaCreatedSubject().subscribe(() => {
+      this.fetchData();
     });
   }
 
