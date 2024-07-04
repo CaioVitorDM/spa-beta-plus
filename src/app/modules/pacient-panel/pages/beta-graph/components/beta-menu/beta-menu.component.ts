@@ -51,37 +51,6 @@ export class BetaMenuComponent implements OnInit, AfterViewInit {
     this.fetch();
   }
 
-  /*fetchData() {
-    this.loadBetaSubscription = this.betaService
-      .list({
-        page: this.page,
-        size: this.size,
-        sort: this.sort,
-        order: this.order,
-        patientId: this.authService.patientId!,
-        betaDate: this.betaDate!,
-        betaValue: this.betaValue!,
-        id: this.id!,
-        doctorId: this.authService.doctorId!,
-      })
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          this.isLoading = false;
-          this.isError = true;
-          this.snackbar.open(apiErrorStatusMessage[error.status]);
-          this.lineLoadingService.hide();
-          return EMPTY;
-        })
-      )
-      .subscribe({
-        next: (beta) => {
-          this.onSuccess(beta);
-        },
-        error: (_error) => {
-          this.lineLoadingService.hide();
-        },
-      });
-  } */
 
   fetch() {
     this.loadBetaSubscription = this.betaService

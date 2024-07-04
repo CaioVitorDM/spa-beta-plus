@@ -1,6 +1,6 @@
 <div class="dashboard-container">
   <div class="welcome-banner">
-    <h1>Olá, Luiza!</h1> <!-- Tem que modificar para o nome do usuario logado -->
+    <h1>Olá, {{ patientName }}!</h1> <!-- Tem que modificar para o nome do usuario logado -->
     <p>Fique à vontade para revisar seu protocolo e atualizar suas informações</p>
   </div>
 
@@ -34,9 +34,9 @@
           </thead>
           <!-- corpo da tabela -->
           <tbody>
-          <tr>
-            <td>Beta HCG</td>
-            <td>28/02/2024</td>
+          <tr  *ngFor="let exams of examsData">
+            <td>{{ exams.examType }}</td>
+            <td>{{ exams.examDate | date: 'dd/MM/yyyy' }}</td>
           </tr>
           <!-- outros exames -->
           </tbody>
