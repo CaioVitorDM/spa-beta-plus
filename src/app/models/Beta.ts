@@ -13,3 +13,4 @@ export interface BetaList {
   betaDate: string;
   betaValue: number;
 }
+

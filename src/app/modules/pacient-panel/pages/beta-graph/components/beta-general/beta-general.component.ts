@@ -66,12 +66,10 @@ export class BetaGeneralComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    // private headerService: HeaderService,
     private patientService: PatientService,
     private authService: AuthService,
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,
-    // private route: ActivatedRoute,
     private dialog: MatDialog,
     private cdr: ChangeDetectorRef,
     private headerService: HeaderService,
@@ -200,7 +198,7 @@ export class BetaGeneralComponent implements OnInit {
       });
   }
 
-  onSuccess(beta: Page<Beta[]>) {
+  onSuccess(beta: Page<BetaList[]>) {
     this.isLoading = false;
     this.isError = false;
 
@@ -236,28 +234,73 @@ export class BetaGeneralComponent implements OnInit {
     this.lineLoadingService.hide();
   }
 
+  onDateChange(): void {
+    if (this.firstDate && this.lastDate) {
+      console.log(`onDateChange: firstDate=${this.firstDate}, lastDate=${this.lastDate}`);
+      this.filterPatients();
+    }
+  }
+
   filterPatients(): void {
     if (this.firstDate && this.lastDate) {
       const firstDate = new Date(this.firstDate + 'T00:00:00');
       const lastDate = new Date(this.lastDate + 'T23:59:59');
       if (lastDate < firstDate) {
-        swal.fire({
+        Swal.fire({
           title: 'Erro!',
           text: 'A última data deve ser maior ou igual à primeira data.',
           icon: 'error',
           showConfirmButton: false,
           timer: 3000,
         });
-        throwError(() => new Error());
         return;
       }
-
       this.isLoading = true;
-      const filteredData = this.betaData.filter((patient) => {
-        const patientDate = new Date(patient.betaDate);
-        return patientDate >= firstDate && patientDate <= lastDate;
-      });
-      this.patientData = filteredData;
+
+      if (this.betaData && this.betaData.length > 0) {
+        const filteredData = this.betaData.filter((patient) => {
+          const patientDate = new Date(patient.betaDate);
+          console.log(`Comparando ${patientDate} com intervalo ${firstDate} e ${lastDate}`);
+          return patientDate >= firstDate && patientDate <= lastDate;
+        });
+
+        console.log('Dados filtrados:', filteredData);
+
+        const filteredPage = {
+          content: filteredData,
+          empty: filteredData.length === 0,
+          first: true,
+          last: true,
+          number: 0,
+          numberOfElements: filteredData.length,
+          pageable: {
+            offset: 0,
+            pageNumber: 0,
+            pageSize: filteredData.length,
+            paged: true,
+            sort: {
+              sorted: false,
+              unsorted: true,
+              empty: true
+            },
+            unpaged: false
+          },
+          size: filteredData.length,
+          sort: {
+            sorted: false,
+            unsorted: true,
+            empty: true
+          },
+          totalElements: filteredData.length,
+          totalPages: 1
+        };
+
+        console.log('Filtered Page:', filteredPage);
+        this.onSuccess(filteredPage);
+      } else {
+        console.log('betaData está vazio ou nulo');
+      }
+
       this.cdr.detectChanges();
       setTimeout(() => {
         this.isLoading = false;

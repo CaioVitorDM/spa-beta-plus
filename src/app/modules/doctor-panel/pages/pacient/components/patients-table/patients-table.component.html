@@ -10,19 +10,19 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let patient of dataSource">
-      <td>{{ patient.name }}</td>
-      <td>{{ patient.birthDate | date:'dd/MM/yyyy' }}</td>
-      <td>{{ patient.phoneNumber }}</td>
-      <td>{{ patient.email }}</td>
+    <tr *ngFor="let element of dataSource" (click)="viewPatientsDetails(element.id)" >
+      <td>{{ element.name }}</td>
+      <td>{{ element.birthDate | date:'dd/MM/yyyy' }}</td>
+      <td>{{ element.phoneNumber }}</td>
+      <td>{{ element.email }}</td>
       <td>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           ⋮
         </button>
         <mat-menu #menu="matMenu">
           <div  class="floating-actions-menu">
-            <button mat-menu-item (click)="editUser(patient.id!)">Editar</button>
-            <button mat-menu-item (click)="deleteUser(patient.id!)">Excluir</button>
+            <button mat-menu-item (click)="editUser(element.id!)">Editar</button>
+            <button mat-menu-item (click)="deleteUser(element.id!)">Excluir</button>
           </div>
         </mat-menu>
       </td>
@@ -34,7 +34,7 @@
 <div class="list-container">
   <div class="users-mobile-container">
   <div *ngFor="let element of dataSource" class="users-list-mobile">
-    <button class="list-card" (click)="printButton('card button')">
+    <button class="list-card" (click)="viewPatientsDetails(element.id)">
       <div class="user-detail">
         <span class="title-detail">ID</span>
         <span class="data-detail">{{element.id}}</span>

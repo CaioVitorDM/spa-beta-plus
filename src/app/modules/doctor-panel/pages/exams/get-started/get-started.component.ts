@@ -1,22 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ItemSelect} from 'src/app/components/custom-select/custom-select.component';
-import {HeaderService} from 'src/app/services/header/header-info.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {catchError, EMPTY, Subscription, switchMap} from 'rxjs';
-import {Direction, Page} from 'src/app/models/ApiResponse';
-import {AuthService} from 'src/app/services/auth/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {Component} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EMPTY, Subscription, catchError, forkJoin, map, of} from 'rxjs';
+import {ItemSelect} from 'src/app/components/custom-select/custom-select.component';
 import {apiErrorStatusMessage} from 'src/app/constants/messages';
-import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
+import {Direction, Page} from 'src/app/models/ApiResponse';
+import {Exams, ExamsList, ExamsListOfPatients} from 'src/app/models/Exams';
+import {AuthService} from 'src/app/services/auth/auth.service';
+import {ExamsService} from 'src/app/services/exams/exams.service';
+import {HeaderService} from 'src/app/services/header/header-info.service';
 import {LineLoadingService} from 'src/app/services/line-loading/line-loading.service';
-import {PatientList, User} from 'src/app/models/User';
-import {MatDialog} from '@angular/material/dialog';
-import {FormsModule} from '@angular/forms';
-import {UploadExamsComponent} from '../upload-exams/upload-exams.component';
-import {ExamsRoutes} from '../exams.routes';
-import { Exams, ExamsList } from 'src/app/models/Exams';
-import { ExamsService } from 'src/app/services/exams/exams.service';
-import { PatientService } from 'src/app/services/patient/patient.service';
+import {PatientService} from 'src/app/services/patient/patient.service';
+import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -24,9 +19,8 @@ import Swal from 'sweetalert2';
   templateUrl: './get-started.component.html',
   styleUrl: './get-started.component.scss',
 })
-export class GetStartedComponent implements OnInit {
-  // patientData!: PatientList[];
-  examsData!: ExamsList[];
+export class GetStartedComponent {
+  examsData!: ExamsListOfPatients[];
 
   loadExamsSubscription = new Subscription();
   deleteExamSubscription = new Subscription();
@@ -40,12 +34,12 @@ export class GetStartedComponent implements OnInit {
   pageBySize = 0;
   size = 10;
   name: string | null = '';
-  // email: string | null = '';
-  // phoneNumber: string | null = '';
   examDate: string | null = '';
   examType: string | null = '';
   fileId: number | null = 0;
   id: number | null = 0;
+  patientId: number | null = 0;
+  patientInfo: String | null = '';
 
   offSet = 0;
   lastItem = 0;
@@ -64,14 +58,16 @@ export class GetStartedComponent implements OnInit {
     private examsService: ExamsService,
     private lineLoadingService: LineLoadingService,
     private route: ActivatedRoute,
+    private patient: PatientService
   ) {
     this.headerService.setTitulo('Exames');
   }
 
   searchOptions: ItemSelect[] = [
-    {value: 'name', label: 'Nome'},
+    {value: 'name', label: 'Exame'},
     {value: 'examType', label: 'Tipo'},
     {value: 'examDate', label: 'Data'},
+    {value: 'patientInfo', label: 'Nome'},
   ];
 
   paginatorItems: ItemSelect[] = [
@@ -84,7 +80,6 @@ export class GetStartedComponent implements OnInit {
   selectedPaginator = this.paginatorItems[0];
   selectedPage = this.pageNumber[0];
 
-
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
       this.page = params['page'] || this.page;
@@ -93,6 +88,7 @@ export class GetStartedComponent implements OnInit {
       this.examDate = params['examDate'] || this.examDate;
       this.name = params['name'] || this.name;
       this.examType = params['examType'] || this.examType;
+      this.patientId = params['patientId'] || this.patientId;
 
       if (parseInt(String(this.size)) !== this.selectedPaginator.value) {
         this.selectedPaginator = this.paginatorItems.find((item) => {
@@ -105,7 +101,7 @@ export class GetStartedComponent implements OnInit {
   }
 
   openUpload() {
-    this.router.navigate(['/patient-panel/exams/upload-exams'], {relativeTo: this.activatedRoute});
+    this.router.navigate(['/doctor-panel/exams/upload-exams'], {relativeTo: this.activatedRoute});
   }
 
   submitSearch(searchType: string | number, searchText: string | null): void {
@@ -113,16 +109,27 @@ export class GetStartedComponent implements OnInit {
       this.name = searchText;
       this.examDate = '';
       this.examType = '';
+      this.patientInfo = '';
     }
     if (searchType === 'examDate') {
       this.examDate = searchText;
       this.name = '';
       this.examType = '';
+      this.patientInfo = '';
+
     }
     if (searchType === 'examType') {
       this.examType = searchText;
       this.name = '';
       this.examDate = '';
+      this.patientInfo = '';
+    }
+    if (searchType === 'patientInfo') {
+      this.patientInfo = searchText;
+      this.examType = '';
+      this.name = '';
+      this.examDate = '';
+
     }
 
     this.page = 0;
@@ -162,16 +169,16 @@ export class GetStartedComponent implements OnInit {
     this.loadExamsSubscription = this.examsService
       .list({
         page: this.page,
-          size: this.size,
-          sort: this.sort,
-          order: this.order,
-          name: this.name!,
-          patientId: this.authService.patientId!,
-          examDate: this.examDate!,
-          examType: this.examType!,
-          fileId:this.fileId!,
-          id:this.id!,
-          doctorId:this.authService.doctorId!,
+        size: this.size,
+        sort: this.sort,
+        order: this.order,
+        name: this.name!,
+        patientId: this.authService.patientId!,
+        examDate: this.examDate!,
+        examType: this.examType!,
+        fileId: this.fileId!,
+        id: this.id!,
+        doctorId: this.authService.doctorId!,
       })
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -193,7 +200,6 @@ export class GetStartedComponent implements OnInit {
   }
 
   deleteExam(id: number) {
-    console.log("entrou 2 delete");
     this.lineLoadingService.show();
     this.deleteExamSubscription = this.examsService
       .delete(id)
@@ -223,21 +229,49 @@ export class GetStartedComponent implements OnInit {
     this.isError = false;
 
     if (exams.content.length === 0) {
-      this.examsData = [];  
+      this.examsData = [];
+      this.lineLoadingService.hide();
       return;
     }
 
-    this.examsData = exams.content.map((user): ExamsList => {
-      return {
-        patientId: user.patientId,
-        fileId: user.fileId || 0,
-        doctorId: user.doctorId,
-        name: user.name || '',
-        examDate: user.examDate || '',
-        examType: user.examType || '',
-        id: user.id || 0,
-      };
+    const patientDetails$ = exams.content.map(exam =>
+      this.patient.getPatientDetails(exam.patientId).pipe(
+        catchError(() => of({ data: { name: 'Desconhecido' }})), 
+        map(response => ({
+          ...exam,
+          patientInfo: response.data.name || 'Desconhecido' 
+        }))
+      )
+    );
+  
+    forkJoin(patientDetails$).subscribe(fullexams => {
+      this.examsData = fullexams.map((exam): ExamsListOfPatients => ({
+        id: exam.id,
+        patientInfo: exam.patientInfo,
+        examDate: exam.examDate || '',
+        patientId: exam.patientId,
+        doctorId: exam.doctorId,
+        fileId: exam.fileId || 0,
+        name: exam.name || '',
+        examType: exam.examType || '',
+      }));
     });
+
+    // this.examsData = exams.content.map((user): ExamsList => {
+    //   return {
+    //     patientId: user.patientId,
+    //     doctorId: user.doctorId,
+    //     fileId: user.fileId || 0,
+    //     name: user.name || '',
+    //     examDate: user.examDate || '',
+    //     examType: user.examType || '',
+    //     id: user.id || 0,
+    //   };
+    // });
+
+    // if (this.patientId) {
+    //   this.loadName(this.patientId); // Chama o método loadName
+    // }
 
     this.totalItems = exams.totalElements;
     this.pageBySize = Math.ceil(this.totalItems / this.size);
@@ -255,5 +289,14 @@ export class GetStartedComponent implements OnInit {
       this.lastItem = exams.totalElements;
     }
     this.lineLoadingService.hide();
+  }
+
+  loadName(patientId: number) {
+    this.patient.getPatientDetails(patientId).pipe(
+      catchError(() => of({data: {name: 'Desconhecido'}})),
+      map((response) => ({
+        patientInfo: response.data.name || 'Desconhecido',
+      }))
+    );
   }
 }

@@ -1,0 +1,34 @@
+<div class="container">
+  <!-- <app-upload-file
+    (fileSelected)="handleSelectedFile($event)"
+    [fileName]="fileName"
+    [errorMessage]="''"
+  ></app-upload-file> -->
+
+  <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="register-form">
+    <div class="same-line-inputs-container">
+      <div class="align-inputs-and-error-messages">
+        <input
+          list="examsOptions"
+          placeholder="Escolha o Tipo de Exame"
+          formControlName="examType"
+        />
+        <datalist id="examsOptions">
+          <option value="Sangue"></option>
+          <option value="Imagem"></option>
+          <option value="Outro"></option>
+        </datalist>
+      </div>
+    </div>
+
+    <div class="align-inputs-and-error-messages">
+      <input type="text" placeholder="Nome do Exame" formControlName="name" />
+    </div>
+
+    <div class="align-inputs-and-error-messages">
+      <input type="date" placeholder="Data de Exame" formControlName="examDate" />
+    </div>
+
+    <button type="submit" class="submit-button">Salvar</button>
+  </form>
+</div>

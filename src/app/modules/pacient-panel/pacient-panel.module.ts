@@ -15,16 +15,17 @@ import {AppointmentsComponent} from './pages/appointments/appointments.component
 import {CustomSelectComponent} from 'src/app/components/custom-select/custom-select.component';
 import {AppointmentsTableComponent} from './pages/appointments/components/appointments-table/appointments-table.component';
 import {BetaGraphComponent} from './pages/beta-graph/beta-graph.component';
-import {BetaGeneralComponent} from 'src/app/modules/pacient-panel/pages/beta-graph/components/beta-general/beta-general.component';
+import { BetaMenuComponent } from './pages/beta-graph/components/beta-menu/beta-menu.component';
+import { BetaGeneralComponent } from './pages/beta-graph/components/beta-general/beta-general.component';
 import {InputSearchComponent} from 'src/app/components/input-search/input-search.component';
 import {MatDialogModule} from '@angular/material/dialog';
 // import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {BetaPopUpComponent} from './pages/beta-graph/components/beta-pop-up/beta-pop-up.component';
+import { BetaPopUpComponent } from './pages/beta-graph/components/beta-pop-up/beta-pop-up.component';
 import {FormsModule} from '@angular/forms';
 import {ExamsComponent} from './pages/exams/exams.component';
 import {UploadFileComponent} from 'src/app/components/upload-file/upload-file.component';
 import {UploadExamsComponent} from './pages/exams/upload-exams/upload-exams.component';
-import {ExamsTableComponent} from './pages/exams/components/exams-table/exams-table.component';
+import { ExamsTableComponent } from './pages/exams/components/exams-table/exams-table.component';
 import {ProtocolsFormComponent} from '../doctor-panel/pages/protocols/components/protocols-form/protocols-form.component';
 
 @NgModule({
@@ -56,7 +57,8 @@ import {ProtocolsFormComponent} from '../doctor-panel/pages/protocols/components
     MatDialogModule,
     UploadFileComponent,
     CustomSelectComponent,
+    // ProtocolsFormComponent,
   ],
-  
+  exports: [ProfileComponent, AppointmentsTableComponent, BetaGraphComponent],
 })
 export class PacientPanelModule {}

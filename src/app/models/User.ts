@@ -72,6 +72,7 @@ export interface PatientList {
   birthDate: string;
   phoneNumber: string;
   email: string;
+  patientId: number;
 }
 
 export interface User {

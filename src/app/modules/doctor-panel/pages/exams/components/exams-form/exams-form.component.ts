@@ -1,23 +1,24 @@
-import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {EMPTY, Observable, Subject, Subscription, catchError, switchMap} from 'rxjs';
-import {FileService} from 'src/app/services/file-service/file.service';
-import {FormUtilsService} from 'src/app/services/form-utils/form-utils.service';
-import {HeaderService} from 'src/app/services/header/header-info.service';
-import {LineLoadingService} from 'src/app/services/line-loading/line-loading.service';
-import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
-import {AuthService} from 'src/app/services/auth/auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ExamsService} from 'src/app/services/exams/exams.service';
-import {Exams} from 'src/app/models/Exams';
-import {HttpErrorResponse} from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { EMPTY, Subject, Subscription, catchError, switchMap } from 'rxjs';
+import { Exams } from 'src/app/models/Exams';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { ExamsService } from 'src/app/services/exams/exams.service';
+import { FileService } from 'src/app/services/file-service/file.service';
+import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service';
+import { HeaderService } from 'src/app/services/header/header-info.service';
+import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
-  selector: 'app-edit-exams',
-  templateUrl: './edit-exams.component.html',
-  styleUrls: ['./edit-exams.component.scss'],
+  selector: 'app-exams-form',
+  templateUrl: './exams-form.component.html',
+  styleUrl: './exams-form.component.scss'
 })
-export class EditExamsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ExamsFormComponent implements OnInit, AfterViewInit, OnDestroy {
+
   private destroy$ = new Subject<void>();
   private examId!: number;
   examForm!: FormGroup;
@@ -163,9 +164,5 @@ export class EditExamsComponent implements OnInit, AfterViewInit, OnDestroy {
   onError(error: HttpErrorResponse) {
     this.snackbar.open('Erro ao atualizar exame');
     this.lineLoadingService.hide();
-  }
-
-  navigateBack() {
-    this.router.navigate(['/patient-panel/exams']);
   }
 }

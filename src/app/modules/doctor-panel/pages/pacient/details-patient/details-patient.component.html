@@ -1,0 +1,27 @@
+<div class="get-started-container">
+  <div class="buttons-container">
+    <button class="components-button" [ngClass]="{'selected-button' : selectedButton === MenuItem.EXAMS}" (click)="selectMenuItem(MenuItem.EXAMS)">
+      Exames
+    </button>
+    <button class="components-button" [ngClass]="{'selected-button' : selectedButton === MenuItem.BETA}" (click)="selectMenuItem(MenuItem.BETA)">
+      Níveis de Beta
+    </button>
+    <button class="components-button" [ngClass]="{'selected-button' : selectedButton === MenuItem.APPOINTMENT}" (click)="selectMenuItem(MenuItem.APPOINTMENT)">
+      Consultas
+    </button>
+    <button class="components-button" [ngClass]="{'selected-button' : selectedButton === MenuItem.PATIENT_INFO}" (click)="selectMenuItem(MenuItem.PATIENT_INFO)">
+      Perfil
+    </button>
+  </div>
+
+  <app-beta-graph *ngIf="this.selectedButton === MenuItem.BETA"></app-beta-graph>
+
+
+  <app-appointments-table [dataSource]="appointmentData" *ngIf="this.selectedButton === MenuItem.APPOINTMENT"></app-appointments-table>
+
+  <app-details-card [imageSrc]="imageSrc != null ? imageSrc : 'assets/images/white-background.png'"
+                    [name]="patientUser.patient?.name!"
+                    [title]="'Detalhes do paciente'" *ngIf="this.selectedButton === MenuItem.PATIENT_INFO"
+                    [details]="details"
+  ></app-details-card>
+</div>

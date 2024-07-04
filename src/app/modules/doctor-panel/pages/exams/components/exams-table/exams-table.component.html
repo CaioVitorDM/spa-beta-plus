@@ -1,0 +1,70 @@
+<div class="container">
+  <table>
+    <thead>
+      <tr class="trhover">
+        <th>Nome</th>
+        <th>Exame</th>
+        <th>Tipo</th>
+        <th>Data</th>
+        <th class="th-last"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exam of dataSource">
+        <td>{{ exam.patientInfo }}</td>
+        <td>{{ exam.name }}</td>
+        <td>{{ exam.examType }}</td>
+        <td>{{ exam.examDate | date: 'dd/MM/yyyy' }}</td>
+        <td class="td-edit">
+          <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
+          <mat-menu #menu="matMenu">
+            <div class="floating-actions-menu">
+              <button>Download</button>
+              <button (click)="editExam(exam.id!)">Editar</button>
+              <button (click)="deleteExam(exam.id!)">Excluir</button>
+            </div>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="list-container">
+  <div class="users-mobile-container">
+    <div *ngFor="let exam of dataSource" class="users-list-mobile">
+      <button class="list-card" (click)="printButton('card button')">
+        <!-- <div class="user-detail">
+            <span class="title-detail">Paciente</span>
+            <span class="data-detail">{{ exam.patientName }}</span>
+          </div> -->
+        <div class="user-detail">
+          <span class="title-detail">Nome</span>
+          <span class="data-detail">{{ exam.name }}</span>
+        </div>
+        <div class="user-detail">
+          <span class="title-detail">Tipo</span>
+          <span class="data-detail">{{ exam.examType }}</span>
+        </div>
+        <div class="user-detail">
+          <span class="title-detail">Data</span>
+          <span class="data-detail">{{ exam.examDate | date: 'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="user-actions">
+          <button class="download-btn">
+            <img src="assets/images/svg/download-icon.svg" alt="" />
+            <span> Baixar </span>
+          </button>
+          <button class="edit-btn" (click)="editExam(exam.id!)">
+            <img src="assets/images/svg/edit.svg" alt="" />
+            <span> Editar </span>
+          </button>
+          <button class="delete-btn" (click)="deleteExam(exam.id!)">
+            <img src="assets/images/svg/inventory-red.svg" alt="" />
+            Excluir
+          </button>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

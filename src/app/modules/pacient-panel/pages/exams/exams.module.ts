@@ -31,6 +31,7 @@ import { ExamsTableComponent } from './components/exams-table/exams-table.compon
     FormsModule,
     MatMenu,
     MatMenuTrigger,
+    UploadFileComponent,
   ],
 })
 export class ExamsModule {}

@@ -2,7 +2,7 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {environment} from 'src/app/enviroments/environment';
 import {ApiResponse, Direction, Page, ParamsPageExams} from 'src/app/models/ApiResponse';
-import {Exams} from 'src/app/models/Exams';
+import {Exams, ExamsList} from 'src/app/models/Exams';
 import {ExamsModule} from 'src/app/modules/pacient-panel/pages/exams/exams.module';
 import {Observable, first, map} from 'rxjs';
 
@@ -30,6 +30,35 @@ export class ExamsService {
       map(({data: exam}: ApiResponse<Exams>) => exam)
     );
   }
+
+  listExams(
+    page: number,
+    size: number,
+    sort: keyof ExamsList,
+    order: Direction,
+    name: string | null,
+    examDate: string | null,
+    examType: string | null,
+    patientId: number | null
+  ): Observable<Page<ExamsList>> {
+    let params = new HttpParams()
+      .set('page', page)
+      .set('size', size)
+      .set('sort', sort)
+      .set('order', order);
+
+    if (name) params = params.set('name', name);
+    if (examDate) params = params.set('examDate', examDate);
+    if (examType) params = params.set('examType', examType);
+    if (patientId) params = params.set('patientId', patientId);
+
+    return this.httpClient.get<Page<ExamsList>>(this.baseUrl, { params });
+  }
+
+  deleteExam(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+  }
+
 
   list({
     page = 0,

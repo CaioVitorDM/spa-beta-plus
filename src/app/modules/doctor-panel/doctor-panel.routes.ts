@@ -20,6 +20,13 @@ export const routes: Routes = [
         (m) => m.AppointmentsModule
       ),
   },
+  {
+    path: 'exams',
+    loadChildren: () =>
+      import('src/app/modules/doctor-panel/pages/exams/exams.module').then(
+        (m) => m.ExamsModule
+      ),
+  },
 ];
 
 @NgModule({

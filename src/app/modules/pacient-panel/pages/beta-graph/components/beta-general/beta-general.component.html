@@ -20,15 +20,16 @@
       [defaultItemSelected]="selectedPaginator"
     />
     <div class="dateFilter">
-      <form>
+      <form (ngSubmit)="filterPatients()">
         <div class="dateFilterElement">
           <label for="firstDate">De</label>
           <input
             type="date"
             id="firstDate"
             name="firstDate"
-            (change)="filterPatients()"
             [(ngModel)]="firstDate"
+            (ngModelChange)="onDateChange()"
+
           />
         </div>
         <div class="dateFilterElement">
@@ -37,8 +38,9 @@
             type="date"
             id="lastDate"
             name="lastDate"
-            (change)="filterPatients()"
             [(ngModel)]="lastDate"
+            (ngModelChange)="onDateChange()"
+          
           />
         </div>
       </form>

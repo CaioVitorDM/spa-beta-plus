@@ -11,9 +11,21 @@
 
     export interface ExamsList{
         patientId: number;
+        doctorId: number;
         name: string;
         fileId: number;
         examDate: string;
         examType: string;
         id: number;
+    }
+
+    export interface ExamsListOfPatients{
+        patientId: number;
+        doctorId: number;
+        name: string;
+        fileId: number;
+        examDate: string;
+        examType: string;
+        id: number;
+        patientInfo: String;
     }
