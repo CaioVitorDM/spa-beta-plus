@@ -15,6 +15,7 @@ export interface Protocol {
     name: string;
     description?: string;
     createdAt?: string;
+    fileId?: number;
   }
   
   

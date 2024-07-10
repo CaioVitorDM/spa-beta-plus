@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, Subscription, catchError, switchMap } from 'rxjs';
 import { ItemSelect } from 'src/app/components/custom-select/custom-select.component';
-import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { Direction, Page } from 'src/app/models/ApiResponse';
 import { Protocol, ProtocolList } from 'src/app/models/Protocol';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -21,6 +20,7 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 export class GetStartedComponent implements OnInit {
 
   protocolData!: ProtocolList[];
+  fileId!: number;
   loadProtocolsSubscription = new Subscription();
   isLoading: boolean = false;
   isError: boolean = false;
@@ -151,7 +151,8 @@ export class GetStartedComponent implements OnInit {
       return {
         id: protocol.id,
         description: protocol.description || '',
-        name: protocol.name || ''
+        name: protocol.name || '',
+        fileId: protocol.fileId 
       };
     });
     this.totalItems = protocols.totalElements;

@@ -21,8 +21,11 @@
     align-items: center;    
     background-color: rgba(95,65,178,0.4);
     border-color: #E5D7FF;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
     transition: border-color 0.3s, color 0.3s ease;
 }
 
@@ -33,8 +36,8 @@
 
 
 .upload-icon {
-    width: 50%;      
-    height: auto;    
+    width: 16px;      
+    height: 16px;    
 }
 
 
