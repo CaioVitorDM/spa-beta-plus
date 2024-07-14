@@ -11,7 +11,7 @@ import { LineLoadingService } from 'src/app/services/line-loading/line-loading.s
 import { apiErrorStatusMessage } from 'src/app/constants/messages';
 import { Direction, Page } from 'src/app/models/ApiResponse';
 import { PatientService } from 'src/app/services/patient/patient.service';
-import { Doctor, Patient } from 'src/app/models/User';
+import { Doctor, Patient, User } from 'src/app/models/User';
 
 @Component({
   selector: 'app-patient-dashboard',
@@ -191,20 +191,23 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
       }))
     );
 
-    // const doctorDetails$ = this.authService.getMedicDetails(this.authService.doctorId!).pipe(
-    //   catchError(() => of({ data: { name: 'Desconhecido' }})),
-    //   map(doctorMap => ({
-    //     doctorInfo: doctorMap.data.name || 'Desconhecido'
-    //   }))
-    // );
+    const doctorDetails$ = this.authService.getMedicDetails(this.authService.doctorId!).pipe(
+      catchError(() => of({ data: { name: 'Desconhecido' }})), 
+      map(doctorMap => {
+        console.log('Doctor details:', doctorMap);
+  
+        const doctorName = (doctorMap.data as User).doctor?.name || 'Desconhecido';
+        
+        return {
+          doctorName: doctorName
+        };
+      })
+    );
+  
 
-    // Se você quiser fazer algo com os detalhes do paciente e do médico, você pode usar subscribe ou combineLatest aqui
+    console.log(this.doctorName);
     patientDetails$.subscribe(({ patientInfo }) => this.patientName = patientInfo);
-    // doctorDetails$.subscribe(({ doctorName }) => this.doctorName = doctorName);
-
-    // doctorDetails$.subscribe(doctor => {
-    //   console.log(doctor.doctorInfo);
-    // });
+    doctorDetails$.subscribe(({ doctorName }) => this.doctorName = doctorName);
   }
 
   initializeGraph(): void {

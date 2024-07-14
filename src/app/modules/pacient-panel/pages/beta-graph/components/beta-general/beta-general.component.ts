@@ -107,6 +107,8 @@ export class BetaGeneralComponent implements OnInit {
     });
     this.betaCreatedSubscription = this.betaExamService.getBetaCreatedSubject().subscribe(() => {
       this.fetchData();
+      this.firstDate = null;
+      this.lastDate = null;
     });
   }
 
@@ -120,6 +122,8 @@ export class BetaGeneralComponent implements OnInit {
         console.log('Beta editado:', result);
         this.cdr.detectChanges();
         this.fetchData();
+        this.firstDate = null;
+        this.lastDate = null;
       }
     });
   }
