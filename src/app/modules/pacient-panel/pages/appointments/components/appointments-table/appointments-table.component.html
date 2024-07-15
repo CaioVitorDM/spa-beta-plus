@@ -3,7 +3,6 @@
     <table>
       <thead>
       <tr style="border-radius: 10px !important;">
-        <th>Médico</th>
         <th>Descrição</th>
         <th>Local</th>
         <th>Data</th>
@@ -11,7 +10,6 @@
       </thead>
       <tbody>
       <tr *ngFor="let appointment of dataSource">
-        <td>{{ appointment.doctorInfo }}</td>
         <td>{{ appointment.description }}</td>
         <td>{{ appointment.local }}</td>
         <td>{{ appointment.appointmentDate| date:'dd/MM/yyyy' }}</td>
@@ -28,10 +26,6 @@
           <div class="appointment-detail">
             <span class="description-detail">ID</span>
             <span class="data-detail">{{element.id}}</span>
-          </div>
-          <div class="appointment-detail">
-            <span class="description-detail">Médico</span>
-            <span class="data-detail">{{element.doctorInfo}}</span>
           </div>
           <div class="appointment-detail">
             <span class="description-detail">Descrição</span>

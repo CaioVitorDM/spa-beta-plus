@@ -119,38 +119,27 @@ export class DetailsPatientComponent implements OnInit {
       return;
     }
 
-    const appointmentDetails$ = appointments.content.map((appointment) =>
-      forkJoin({
-        patient: this.patientServiceDetails.getPatientDetails(appointment.patientId).pipe(
-          catchError(() => of({ data: { name: 'Desconhecido' } })),
-          map(response => response.data.name || 'Desconhecido')
-        ),
-        doctor: this.authService.getMedicDetails(appointment.doctorId).pipe(
-          catchError(() => of({ data: { doctor: { name: 'Desconhecido' } } } as ApiResponse<User>)),
-          map(response => response.data.doctor?.name || 'Desconhecido')
-        )
-      }).pipe(
-        map(details => ({
+    const patientDetails$ = appointments.content.map((appointment) =>
+      this.patientServiceDetails.getPatientDetails(appointment.patientId).pipe(
+        catchError(() => of({data: {name: 'Desconhecido'}})),
+        map((response) => ({
           ...appointment,
-          patientInfo: details.patient,
-          doctorInfo: details.doctor
+          patientInfo: response.data.name || 'Desconhecido',
         }))
       )
     );
-  
-    forkJoin(appointmentDetails$).subscribe((fullAppointments) => {
+
+    forkJoin(patientDetails$).subscribe((fullAppointments) => {
       this.appointmentData = fullAppointments.map(
         (appointment): AppointmentList => ({
           id: appointment.id,
           description: appointment.description || '',
           local: appointment.local || '',
           patientInfo: appointment.patientInfo,
-          doctorInfo: appointment.doctorInfo,
           appointmentDate: appointment.appointmentDate || '',
         })
       );
     });
-  
     this.totalItems = appointments.totalElements;
     this.pageBySize = Math.ceil(this.totalItems / this.size);
     this.pageNumber = Array.from({length: this.pageBySize}, (_, i) => ({
@@ -167,7 +156,6 @@ export class DetailsPatientComponent implements OnInit {
       this.lastItem = appointments.totalElements;
     }
   }
-
   fetchUser(id: number) {
     this.patientService.getOne(id).subscribe({
       next: (response) => {
