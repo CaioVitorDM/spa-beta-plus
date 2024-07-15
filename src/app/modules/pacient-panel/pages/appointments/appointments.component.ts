@@ -177,32 +177,16 @@ export class AppointmentsComponent implements OnInit {
   }
 
   onSuccess(appointments: Page<Appointment[]>) {
+    
     this.isLoading = false;
     this.isError = false;
-
-    if (appointments.content.length === 0) {
-      this.appointmentData = [];  
-      return;
-    }
-   
-    const medicDetails$ = appointments.content.map(appointment =>
-      this.authService.getMedicDetails(appointment.doctorId).pipe(
-        catchError(() => of({data: { doctor: { name: 'Desconhecido' }}})), 
-        map(response => ({
-          ...appointment,
-          doctorInfo: response.data.doctor?.name || 'Desconhecido' 
-        }))
-      )
-    );
-  
-    forkJoin(medicDetails$).subscribe(fullAppointments => {
-      this.appointmentData = fullAppointments.map((appointment): AppointmentList => ({
+    this.appointmentData = appointments.content.map((appointment): AppointmentList => {
+      return {
         id: appointment.id,
         description: appointment.description || '',
         local: appointment.local || '',
-        doctorInfo: appointment.doctorInfo,
-        appointmentDate: appointment.appointmentDate || ''
-      }));
+        appointmentDate: appointment.appointmentDate || '' 
+      };
     });
     this.totalItems = appointments.totalElements;
     this.pageBySize = Math.ceil(this.totalItems / this.size);
