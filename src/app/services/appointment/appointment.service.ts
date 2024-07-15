@@ -92,5 +92,11 @@ export class AppointmentService {
     );
   }
 
+  getNextAppointmentOfPatient(patientId: number): Observable<Appointment> {
+    return this.httpClient.get<ApiResponse<Appointment>>(`${this.baseUrl}/next-appointment`, { params: new HttpParams().set('patientId', patientId.toString()) }).pipe(
+      first(),
+      map(({ data: appointment }) => appointment)
+    );
+  }
   
 }

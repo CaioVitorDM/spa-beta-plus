@@ -5,7 +5,6 @@
           <th>Nome</th>
           <th>Tipo</th>
           <th>Data</th>
-          <th class="th-last"></th>
         </tr>
       </thead>
       <tbody>
@@ -13,22 +12,6 @@
           <td>{{ exam.name }}</td>
           <td>{{ exam.examType }}</td>
           <td>{{ exam.examDate | date: 'dd/MM/yyyy' }}</td>
-          <td class="td-edit">
-            <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
-            <mat-menu #menu="matMenu">
-              <div class="floating-actions-menu">
-                <button
-                  *ngIf="exam.fileId"
-                  (click)="downloadFile(exam.fileId, $event)"
-                  class="download-btn"
-                >
-                  Download
-                </button>
-                <button (click)="editExam(exam.id!)">Editar</button>
-                <button (click)="deleteExam(exam.id!)">Excluir</button>
-              </div>
-            </mat-menu>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -49,23 +32,6 @@
           <div class="user-detail">
             <span class="title-detail">Data</span>
             <span class="data-detail">{{ exam.examDate | date: 'dd/MM/yyyy' }}</span>
-          </div>
-          <div class="user-actions">
-            <button *ngIf="exam.fileId"
-            (click)="downloadFile(exam.fileId, $event)"
-            class="download-btn"
-  >
-              <img src="assets/images/svg/download-icon.svg" alt="" />
-              <span> Baixar </span>
-            </button>
-            <button class="edit-btn" (click)="editExam(exam.id!)">
-              <img src="assets/images/svg/edit.svg" alt="" />
-              <span> Editar </span>
-            </button>
-            <button class="delete-btn" (click)="deleteExam(exam.id!)">
-              <img src="assets/images/svg/inventory-red.svg" alt="" />
-              Excluir
-            </button>
           </div>
         </button>
       </div>

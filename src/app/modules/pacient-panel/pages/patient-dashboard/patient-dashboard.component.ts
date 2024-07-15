@@ -10,7 +10,7 @@ import {
   Tooltip,
   Filler,
 } from 'chart.js';
-import {EMPTY, Subscription, catchError, map, of} from 'rxjs';
+import {EMPTY, Observable, Subscription, catchError, map, of} from 'rxjs';
 import {Beta, BetaList} from 'src/app/models/Beta';
 import {Exams, ExamsList} from 'src/app/models/Exams';
 import {AuthService} from 'src/app/services/auth/auth.service';
@@ -22,8 +22,8 @@ import {apiErrorStatusMessage} from 'src/app/constants/messages';
 import {Direction, Page} from 'src/app/models/ApiResponse';
 import {PatientService} from 'src/app/services/patient/patient.service';
 import {Doctor, Patient, User} from 'src/app/models/User';
-import { AppointmentService } from 'src/app/services/appointment/appointment.service';
-import { Appointment } from 'src/app/models/Appointment';
+import {AppointmentService} from 'src/app/services/appointment/appointment.service';
+import {Appointment} from 'src/app/models/Appointment';
 
 @Component({
   selector: 'app-patient-dashboard',
@@ -62,6 +62,7 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
   examType: string | null = '';
   fileId: number | null = 0;
   name: string | null = '';
+  docId: string | null = '';
 
   offSet = 0;
   lastItem = 0;
@@ -80,14 +81,15 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,
     private patient: PatientService,
-    private appointmentService: AppointmentService,
+    private appointmentService: AppointmentService
   ) {}
 
   ngOnInit(): void {
     this.fetchBeta();
     this.fetchExams();
-    this.loadDoctorAndPatient();
+    this.loadPatientName();
     this.loadNextAppointment();
+    this.loadDoctorName();
   }
 
   ngAfterViewInit(): void {
@@ -191,6 +193,48 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
     this.lineLoadingService.hide();
   }
 
+  // Método para carregar o doctorId a partir do patientId
+loadDoctor(patientId: number): Observable<number> {
+  return this.patient
+    .getPatientDetails(patientId)
+    .pipe(map((response) => response.data.doctorId || 0)); // Use 0 ou outro valor padrão se doctorId não estiver disponível imediatamente
+}
+
+// Método para carregar o nome do médico
+private loadDoctorName() {
+  // Obtém o patientId do authService
+  const patientId = this.authService.patientId;
+
+  if (!patientId) {
+    console.error('Patient ID is not available');
+    return;
+  }
+
+  this.loadDoctorNameSubscription = this.loadDoctor(patientId).subscribe({
+    next: (doctorId) => {
+      // Com doctorId obtido, chama getMedicDetails para carregar os detalhes do médico
+      this.authService.getMedicDetails(doctorId).subscribe({
+        next: (response) => {
+          this.doctorName = response.data.doctor?.name || '';
+          console.log("Entrou em next");
+          console.log(this.doctorName);
+        },
+        error: (error) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.isLoading = false;
+          this.lineLoadingService.hide();
+        }
+      });
+    },
+    error: (error) => {
+      this.snackbar.open(apiErrorStatusMessage[error.status]);
+      this.isLoading = false;
+      this.lineLoadingService.hide();
+    }
+  });
+}
+
+
   formatDate(dateString: string): string {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -199,27 +243,27 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
     return `${day}/${month}/${year}`;
   }
 
-
-      private loadNextAppointment() {
-        this.loadAppointmentsSubscription = this.appointmentService.getNextAppointment(this.authService.patientId!).subscribe({
-          next: (appointment) => {
-            if (appointment && appointment.appointmentDate) {
-              this.nextAppointment = appointment.appointmentDate;
-            } else {
-              this.nextAppointment = '';
-            }
-            this.appointmentsLoaded = true;
-          },
-          error: (error) => {
-            this.snackbar.open(apiErrorStatusMessage[error.status]);
-            this.isLoading = false;
-            this.lineLoadingService.hide();
+  private loadNextAppointment() {
+    this.loadAppointmentsSubscription = this.appointmentService
+      .getNextAppointment(this.authService.patientId!)
+      .subscribe({
+        next: (appointment) => {
+          if (appointment && appointment.appointmentDate) {
+            this.nextAppointment = appointment.appointmentDate;
+          } else {
+            this.nextAppointment = '';
           }
-        });
-    }
+          this.appointmentsLoaded = true;
+        },
+        error: (error) => {
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.isLoading = false;
+          this.lineLoadingService.hide();
+        },
+      });
+  }
 
-  loadDoctorAndPatient(): void {
-    console.log("entrou");
+  loadPatientName(): void {
     const patientDetails$ = this.patient.getPatientDetails(this.authService.patientId!).pipe(
       catchError(() => of({data: {name: 'Desconhecido'}})),
       map((patientMap) => ({
@@ -227,19 +271,8 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
       }))
     );
 
-    this.loadDoctorNameSubscription = this.authService.getMedicDetails(this.authService.doctorId!).subscribe({
-      next: (response) => {
-        this.doctorName = response.data.doctor!.name;
-      },
-      error: (error) => {
-        this.snackbar.open(apiErrorStatusMessage[error.status]);
-        this.isLoading = false;
-        this.lineLoadingService.hide();
-      }
-    });
-
+    
     patientDetails$.subscribe(({patientInfo}) => (this.patientName = patientInfo));
-    // doctorDetails$.subscribe(({doctorName}) => (this.doctorName = doctorName));
   }
 
   initializeGraph(): void {
