@@ -4,7 +4,7 @@ import {FileService} from '../../../../../services/file-service/file.service';
 import {catchError, EMPTY, Subject, Subscription, switchMap, takeUntil} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 import {PatientFormService} from '../components/patient-form/service/patient-form.service';
-import {PatientService} from '../services/patient.service';
+import {PatientSpecificService} from '../services/patient.service';
 import {HttpErrorResponse} from '@angular/common/http';
 import {User} from '../../../../../models/User';
 import {LineLoadingService} from '../../../../../services/line-loading/line-loading.service';
@@ -30,7 +30,7 @@ export class CreatePatientComponent {
     private headerService: HeaderService,
     private fileService: FileService, // Injetando o serviço de arquivo
     private patientFormService: PatientFormService,
-    private patientService: PatientService,
+    private patientService: PatientSpecificService,
     private lineLoadingService: LineLoadingService,
     private snackbar: SnackbarService,
     private formUtilsService: FormUtilsService,

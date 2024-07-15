@@ -1,9 +1,9 @@
-<div class="container">
-  <!-- <app-upload-file
+<div class="register-form">
+  <app-upload-file
     (fileSelected)="handleSelectedFile($event)"
     [fileName]="fileName"
     [errorMessage]="''"
-  ></app-upload-file> -->
+  ></app-upload-file>
 
   <form [formGroup]="examForm" (ngSubmit)="onSubmit()" class="register-form">
     <div class="same-line-inputs-container">
@@ -27,6 +27,23 @@
 
     <div class="align-inputs-and-error-messages">
       <input type="date" placeholder="Data de Exame" formControlName="examDate" />
+    </div>
+
+    <div class="same-line-inputs-container">
+      <div class="align-inputs-and-error-messages">
+        <select
+          formControlName="patientId"
+          [ngClass]="{'input-error': isInputInvalid('patientId')}"
+        >
+          <option value="" disabled selected>Selecione um Paciente</option>
+          <option *ngFor="let patient of patients" [value]="patient.id">
+            {{ patient.name }} ({{ patient.login }})
+          </option>
+        </select>
+        <span class="invalid-input-message" *ngIf="isInputInvalid('patientId')">
+          {{ formUtils.getErrorMessage(examForm, 'patientId') }}
+        </span>
+      </div>
     </div>
 
     <button type="submit" class="submit-button">Salvar</button>

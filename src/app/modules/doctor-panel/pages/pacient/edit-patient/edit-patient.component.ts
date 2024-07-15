@@ -2,7 +2,7 @@ import {AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild} f
 import {ActivatedRoute} from '@angular/router';
 import {FileService} from '../../../../../services/file-service/file.service';
 import {PatientFormService} from '../components/patient-form/service/patient-form.service';
-import {PatientService} from '../services/patient.service';
+import {PatientSpecificService} from '../services/patient.service';
 import {FormUtilsService} from '../../../../../services/form-utils/form-utils.service';
 import {FormGroup} from '@angular/forms';
 import {PatientFormComponent} from '../components/patient-form/patient-form.component';
@@ -33,7 +33,7 @@ export class EditPatientComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private fileService: FileService,
     private patientFormService: PatientFormService,
-    private patientService: PatientService,
+    private patientService: PatientSpecificService,
     private formUtilsService: FormUtilsService,
     private lineLoadingService: LineLoadingService,
     private snackbar: SnackbarService,

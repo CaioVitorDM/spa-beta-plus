@@ -18,7 +18,9 @@ import {MatIconButton} from '@angular/material/button';
 import {DetailsPatientComponent} from './details-patient/details-patient.component';
 import {PacientPanelModule} from '../../../pacient-panel/pacient-panel.module';
 import {DetailsCardComponent} from '../../../../components/details-card/details-card.component';
-
+import { ExamsTableComponent } from '../exams/components/exams-table/exams-table.component';
+import { ExamsModule } from '../exams/exams.module';
+import { BetaDetailsComponent } from './components/beta-details/beta-details.component';
 @NgModule({
   declarations: [
     PacientComponent,
@@ -28,6 +30,7 @@ import {DetailsCardComponent} from '../../../../components/details-card/details-
     PatientFormComponent,
     EditPatientComponent,
     DetailsPatientComponent,
+    BetaDetailsComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +47,7 @@ import {DetailsCardComponent} from '../../../../components/details-card/details-
     MatIconButton,
     PacientPanelModule,
     DetailsCardComponent,
+    ExamsModule,
   ],
 })
 export class PacientModule {}

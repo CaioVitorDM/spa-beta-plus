@@ -10,7 +10,6 @@ import {
 } from 'src/app/components/custom-select/custom-select.component';
 import {HeaderService} from 'src/app/services/header/header-info.service';
 import {catchError, EMPTY, Subject, Subscription, throwError} from 'rxjs';
-import {PatientService} from 'src/app/modules/doctor-panel/pages/pacient/services/patient.service';
 import {Direction, Page} from 'src/app/models/ApiResponse';
 import {AuthService} from 'src/app/services/auth/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -67,7 +66,6 @@ export class BetaGeneralComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private patientService: PatientService,
     private authService: AuthService,
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,

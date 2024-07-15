@@ -1,24 +1,18 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CommonModule} from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatMenuModule} from '@angular/material/menu';
-import {PatientList} from 'src/app/models/User';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ExamsList } from 'src/app/models/Exams';
 import { FileService } from 'src/app/services/file-service/file.service';
-import { HttpErrorResponse } from '@angular/common/http';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 
 @Component({
-  selector: 'app-exams-table',
-  templateUrl: './exams-table.component.html',
-  styleUrl: './exams-table.component.scss',
+  selector: 'app-exams-table-conventional',
+  templateUrl: './exams-table-conventional.component.html',
+  styleUrl: './exams-table-conventional.component.scss'
 })
-export class ExamsTableComponent{
+export class ExamsTableConventionalComponent {
   @Input() dataSource: ExamsList[] = [];
   @Output() deleteExamEvent = new EventEmitter <number>();
-
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,8 +20,6 @@ export class ExamsTableComponent{
     private fileService: FileService,
     private snackbar: SnackbarService
   ) {}
-
-  
 
   printButton(action: string, event?: MouseEvent): void {
     if (event) {
@@ -39,7 +31,7 @@ export class ExamsTableComponent{
   navigateToCreatePage() {}
 
   editExam(id: number) {
-    this.router.navigate([`/patient-panel/exams/edit-exams/${id}`], {relativeTo: this.activatedRoute});
+    this.router.navigate([`/doctor-panel/exams/edit-exams/${id}`], {relativeTo: this.activatedRoute});
   }
 
   deleteExam(id: number) {

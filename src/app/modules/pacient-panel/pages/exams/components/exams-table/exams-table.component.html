@@ -17,7 +17,13 @@
           <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
           <mat-menu #menu="matMenu">
             <div class="floating-actions-menu">
-              <button>Download</button>
+              <button
+                *ngIf="exams.fileId"
+                (click)="downloadFile(exams.fileId, $event)"
+                class="download-btn"
+              >
+                Download
+              </button>
               <button (click)="editExam(exams.id!)">Editar</button>
               <button (click)="deleteExam(exams.id!)">Excluir</button>
             </div>
@@ -45,7 +51,11 @@
           <span class="data-detail">{{ exams.examDate | date: 'dd/MM/yyyy' }}</span>
         </div>
         <div class="user-actions">
-          <button class="download-btn">
+          <button
+            *ngIf="exams.fileId"
+            (click)="downloadFile(exams.fileId, $event)"
+            class="download-btn"
+          >
             <img src="assets/images/svg/download-icon.svg" alt="" />
             <span> Baixar </span>
           </button>

@@ -1,22 +1,34 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { Chart, LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Filler } from 'chart.js';
-import { EMPTY, Subscription, catchError, map, of } from 'rxjs';
-import { Beta, BetaList } from 'src/app/models/Beta';
-import { Exams, ExamsList } from 'src/app/models/Exams';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { BetaService } from 'src/app/services/beta/beta.service';
-import { ExamsService } from 'src/app/services/exams/exams.service';
-import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
-import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
-import { apiErrorStatusMessage } from 'src/app/constants/messages';
-import { Direction, Page } from 'src/app/models/ApiResponse';
-import { PatientService } from 'src/app/services/patient/patient.service';
-import { Doctor, Patient, User } from 'src/app/models/User';
+import {Component, OnInit, AfterViewInit, ViewChild, ElementRef, OnDestroy} from '@angular/core';
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  CategoryScale,
+  Tooltip,
+  Filler,
+} from 'chart.js';
+import {EMPTY, Subscription, catchError, map, of} from 'rxjs';
+import {Beta, BetaList} from 'src/app/models/Beta';
+import {Exams, ExamsList} from 'src/app/models/Exams';
+import {AuthService} from 'src/app/services/auth/auth.service';
+import {BetaService} from 'src/app/services/beta/beta.service';
+import {ExamsService} from 'src/app/services/exams/exams.service';
+import {SnackbarService} from 'src/app/services/snackbar/snackbar.service';
+import {LineLoadingService} from 'src/app/services/line-loading/line-loading.service';
+import {apiErrorStatusMessage} from 'src/app/constants/messages';
+import {Direction, Page} from 'src/app/models/ApiResponse';
+import {PatientService} from 'src/app/services/patient/patient.service';
+import {Doctor, Patient, User} from 'src/app/models/User';
+import { AppointmentService } from 'src/app/services/appointment/appointment.service';
+import { Appointment } from 'src/app/models/Appointment';
 
 @Component({
   selector: 'app-patient-dashboard',
   templateUrl: './patient-dashboard.component.html',
-  styleUrls: ['./patient-dashboard.component.scss']
+  styleUrls: ['./patient-dashboard.component.scss'],
 })
 export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('lineChart') private chartRef!: ElementRef<HTMLCanvasElement>;
@@ -31,8 +43,11 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
   idExam: number | null = 0;
   isLoading: boolean = false;
   isError: boolean = false;
+  nextAppointment: string = '';
+  appointmentsLoaded: boolean = false;
   loadAppointmentsSubscription = new Subscription();
   loadBetaSubscription = new Subscription();
+  loadDoctorNameSubscription: Subscription = new Subscription();
   loadExamsSubscription = new Subscription();
 
   page = 0;
@@ -56,8 +71,7 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
   isFirstRender = true;
 
   patientName: string = ''; // Adicionada propriedade para nome do paciente
-  doctorName: string = '';  // Adicionada propriedade para nome do médico
-
+  doctorName: string = ''; // Adicionada propriedade para nome do médico
 
   constructor(
     private authService: AuthService,
@@ -65,13 +79,15 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
     private examsService: ExamsService,
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,
-    private patient: PatientService
+    private patient: PatientService,
+    private appointmentService: AppointmentService,
   ) {}
 
   ngOnInit(): void {
     this.fetchBeta();
     this.fetchExams();
     this.loadDoctorAndPatient();
+    this.loadNextAppointment();
   }
 
   ngAfterViewInit(): void {
@@ -183,31 +199,47 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
     return `${day}/${month}/${year}`;
   }
 
+
+      private loadNextAppointment() {
+        this.loadAppointmentsSubscription = this.appointmentService.getNextAppointment(this.authService.patientId!).subscribe({
+          next: (appointment) => {
+            if (appointment && appointment.appointmentDate) {
+              this.nextAppointment = appointment.appointmentDate;
+            } else {
+              this.nextAppointment = '';
+            }
+            this.appointmentsLoaded = true;
+          },
+          error: (error) => {
+            this.snackbar.open(apiErrorStatusMessage[error.status]);
+            this.isLoading = false;
+            this.lineLoadingService.hide();
+          }
+        });
+    }
+
   loadDoctorAndPatient(): void {
+    console.log("entrou");
     const patientDetails$ = this.patient.getPatientDetails(this.authService.patientId!).pipe(
-      catchError(() => of({ data: { name: 'Desconhecido' }})), 
-      map(patientMap => ({
-        patientInfo: patientMap.data.name || 'Desconhecido' 
+      catchError(() => of({data: {name: 'Desconhecido'}})),
+      map((patientMap) => ({
+        patientInfo: patientMap.data.name || 'Desconhecido',
       }))
     );
 
-    const doctorDetails$ = this.authService.getMedicDetails(this.authService.doctorId!).pipe(
-      catchError(() => of({ data: { name: 'Desconhecido' }})), 
-      map(doctorMap => {
-        console.log('Doctor details:', doctorMap);
-  
-        const doctorName = (doctorMap.data as User).doctor?.name || 'Desconhecido';
-        
-        return {
-          doctorName: doctorName
-        };
-      })
-    );
-  
+    this.loadDoctorNameSubscription = this.authService.getMedicDetails(this.authService.doctorId!).subscribe({
+      next: (response) => {
+        this.doctorName = response.data.doctor!.name;
+      },
+      error: (error) => {
+        this.snackbar.open(apiErrorStatusMessage[error.status]);
+        this.isLoading = false;
+        this.lineLoadingService.hide();
+      }
+    });
 
-    console.log(this.doctorName);
-    patientDetails$.subscribe(({ patientInfo }) => this.patientName = patientInfo);
-    doctorDetails$.subscribe(({ doctorName }) => this.doctorName = doctorName);
+    patientDetails$.subscribe(({patientInfo}) => (this.patientName = patientInfo));
+    // doctorDetails$.subscribe(({doctorName}) => (this.doctorName = doctorName));
   }
 
   initializeGraph(): void {
@@ -215,7 +247,16 @@ export class PatientDashboardComponent implements OnInit, AfterViewInit, OnDestr
 
     this.betaData.sort((a, b) => new Date(a.betaDate).getTime() - new Date(b.betaDate).getTime());
 
-    Chart.register(LineController, LineElement, PointElement, LinearScale, Title, Tooltip, Filler, CategoryScale);
+    Chart.register(
+      LineController,
+      LineElement,
+      PointElement,
+      LinearScale,
+      Title,
+      Tooltip,
+      Filler,
+      CategoryScale
+    );
 
     const labels = this.betaData.map((beta) => this.formatDate(beta.betaDate));
     const data = this.betaData.map((beta) => beta.betaValue);

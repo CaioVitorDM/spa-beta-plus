@@ -1,25 +1,29 @@
 <div class="dashboard-container">
   <div class="welcome-banner">
-    <h1>Olá, {{ patientName }}!</h1> <!-- Tem que modificar para o nome do usuario logado -->
+    <h1>Olá, {{ patientName }}!</h1>
     <p>Fique à vontade para revisar seu protocolo e atualizar suas informações</p>
   </div>
 
   <div class="dashboard-content">
-      <div class="info-container">
-        <div class="info">
-          <span>Médico Responsável </span>
-          <strong>{{doctorName}}</strong>  <!-- Tem que modificar para o nome do medico do usuario logado -->
-        </div>
-        <div class="info">
-          <span>Última consulta </span>
-          <strong>29/02/2024</strong>
-        </div>
-      </div>
-
     <div class="info-container">
-      <div class="charts" >
+      <div class="info">
+        <span>Médico Responsável </span>
+        <strong>{{ doctorName }}</strong>
+      </div>
+      <div class="info">
+        <span>Próxima Consulta </span>
+        <strong *ngIf="nextAppointment; else noAppointment">
+          {{ nextAppointment | date: 'dd/MM/yyyy' }}
+        </strong>
+        <ng-template #noAppointment>
+          <strong>Nenhuma consulta </strong>
+        </ng-template>
+      </div>
+    </div>
+    <div class="info-container">
+      <div class="charts">
         <h2>Histórico Beta HCG</h2>
-        <canvas #lineChart style="width: 200px" ></canvas>
+        <canvas #lineChart style="width: 200px"></canvas>
       </div>
 
       <div class="recent-exams">
@@ -27,18 +31,18 @@
         <table>
           <!-- cabeçalho da tabela -->
           <thead>
-          <tr class="header">
-            <th>Tipo de Exame</th>
-            <th>Data</th>
-          </tr>
+            <tr class="header">
+              <th>Tipo de Exame</th>
+              <th>Data</th>
+            </tr>
           </thead>
           <!-- corpo da tabela -->
           <tbody>
-          <tr  *ngFor="let exams of examsData">
-            <td>{{ exams.examType }}</td>
-            <td>{{ exams.examDate | date: 'dd/MM/yyyy' }}</td>
-          </tr>
-          <!-- outros exames -->
+            <tr *ngFor="let exams of examsData">
+              <td>{{ exams.examType }}</td>
+              <td>{{ exams.examDate | date: 'dd/MM/yyyy' }}</td>
+            </tr>
+            <!-- outros exames -->
           </tbody>
         </table>
       </div>

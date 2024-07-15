@@ -1,0 +1,42 @@
+<div id="main">
+  <div class="charts">
+    <canvas #lineChart></canvas>
+  </div>
+
+  <div class="scroll-container">
+    <div class="container">
+      <table>
+        <thead>
+          <tr class="trhover">
+            <th class="th-first">Nível (mUI/ml)</th>
+            <th style="cursor: pointer">Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let beta of betaData">
+            <td>{{ beta.betaValue }}</td>
+            <td>{{ beta.betaDate | date: 'dd/MM/yyyy' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <div class="list-container">
+    <div class="users-mobile-container">
+      <div *ngFor="let beta of betaData" class="users-list-mobile">
+        <button class="list-card" (click)="printButton('card button')">
+          <div class="user-detail">
+            <span class="title-detail">Nível</span>
+            <span class="data-detail">{{ beta.betaValue }}</span>
+          </div>
+          <div class="user-detail">
+            <span class="title-detail">Data</span>
+            <span class="data-detail">{{ beta.betaDate | date: 'dd/MM/yyyy' }}</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

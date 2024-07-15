@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EMPTY, Subject, Subscription, catchError, switchMap } from 'rxjs';
@@ -11,6 +11,12 @@ import { FormUtilsService } from 'src/app/services/form-utils/form-utils.service
 import { HeaderService } from 'src/app/services/header/header-info.service';
 import { LineLoadingService } from 'src/app/services/line-loading/line-loading.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { PatientList } from '../../create-exams/create-exams.component';
+import { PatientService } from 'src/app/services/patient/patient.service';
+import { apiErrorStatusMessage } from 'src/app/constants/messages';
+import { User } from 'src/app/models/User';
+import { UploadExamsService } from '../../create-exams/create-service/upload-exams.service';
+import { UploadFileComponent } from 'src/app/components/upload-file/upload-file.component';
 
 @Component({
   selector: 'app-exams-form',
@@ -19,14 +25,24 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 })
 export class ExamsFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
+  patients: PatientList[] = [];
+  loadPatientsSubscription = new Subscription();
+
   private destroy$ = new Subject<void>();
   private examId!: number;
   examForm!: FormGroup;
   uploadingFile!: File;
-  isLoading = false;
+  name: string | null = '';
+  login: string | null = '';
+  isLoading: boolean = false;
+  isError: boolean = false;
   fileName!: string;
 
   editExamSubscription!: Subscription;
+  formUtils: FormUtilsService;
+
+  @ViewChild(UploadFileComponent) uploadFileComponent!: UploadFileComponent;
+
 
   constructor(
     private headerService: HeaderService,
@@ -38,14 +54,19 @@ export class ExamsFormComponent implements OnInit, AfterViewInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private lineLoadingService: LineLoadingService,
     private examsService: ExamsService,
-    private fb: FormBuilder
+    private patientService: PatientService,
+    private fb: FormBuilder,
+    private examsFormService: UploadExamsService,
   ) {
     this.headerService.setTitulo('Edição de Exame');
+    this.formUtils = this.formUtilsService;
+
   }
 
   ngOnInit() {
     this.examId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.initializeForm();
+    this.loadPatients();
   }
 
   ngAfterViewInit() {
@@ -106,54 +127,82 @@ export class ExamsFormComponent implements OnInit, AfterViewInit, OnDestroy {
 
 
   onSubmit() {
+
+    this.uploadFileComponent.handleUploadAttempt();
+
+
     if (this.examForm.valid && this.uploadingFile) {
       this.lineLoadingService.show();
+
+      this.examForm.get('doctorId')?.setValue(this.authService.doctorId);
   
-      const patientId = this.authService.patientId;
-      this.examForm.get('patientId')?.setValue(patientId);
-  
-      const formDataExam = this.examForm.value;
-      
-      // Log the form data for debugging
-      console.log("Form data before submission:", formDataExam);
-  
-      if (patientId === undefined) {
-        this.snackbar.open('Atenção! O paciente não está autenticado.');
-        this.lineLoadingService.hide();
-        return;
-      }
-  
-      if (this.uploadingFile) {
-        const existingFileId = formDataExam.fileId;
-        const id = formDataExam.id;
-  
-        this.editExamSubscription = this.fileService
-          .uploadFile(this.uploadingFile, existingFileId)
-          .pipe(
-            switchMap((fileResponse) => {
-              formDataExam.fileId = fileResponse.data.id;
-              console.log("Form data on submission:", formDataExam);
-              return this.examsService.update(id, formDataExam);
-            }),
-            catchError((error: HttpErrorResponse) => {
-              this.onError(error);
-              return EMPTY;
-            })
-          )
-          .subscribe({
-            next: (result: Exams) => {
-              this.handleSuccess();
-            },
-            error: (error) => this.onError(error),
-          });
-      } else {
-        this.formUtilsService.validateAllFormFields(this.examForm);
-        this.snackbar.open('Atenção! Campos obrigatórios não preenchidos');
-      }
+      const formDataProtocol = this.examForm.value;
+
+      this.editExamSubscription = this.fileService
+        .uploadFile(this.uploadingFile)
+        .pipe(
+          switchMap((fileResponse) => {
+            formDataProtocol.fileId = fileResponse.data.id;
+            return this.examsService.create(formDataProtocol);
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.onError(error);
+            return EMPTY;
+          })
+        )
+        .subscribe((result: Exams) => {
+          this.handleSuccess();
+        });
+    
+    } else {
+      this.formUtils.validateAllFormFields(this.examForm);
+      this.snackbar.open('Atenção! Campos obrigatórios não preenchidos');
     }
   }
+
+  isInputInvalid(field: string): boolean {
+    return this.examsFormService.isInvalidField(field);
+  }
   
-  
+  loadPatients() {
+    this.loadPatientsSubscription = this.patientService
+      .getPatientsByDoctor({
+        name: this.name!,
+        login: this.login!,
+        doctorId: this.authService.doctorId!,
+      })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          this.isLoading = false;
+          this.isError = true;
+          this.snackbar.open(apiErrorStatusMessage[error.status]);
+          this.lineLoadingService.hide();
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (patients) => {
+          console.log("aqui" + patients);
+          this.onSuccess(patients);
+        },
+        error: (_error) => {
+          this.lineLoadingService.hide();
+        },
+      });
+  }
+
+  onSuccess(patients: User[]) {
+    this.isLoading = false;
+    this.isError = false;
+    this.patients = patients.map((user): PatientList => {
+      return {
+        id: user.patient?.id,
+        name: user.patient?.name || '',
+        login: user.login || ''
+      };
+    });
+    this.lineLoadingService.hide();
+  }
 
   handleSuccess() {
     this.snackbar.open('Exame atualizado com sucesso');
@@ -165,4 +214,6 @@ export class ExamsFormComponent implements OnInit, AfterViewInit, OnDestroy {
     this.snackbar.open('Erro ao atualizar exame');
     this.lineLoadingService.hide();
   }
+
+
 }
