@@ -1,0 +1,17 @@
+<div class="popup-container">
+  <h1 class="popup-title">Editar Beta</h1>
+  <form [formGroup]="betaForm">
+    <div class="popup-content">
+      <p class="popup-text">Data do exame</p>
+      <input type="date" class="popup-input" formControlName="betaDate" />
+      <p class="popup-text">Valor *</p>
+      <input type="text" class="popup-input" formControlName="betaValue" />
+    </div>
+    <div class="popup-actions">
+      <button class="button-cancelar" mat-button type="button" (click)="onClose()">Cancelar</button>
+      <button class="button-salvar"  mat-button type="submit" (click)="onSubmit()">Salvar</button>
+
+    </div>
+  </form>
+</div>
+

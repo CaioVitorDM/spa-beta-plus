@@ -1,0 +1,74 @@
+<div class="container">
+  <table>
+    <thead>
+      <tr class="trhover">
+        <th>Nome</th>
+        <th>Tipo</th>
+        <th>Data</th>
+        <th class="th-last"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exams of dataSource">
+        <td>{{ exams.name }}</td>
+        <td>{{ exams.examType }}</td>
+        <td>{{ exams.examDate | date: 'dd/MM/yyyy' }}</td>
+        <td class="td-edit">
+          <button mat-icon-button [matMenuTriggerFor]="menu">⋮</button>
+          <mat-menu #menu="matMenu">
+            <div class="floating-actions-menu">
+              <button
+                *ngIf="exams.fileId"
+                (click)="downloadFile(exams.fileId, $event)"
+                class="download-btn"
+              >
+                Download
+              </button>
+              <button (click)="editExam(exams.id!)">Editar</button>
+              <button (click)="deleteExam(exams.id!)">Excluir</button>
+            </div>
+          </mat-menu>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="list-container">
+  <div class="users-mobile-container">
+    <div *ngFor="let exams of dataSource" class="users-list-mobile">
+      <button class="list-card" (click)="printButton('card button')">
+        <div class="user-detail">
+          <span class="title-detail">Nome</span>
+          <span class="data-detail">{{ exams.name }}</span>
+        </div>
+        <div class="user-detail">
+          <span class="title-detail">Tipo</span>
+          <span class="data-detail">{{ exams.examType }}</span>
+        </div>
+        <div class="user-detail">
+          <span class="title-detail">Data</span>
+          <span class="data-detail">{{ exams.examDate | date: 'dd/MM/yyyy' }}</span>
+        </div>
+        <div class="user-actions">
+          <button
+            *ngIf="exams.fileId"
+            (click)="downloadFile(exams.fileId, $event)"
+            class="download-btn"
+          >
+            <img src="assets/images/svg/download-icon.svg" alt="" />
+            <span> Baixar </span>
+          </button>
+          <button class="edit-btn" (click)="editExam(exams.id!)">
+            <img src="assets/images/svg/edit.svg" alt="" />
+            <span> Editar </span>
+          </button>
+          <button class="delete-btn" (click)="deleteExam(exams.id!)">
+            <img src="assets/images/svg/inventory-red.svg" alt="" />
+            Excluir
+          </button>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>

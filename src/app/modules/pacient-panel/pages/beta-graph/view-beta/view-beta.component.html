@@ -1,0 +1,25 @@
+<div id="menu-beta">
+  <div id="menu-beta-text">
+    <a (click)="showComponentMenu()" [ngClass]="{'selected-button': selectedButton === 'Menu'}"
+      >Gráfico</a
+    >
+    <a
+      (click)="showComponentGeneral()"
+      [ngClass]="{'selected-button': selectedButton === 'General'}"
+      >Visão Geral</a
+    >
+  </div>
+  <div id="menu-beta-button-filter">
+    <div id="menu-beta-button">
+      <button mat-button (click)="openDialog()">+ Novo Lançamento</button>
+    </div>
+  </div>
+</div>
+<div id="info-beta">
+  <div *ngIf="showMenuComponent">
+    <app-beta-menu></app-beta-menu>
+  </div>
+  <div *ngIf="!showMenuComponent">
+    <app-beta-general></app-beta-general>
+  </div>
+</div>

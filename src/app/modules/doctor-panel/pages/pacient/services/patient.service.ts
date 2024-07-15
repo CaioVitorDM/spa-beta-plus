@@ -10,7 +10,7 @@ import {toPatientUserEntity} from '../components/patient-form/utils/patient.mapp
 @Injectable({
   providedIn: 'root',
 })
-export class PatientService {
+export class PatientSpecificService {
   private readonly baseUrl = `${environment.apiPermissionUrl}/users`;
 
   constructor(private httpClient: HttpClient) {}

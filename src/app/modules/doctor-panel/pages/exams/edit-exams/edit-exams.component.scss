@@ -1,0 +1,150 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+  
+  .submit-button {
+    background-color: #5f41b2;
+    color: #ffffff;
+    padding: 10px 20px;
+    width: 100px;
+    align-self: flex-end;
+    border: none;
+    border-radius: 5px;
+    margin-right: 40px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .back-button {
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    align-self: flex-start;
+    margin: 0 20px;
+    transition: background-color 0.2s;
+  }
+  
+  .back-button:hover {
+    background-color: rgba(95, 65, 178, 0.301);
+  }
+  
+  .img-back {
+    width: 100%;
+    height: auto;
+  }
+  
+  .same-line-inputs-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .register-form input,
+  
+  .input-container {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    margin: 5px 0;
+    padding: 10px 15px;
+    font-size: 13px;
+    width: 100%;
+    outline: none;
+  }
+  
+  
+  span {
+    color: rgba(0, 0, 0, 0.6);
+  }
+  
+  
+  .register-form input:focus {
+    border-bottom: 1px solid #5f41b2;
+  }
+  
+  .register-form {
+    background-color: #fff;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    height: 100%;
+    width: 100%;
+    gap: 10px;
+  }
+  
+  .title {
+    font-size: 30px;
+  }
+  
+  input[type='date'] {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+  }
+  
+  input::placeholder, input[type='date']{
+    color: #6c6c6c;
+  }
+  
+  datalist{
+    border-radius: 3px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .input-error {
+    border: 1px solid #ec3333 !important;
+    border-radius: 4px;
+  }
+  
+  .invalid-input-message {
+    font-size: 0.75rem;
+    color: #ec3333 !important;
+  }
+  
+  .align-inputs-and-error-messages {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+  }
+  
+  .align-inputs-and-error-messages input {
+    width: 100% !important;
+  }
+  
+  @media (max-width: 768px) {
+    .same-line-inputs-container {
+      flex-direction: column;
+    }
+    .same-line-inputs-container input {
+      width: 100% !important;
+    }
+  
+    .align-inputs-and-error-messages {
+      width: 100% !important;
+    }
+  }
+  

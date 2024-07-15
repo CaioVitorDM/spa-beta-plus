@@ -7,7 +7,8 @@
   gap: 20px;
 }
 
-h1, p {
+h1,
+p {
   margin: 0.3rem;
 }
 
@@ -18,21 +19,25 @@ h2 {
 }
 
 .info-container span {
-  color: #5F41B2;
+  color: #5f41b2;
 }
 
 .info {
   display: flex;
   flex-direction: column;
-
 }
 
 .welcome-banner {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  background-color: #5F41B2;
-  background: linear-gradient(to top right, $beta-purple 40%, $beta-purple-90, rgba(151, 92, 228, 0.9));
+  background-color: #5f41b2;
+  background: linear-gradient(
+    to top right,
+    $beta-purple 40%,
+    $beta-purple-90,
+    rgba(151, 92, 228, 0.9)
+  );
   color: white;
   padding: 20px;
   height: 180px;
@@ -43,7 +48,6 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-
 }
 
 .medical-info {
@@ -57,8 +61,12 @@ h2 {
   background-color: #fff;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0px 0px 10px rgba(0,0,0,0.08);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.08);
   width: 45%;
+}
+
+canvas{
+  max-height: 300px;
 }
 
 .recent-exams thead th:first-child {
@@ -82,20 +90,20 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
-  th, td {
+  th,
+  td {
     text-align: left;
     padding: 8px;
     font-size: 14px;
   }
   th {
-    background-color: #5F41B2;
+    background-color: #5f41b2;
     color: #fff;
     font-weight: 300;
     padding: 12px;
   }
 
   td {
-    
     font-size: 12px;
   }
   tr:nth-child(even) {
@@ -118,9 +126,8 @@ table {
   }
 }
 
-
 @media (max-width: 768px) {
-  .info-container{
+  .info-container {
     flex-direction: column;
     justify-content: center !important;
     gap: 20px;
@@ -132,7 +139,7 @@ table {
     width: 100%;
   }
 }
-.info-container{
+.info-container {
   display: flex;
   flex-direction: row;
   width: auto;

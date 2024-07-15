@@ -7,9 +7,15 @@ import {RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {DoctorPanelRoutes} from './doctor-panel.routes';
 import {DoctorDashboardComponent} from './pages/doctor-dashboard/doctor-dashboard.component';
 import {HeaderComponent} from '../../components/header/header.component';
+import {ExamsComponent} from './pages/exams/exams.component';
 
 @NgModule({
-  declarations: [DoctorPanelComponent, SidebarComponent, DoctorDashboardComponent],
+  declarations: [
+    DoctorPanelComponent,
+    SidebarComponent,
+    DoctorDashboardComponent,
+    ExamsComponent,
+  ],
   imports: [
     CommonModule,
     SharedModule,

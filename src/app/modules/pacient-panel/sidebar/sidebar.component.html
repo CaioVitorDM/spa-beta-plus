@@ -106,7 +106,7 @@
       #rla5="routerLinkActive"
       [ngClass]="{'isClosed': !isOpen}"
     >
-      <a class="anchor-img-fit" routerLink="/patient-panel/beta-graph">
+      <a class="anchor-img-fit" routerLink="/patient-panel/beta">
         <img
           class="sidebar-icon"
           [src]="
@@ -118,7 +118,7 @@
           [ngClass]="{'sidebar-icon-closed': !isOpen}"
         />
       </a>
-      <a *ngIf="isOpen" routerLink="/patient-panel/beta-graph" routerLinkActive="active-menu-text"
+      <a *ngIf="isOpen" routerLink="/patient-panel/beta" routerLinkActive="active-menu-text"
         >Beta hCG</a
       >
     </div>

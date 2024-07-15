@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, first, map } from 'rxjs';
 import { environment } from 'src/app/enviroments/environment';
 import { ApiResponse } from 'src/app/models/ApiResponse';
-import { Patient, User } from 'src/app/models/User';
+import { Doctor, Patient, User } from 'src/app/models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -37,4 +37,6 @@ export class PatientService {
   getPatientDetails(id: number): Observable<ApiResponse<Patient>> {
     return this.httpClient.get<ApiResponse<Patient>>(this.apiUrlPatients + "/" + id);
   }
+
+  
 }

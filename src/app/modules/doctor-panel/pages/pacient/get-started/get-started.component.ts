@@ -3,7 +3,7 @@ import {ItemSelect} from '../../../../../components/custom-select/custom-select.
 import {HeaderService} from '../../../../../services/header/header-info.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {catchError, EMPTY, Subscription} from 'rxjs';
-import {PatientService} from '../services/patient.service';
+import {PatientSpecificService} from '../services/patient.service';
 import {Direction, Page} from '../../../../../models/ApiResponse';
 import {AuthService} from '../../../../../services/auth/auth.service';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -46,7 +46,7 @@ export class GetStartedComponent implements OnInit {
     private headerService: HeaderService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private patientService: PatientService,
+    private patientService: PatientSpecificService,
     private authService: AuthService,
     private snackbar: SnackbarService,
     private lineLoadingService: LineLoadingService,

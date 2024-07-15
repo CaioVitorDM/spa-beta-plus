@@ -6,7 +6,7 @@ import {FormUtilsService} from '../../../../../../services/form-utils/form-utils
 import {LineLoadingService} from '../../../../../../services/line-loading/line-loading.service';
 import {SnackbarService} from '../../../../../../services/snackbar/snackbar.service';
 import {PatientFormService} from './service/patient-form.service';
-import {PatientService} from '../../services/patient.service';
+import {PatientSpecificService} from '../../services/patient.service';
 import {AuthService} from '../../../../../../services/auth/auth.service';
 import {Role} from '../../../../../../models/Role';
 import swal from 'sweetalert2';
@@ -34,7 +34,7 @@ export class PatientFormComponent implements OnDestroy, OnInit {
     private snackbar: SnackbarService,
     private formUtilsService: FormUtilsService,
     private patientFormService: PatientFormService,
-    private patientService: PatientService,
+    private patientService: PatientSpecificService,
     private authService: AuthService,
     private router: Router
   ) {

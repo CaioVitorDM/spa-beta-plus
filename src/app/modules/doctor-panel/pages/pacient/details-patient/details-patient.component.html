@@ -14,8 +14,9 @@
     </button>
   </div>
 
-  <app-beta-graph *ngIf="this.selectedButton === MenuItem.BETA"></app-beta-graph>
+  <app-beta-details [patientId]="patientId" *ngIf="this.selectedButton === MenuItem.BETA"></app-beta-details>
 
+  <app-exams-table-conventional [dataSource]="examData" *ngIf="this.selectedButton === MenuItem.EXAMS"></app-exams-table-conventional>
 
   <app-appointments-table [dataSource]="appointmentData" *ngIf="this.selectedButton === MenuItem.APPOINTMENT"></app-appointments-table>
 
